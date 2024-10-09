@@ -1,10 +1,12 @@
 "use client";
 import { CustomButton } from "@/components/Button";
+import { Input } from "@/components/Input";
 import { Stack, Typography } from "@mui/material";
 
 export default function Login() {
   return (
     <Stack
+      gap={4}
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -14,7 +16,9 @@ export default function Login() {
     >
       <Typography color="primary.main">Нэвтрэх</Typography>
 
-      <Stack sx={{ width: "334px" }}>
+      <Stack gap={4} sx={{ width: "334px" }}>
+        <Input label="Нэр" placeholder="Нэр" />
+        <Input label="Нууц үг" placeholder="Нууц үг" />
         <CustomButton
           text="Нэвтрэх"
           handleClick={() => console.log("Button clicked!")}
