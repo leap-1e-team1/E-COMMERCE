@@ -20,8 +20,8 @@ export const palette: PaletteOptions = {
   },
   text: {
     primary: "#161616",
-    secondary: "#525252",
     helper: "#71717A",
+    secondary: "#525252",
   },
   background: {
     paper: "#f4f4f4",
