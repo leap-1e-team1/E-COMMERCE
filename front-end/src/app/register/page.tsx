@@ -25,8 +25,8 @@ const Register = () => {
           }}
         />
         <Input
-          label="Имэйл хаяг"
           placeholder=""
+          label="Имэйл хаяг"
           helperText="Зөв имэйл хаяг оруулна уу"
           inputHandler={() => {
             console.log("Asd");
