@@ -14,9 +14,12 @@ export const Footer = () => {
       bgcolor={"primary.main"}
       sx={{
         display: "flex",
+        position: "relative",
+        bottom: 0,
         width: "100%",
         justifyContent: "center",
-      }}>
+      }}
+    >
       <Stack
         bgcolor={"primary.main"}
         color={"primary.contrastText"}
@@ -27,17 +30,20 @@ export const Footer = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-        }}>
+        }}
+      >
         <Stack
           flexDirection={"row"}
-          sx={{ width: "1040px", justifyContent: "space-between" }}>
+          sx={{ width: "1040px", justifyContent: "space-between" }}
+        >
           <Stack sx={{ display: "flex", height: "34px", width: "52px" }}>
             <img src="./Pineconehome-Logo.png" alt="" />
           </Stack>
           <Stack flexDirection={"row"} sx={{ gap: "38px" }}>
             <Stack
               flexDirection={"row"}
-              sx={{ gap: "20px", alignItems: "center" }}>
+              sx={{ gap: "20px", alignItems: "center" }}
+            >
               <Stack
                 sx={{
                   border: "solid 1px #353535",
@@ -46,7 +52,8 @@ export const Footer = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: "50px",
-                }}>
+                }}
+              >
                 {" "}
                 <LocalPhoneIcon />
               </Stack>
@@ -55,7 +62,8 @@ export const Footer = () => {
             </Stack>
             <Stack
               flexDirection={"row"}
-              sx={{ gap: "20px", alignItems: "center" }}>
+              sx={{ gap: "20px", alignItems: "center" }}
+            >
               <Stack
                 sx={{
                   border: "solid 1px #353535",
@@ -64,7 +72,8 @@ export const Footer = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: "50px",
-                }}>
+                }}
+              >
                 {" "}
                 <MailOutlineIcon />
               </Stack>
@@ -74,10 +83,12 @@ export const Footer = () => {
         </Stack>
         <Stack
           bgcolor={"primary.contrastText"}
-          sx={{ height: "1.5px", width: "1040px", opacity: "10%" }}></Stack>
+          sx={{ height: "1.5px", width: "1040px", opacity: "10%" }}
+        ></Stack>
         <Stack
           flexDirection={"row"}
-          sx={{ width: "1040px", justifyContent: "space-between" }}>
+          sx={{ width: "1040px", justifyContent: "space-between" }}
+        >
           <Stack>© 2024 Ecommerce MN</Stack>
           <Stack flexDirection={"row"} sx={{ gap: "26px" }}>
             {" "}

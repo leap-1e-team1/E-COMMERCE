@@ -12,7 +12,7 @@ export default function Login() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        mt: "108px",
       }}
     >
       <Typography color="primary.main" sx={{ fontSize: "24px" }}>

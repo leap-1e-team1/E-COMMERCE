@@ -44,7 +44,6 @@ export default function ForgetPass() {
           fontSize: 14,
           fontFamily: "Inter",
           fontWeight: 500,
-          marginBottom: "540px",
         }}
       >
         <CustomButton

@@ -9,8 +9,8 @@ const Register = () => {
     <Stack
       alignItems={"center"}
       justifyContent={"center"}
-      sx={{ height: "100vh" }}
-      gap={"24px"}
+      gap={"16px"}
+      mt={"100px"}
     >
       <Typography color="text" fontSize={"24px"} fontWeight={"600"}>
         Бүртгүүлэх
