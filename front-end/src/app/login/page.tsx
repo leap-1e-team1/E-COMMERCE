@@ -23,8 +23,22 @@ export default function Login() {
         gap={4}
         sx={{ width: "334px", display: "flex", justifyContent: "center" }}
       >
-        <Input label="Нэр" placeholder="Нэр" />
-        <Input label="Нууц үг" placeholder="Нууц үг" />
+        <Input
+          label="Нэр"
+          placeholder="Нэр"
+          helperText=""
+          inputHandler={() => {
+            console.log();
+          }}
+        />
+        <Input
+          label="Нууц үг"
+          placeholder="Нууц үг"
+          helperText=""
+          inputHandler={() => {
+            console.log();
+          }}
+        />
         <CustomButton
           text="Нэвтрэх"
           textColor="background.paper"
