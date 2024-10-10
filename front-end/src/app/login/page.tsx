@@ -25,8 +25,8 @@ export default function Login() {
       >
         <Input
           label="Нэр"
-          placeholder="Нэр"
           helperText=""
+          placeholder="Нэр"
           inputHandler={() => {
             console.log();
           }}
