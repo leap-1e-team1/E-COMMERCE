@@ -100,7 +100,7 @@ const Register = () => {
           </ListItem>
         </List>
         <CustomButton
-          text="Нэвтрэх"
+          text="Үүсгэх"
           textColor="background.paper"
           handleClick={() => console.log("Button clicked!")}
           bgColor="secondary.main"
@@ -110,9 +110,9 @@ const Register = () => {
         />
         <CustomButton
           text="Нэвтрэх"
-          textColor="background.paper"
+          textColor="secondary.main"
           handleClick={() => console.log("Button clicked!")}
-          bgColor="secondary.main"
+          bgColor="secondary.light"
           hoverColor="primary.main"
           height="36px"
           border="secondary.main"

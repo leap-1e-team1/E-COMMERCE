@@ -16,7 +16,7 @@ export const palette: PaletteOptions = {
   },
   secondary: {
     main: "#2563EB",
-    light: "#2563EB",
+    light: "#FFFFFF",
   },
   text: {
     helper: "#71717A",
