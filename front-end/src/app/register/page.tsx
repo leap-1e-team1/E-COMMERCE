@@ -9,8 +9,9 @@ const Register = () => {
     <Stack
       alignItems={"center"}
       justifyContent={"center"}
-      sx={{ height: "100vh" }}
-      gap={"24px"}
+      gap={"16px"}
+      mt={"100px"}
+      mb={"100px"}
     >
       <Typography color="text" fontSize={"24px"} fontWeight={"600"}>
         Бүртгүүлэх
@@ -99,26 +100,22 @@ const Register = () => {
           </ListItem>
         </List>
         <CustomButton
-          text="Үүсгэх"
-          bgColor=""
-          hoverColor=""
-          height=""
-          border=""
-          textColor=""
-          handleClick={() => {
-            console.log("Asd");
-          }}
+          text="Нэвтрэх"
+          textColor="background.paper"
+          handleClick={() => console.log("Button clicked!")}
+          bgColor="secondary.main"
+          hoverColor="primary.main"
+          height="36px"
+          border="secondary.main"
         />
         <CustomButton
           text="Нэвтрэх"
-          bgColor=""
-          hoverColor=""
-          height=""
-          border=""
-          textColor=""
-          handleClick={() => {
-            console.log("Asd");
-          }}
+          textColor="background.paper"
+          handleClick={() => console.log("Button clicked!")}
+          bgColor="secondary.main"
+          hoverColor="primary.main"
+          height="36px"
+          border="secondary.main"
         />
       </Stack>
     </Stack>
