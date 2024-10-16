@@ -3,8 +3,10 @@ import { CustomButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
   return (
     <Stack
       gap={12}
@@ -48,24 +50,27 @@ export default function Login() {
           height="36px"
           border="secondary.main"
         />
-        <Link href="./register">
-          <Typography
-            component="div"
-            color="text.secondary"
-            sx={{
-              textAlign: "center",
-            }}
-          >
-            Нууц үг мартсан
-          </Typography>
-        </Link>
+
+        <Typography
+          component="div"
+          color="text.secondary"
+          sx={{
+            textAlign: "center",
+          }}
+        >
+          Нууц үг мартсан
+        </Typography>
       </Stack>
 
       <Stack sx={{ width: "334px" }}>
         <CustomButton
           text="Бүртгүүлэх"
+          href={"/register"}
           textColor="secondary.main"
-          handleClick={() => console.log("Button clicked!")}
+          handleClick={() => {
+            console.log("Button clicked!");
+            router.push("/register");
+          }}
           bgColor="background.paper"
           hoverColor="primary.main"
           height="36px"
