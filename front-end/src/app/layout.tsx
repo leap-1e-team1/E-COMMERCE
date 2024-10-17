@@ -5,6 +5,7 @@ import { MuiProvider } from "@/provider/MuiProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Box } from "@mui/material";
+import { ProductComponent } from "@/components/ProductComponent";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,6 +40,7 @@ export default function RootLayout({
             }}
           >
             <Header />
+            <ProductComponent />
             <Box component="main" sx={{ flex: 1, mt: "95px" }}>
               {children}
             </Box>
