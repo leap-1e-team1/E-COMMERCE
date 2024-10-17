@@ -34,7 +34,14 @@ export default function ForgetPass() {
           fontWeight: 400,
         }}
       >
-        <Input placeholder="" label="Имэйл хаяг оруулах" />
+        <Input
+          label="Нэр"
+          placeholder=""
+          helperText=""
+          inputHandler={() => {
+            console.log("Asd");
+          }}
+        />
       </Stack>
 
       <Stack
