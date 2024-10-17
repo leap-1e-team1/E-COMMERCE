@@ -67,6 +67,7 @@ export const Header = () => {
             <FavoriteBorderIcon sx={{ color: "white" }} />
             <LocalGroceryStoreIcon sx={{ color: "white" }} />
             {/* <PersonOutlineIcon sx={{color:"white"}}/> */}
+            {/* a */}
 
             <Link href="/register">
               <CustomButton
