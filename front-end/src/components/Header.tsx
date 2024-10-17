@@ -53,12 +53,13 @@ export const Header = () => {
               </Typography>
             </Link>
           </Stack>
+        <Stack sx={{alignItems:"center", justifyContent:"center"}}>
           <Search />
-
-          <Stack direction="row" alignItems="center" sx={{ gap: "24px" }}>
-            <FavoriteBorderIcon sx={{ color: "white" }} />
-            <LocalGroceryStoreIcon sx={{ color: "white" }} />
-            <PersonOutlineIcon sx={{ color: "white" }} />
+          </Stack>
+          <Stack direction="row" alignItems="center" sx={{gap:"24px"}}>
+               <FavoriteBorderIcon sx={{color:"white"}}/>
+               < LocalGroceryStoreIcon  sx={{color:"white"}}/>
+               <PersonOutlineIcon sx={{color:"white"}}/>
           </Stack>
         </Stack>
       </Box>
