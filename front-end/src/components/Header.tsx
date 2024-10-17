@@ -7,6 +7,8 @@ import { Search } from "./Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { CustomButton } from "./Button";
+import { cursorTo } from "readline";
 
 export const Header = () => {
   return (
@@ -39,27 +41,55 @@ export const Header = () => {
             justifyContent={"center"}
             sx={{ gap: "16px" }}
           >
-            <Stack direction="row" alignItems="center" sx={{ gap: "6px" }}>
-              <ImageList sx={{ width: "32px", height: "27.39px" }}>
-                <img src="/Vector.png" alt="" />
-              </ImageList>
-              <Typography sx={{ color: "primary.contrastText" }}>
-                E-COMMERCE
-              </Typography>
-            </Stack>
+            <Link href="/">
+              <Stack direction="row" alignItems="center" sx={{ gap: "6px" }}>
+                <ImageList sx={{ width: "32px", height: "27.39px" }}>
+                  <img src="/Vector.png" alt="" />
+                </ImageList>
+                <Typography
+                  style={{ cursor: "pointer" }}
+                  sx={{ color: "primary.contrastText" }}
+                >
+                  E-COMMERCE
+                </Typography>
+              </Stack>
+            </Link>
             <Link style={{ textDecoration: "none" }} href="./">
               <Typography sx={{ color: "primary.contrastText" }}>
                 АНГИЛАЛ
               </Typography>
             </Link>
           </Stack>
-        <Stack sx={{alignItems:"center", justifyContent:"center"}}>
-          <Search />
+          <Stack sx={{ alignItems: "center", justifyContent: "center" }}>
+            <Search />
           </Stack>
-          <Stack direction="row" alignItems="center" sx={{gap:"24px"}}>
-               <FavoriteBorderIcon sx={{color:"white"}}/>
-               < LocalGroceryStoreIcon  sx={{color:"white"}}/>
-               <PersonOutlineIcon sx={{color:"white"}}/>
+          <Stack direction="row" alignItems="center" sx={{ gap: "24px" }}>
+            <FavoriteBorderIcon sx={{ color: "white" }} />
+            <LocalGroceryStoreIcon sx={{ color: "white" }} />
+            {/* <PersonOutlineIcon sx={{color:"white"}}/> */}
+
+            <Link href="/register">
+              <CustomButton
+                text="Бүртгүүлэх"
+                textColor="background.paper"
+                handleClick={() => console.log("Button clicked!")}
+                bgColor="primary.main"
+                hoverColor="secondary.main"
+                height="36px"
+                border="secondary.main"
+              />
+            </Link>
+            <Link href="/login">
+              <CustomButton
+                text="Нэвтрэх"
+                textColor="background.paper"
+                handleClick={() => console.log("Button clicked!")}
+                bgColor="secondary.main"
+                hoverColor="secondary.main"
+                height="36px"
+                border="secondary.main"
+              />
+            </Link>
           </Stack>
         </Stack>
       </Box>
