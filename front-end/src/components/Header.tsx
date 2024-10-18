@@ -47,7 +47,7 @@ export const Header = () => {
                   <img src="/Vector.png" alt="" />
                 </ImageList>
                 <Typography
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", textDecoration: "none" }}
                   sx={{ color: "primary.contrastText" }}
                 >
                   E-COMMERCE
