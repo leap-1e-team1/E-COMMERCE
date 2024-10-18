@@ -13,8 +13,8 @@ app.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   await UserModel.create({
-    email: "belgutei",
-    password: "nagaan",
+    email,
+    password,
   });
 
   // const result = await UserModel.findById("6711cf5cc8cd97905fcc2005");
@@ -26,6 +26,6 @@ app.post("/", async (req, res) => {
   res.send("success");
 });
 
-app.listen(() => {
-  console.log("https://e-commerce-t6c9.onrender.com");
+app.listen(8000, () => {
+  console.log("http://localhost:8000");
 });
