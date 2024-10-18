@@ -9,22 +9,23 @@ app.use(cors());
 
 connectDatabase();
 
-app.get("/", async (req, res) => {
+app.post("/", async (req, res) => {
+  const { email, password } = req.body;
+
   await UserModel.create({
-    firstName: "belgutei",
-    lastName: "nagaan",
-    email: "qwerty",
+    email: "belgutei",
+    password: "nagaan",
   });
 
-  const result = await UserModel.findById("6711cf5cc8cd97905fcc2005");
+  // const result = await UserModel.findById("6711cf5cc8cd97905fcc2005");
 
-  await UserModel.findByIdAndUpdate("6711cf5cc8cd97905fcc2005", {
-    email: "uzkhugerSoliv",
-  });
+  // await UserModel.findByIdAndUpdate("6711cf5cc8cd97905fcc2005", {
+  //   email: "uzkhugerSoliv",
+  // });
 
   res.send("success");
 });
 
-app.listen(8000, () => {
-  console.log("localhost:8000");
+app.listen(() => {
+  console.log("https://e-commerce-t6c9.onrender.com");
 });
