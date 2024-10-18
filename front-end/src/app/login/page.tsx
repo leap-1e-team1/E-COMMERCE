@@ -62,14 +62,13 @@ export default function Login() {
         </Typography>
       </Stack>
 
-      <Link href={"./register"}>
+      <Link href={"./register"} style={{ textDecoration: "none" }}>
         <Stack sx={{ width: "334px" }}>
           <CustomButton
             text="Бүртгүүлэх"
             textColor="secondary.main"
             handleClick={() => {
               console.log("Button clicked!");
-              router.push("/register");
             }}
             bgColor="background.paper"
             hoverColor="primary.main"
