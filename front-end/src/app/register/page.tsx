@@ -22,7 +22,7 @@ const Register = () => {
           placeholder=""
           helperText=""
           inputHandler={() => {
-            console.log("Asd");
+            console.log("As");
           }}
         />
         <Input
