@@ -3,6 +3,7 @@
 import { CustomButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { List, ListItem, Stack, Typography } from "@mui/material";
+import Link from "next/link";
 
 const Register = () => {
   return (
@@ -100,7 +101,7 @@ const Register = () => {
           </ListItem>
         </List>
         <CustomButton
-          text="Нэвтрэх"
+          text="Үүсгэх"
           textColor="background.paper"
           handleClick={() => console.log("Button clicked!")}
           bgColor="secondary.main"
@@ -108,15 +109,17 @@ const Register = () => {
           height="36px"
           border="secondary.main"
         />
-        <CustomButton
-          text="Нэвтрэх"
-          textColor="background.paper"
-          handleClick={() => console.log("Button clicked!")}
-          bgColor="secondary.main"
-          hoverColor="primary.main"
-          height="36px"
-          border="secondary.main"
-        />
+        <Link className="w-full" href="/login">
+          <CustomButton
+            text="Нэвтрэх"
+            textColor="secondary.main"
+            handleClick={() => console.log("Button clicked!")}
+            bgColor="primary.contrastText"
+            hoverColor="primary.main"
+            height="36px"
+            border="secondary.main"
+          />
+        </Link>
       </Stack>
     </Stack>
   );
