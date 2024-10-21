@@ -1,24 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   font-family: "Inter", sans-serif;
 }
 
-/* body {
-  min-height: 100vw;
-  overflow-x: hidden;
-} */
-
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 html,
@@ -50,4 +51,4 @@ a {
   html {
     color-scheme: dark;
   }
-} */
+}

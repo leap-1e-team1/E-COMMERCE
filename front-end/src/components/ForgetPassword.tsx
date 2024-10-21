@@ -3,7 +3,13 @@ import { Typography, Stack } from "@mui/material";
 import { CustomButton } from "./Button";
 import { Input } from "./Input";
 
-export default function ForgetPass() {
+type ForgetPassComponentsPropsType = {
+  continueHandler: () => void;
+};
+
+export default function ForgetPass({
+  continueHandler,
+}: ForgetPassComponentsPropsType) {
   return (
     <Stack
       sx={{
@@ -34,7 +40,14 @@ export default function ForgetPass() {
           fontWeight: 400,
         }}
       >
-        <Input placeholder="" label="Имэйл хаяг оруулах" />
+        <Input
+          helperText=""
+          placeholder=""
+          inputHandler={() => {
+            console.log();
+          }}
+          label="Имэйл хаяг оруулах"
+        />
       </Stack>
 
       <Stack
@@ -53,7 +66,7 @@ export default function ForgetPass() {
           height="36px"
           border="secondary.main"
           bgColor="secondary.main"
-          handleClick={() => {}}
+          handleClick={continueHandler}
         />
       </Stack>
     </Stack>
