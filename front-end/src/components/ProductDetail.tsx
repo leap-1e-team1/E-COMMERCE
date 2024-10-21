@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox, Rating } from "@mui/material";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { CiHeart } from "react-icons/ci";
 
 export const ProductDetail = () => {
@@ -14,12 +14,26 @@ export const ProductDetail = () => {
   const handleSizeSelect = (size: string) => {
     setSelectedSize(size);
   };
+  const [height, setHeight] = useState(60);
+
+  const increaseHeight = () => {
+    setHeight((prevHeight) => prevHeight + 330);
+  };
+  const [add, setAdd] = useState([]);
+  const addReview = () => {
+    setAdd(add);
+  };
   return (
-    <div className="flex  items-center flex-col">
-      <div className="flex justify-between w-[1040px]">
-        <div>jijig zurags</div>
-        <div>tom zurag</div>
-        <div>
+    <div className="flex items-center mt-[20px] gap-[80px] flex-col ">
+      <div className="flex gap-5 items-start justify-between w-[1040px]">
+        <div className="h-[400px] w-[67px] mt-[100px] flex flex-col gap-2">
+          <img className="w-[67px] h-[67px]" src="ProductDetail.png" alt="" />
+          <img className="w-[67px] h-[67px]" src="ProductDetail.png" alt="" />
+          <img className="w-[67px] h-[67px]" src="ProductDetail.png" alt="" />
+          <img className="w-[67px] h-[67px]" src="ProductDetail.png" alt="" />
+        </div>
+        <img className="w-[421px] h-[521px]" src="ProductDetail.png" alt="" />
+        <div className="flex flex-col mt-[100px]">
           <div className="flex flex-col gap-2">
             <div className="w-[52px] h-[20px] justify-center rounded-full border-blue-600 flex items-center border-[1px] text-xs font-semibold">
               Шинэ
@@ -42,12 +56,12 @@ export const ProductDetail = () => {
                   key={size}
                   onClick={() => handleSizeSelect(size)}
                   className={`w-8 h-8 rounded-full border-[1px] flex items-center justify-center text-xs
-            ${
-              selectedSize === size
-                ? "bg-black text-white"
-                : "bg-white border-gray-400 text-black"
-            }
-          `}
+              ${
+                selectedSize === size
+                  ? "bg-black text-white"
+                  : "bg-white border-gray-400 text-black"
+              }
+            `}
                 >
                   {size}
                 </button>
@@ -61,15 +75,18 @@ export const ProductDetail = () => {
               Сагсанд нэмэх
             </Button>
           </div>
-          <div className="mt-[100px]">
-            <div className="flex w-[168px] h-[20px] gap-4 justify-center items-center">
+          <div
+            style={{ height: `${height}px` }}
+            className="flex flex-col max-h-[1200px] mt-[55px] overflow-hidden gap-4"
+          >
+            <div className="flex items-center gap-4">
               <div className="text-sm">Үнэлгээ</div>
-              <Link
-                className="text-sm underline text-blue-600"
-                href="/productdetail"
+              <button
+                className="text-blue-600 underline"
+                onClick={increaseHeight}
               >
                 бүгдийг харах
-              </Link>
+              </button>
             </div>
             <div>
               <Rating
@@ -80,10 +97,31 @@ export const ProductDetail = () => {
                 }}
               />
             </div>
+            <div className="w-[511px] h-[300px] p-4 gap-4 items-start  flex flex-col justify-start bg-gray-100 rounded-2xl">
+              <div className="flex flex-col gap-2">
+                <p>Одooр үнэлэх</p>
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+              </div>
+              <p>Сэтгэгдэл үлдээх:</p>
+              <textarea
+                className="w-[463px] h-[94px] p-2"
+                placeholder="Энд бичнэ үү"
+              ></textarea>
+              <Button className="bg-blue-600 w-[175px] hover:bg-blue-700 h-[36px] rounded-2xl">
+                Үнэлэх
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-      <div>holbootoi baraa</div>
+
+      <img src="Category.png" alt="" />
     </div>
   );
 };
