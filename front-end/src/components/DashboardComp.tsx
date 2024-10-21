@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export const DashboardComp = () => {
   return (
-    <Box bgcolor={"background.paper"} sx={{ width: "100vw" }}>
+    <Box bgcolor={"background.paper"} sx={{ width: "100%" }}>
       <Stack
         flexDirection={"row"}
         sx={{
@@ -29,7 +29,7 @@ export const DashboardComp = () => {
             paddingY: "16px",
             paddingX: "24px",
             justifyContent: "space-between",
-          }} 
+          }}
         >
           <Box sx={{ display: "flex", gap: "8px" }}>
             <AttachMoneyIcon />

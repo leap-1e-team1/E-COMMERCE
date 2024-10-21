@@ -19,7 +19,7 @@ export const AdminHeaderComp = () => {
       }}
     >
       <ImageList sx={{ display: "flex", height: "24px", width: "32px" }}>
-        <img src="./Pineconehome-Logo.png" alt="" />
+        <img src="/Pineconehome-Logo.png" alt="" />
       </ImageList>
       <Stack
         color={"primary.contrastText"}

@@ -60,6 +60,7 @@ export const LeftBar = ({ bgColor }: leftBarProps) => {
               <Stack
                 flexDirection={"row"}
                 sx={{
+                  width: "222px",
                   display: "flex",
                   gap: "16px",
                   color: "black",
@@ -81,6 +82,7 @@ export const LeftBar = ({ bgColor }: leftBarProps) => {
               <Stack
                 flexDirection={"row"}
                 sx={{
+                  width: "222px",
                   display: "flex",
                   gap: "16px",
                   color: "black",
