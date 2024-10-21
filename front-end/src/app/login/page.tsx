@@ -3,10 +3,8 @@ import { CustomButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const router = useRouter();
   return (
     <Stack
       gap={12}
@@ -51,15 +49,17 @@ export default function Login() {
           border="secondary.main"
         />
 
-        <Typography
-          component="div"
-          color="text.secondary"
-          sx={{
-            textAlign: "center",
-          }}
-        >
-          Нууц үг мартсан
-        </Typography>
+        <Link href="/forget-pass">
+          <Typography
+            component="div"
+            color="text.secondary"
+            sx={{
+              textAlign: "center",
+            }}
+          >
+            Нууц үг мартсан
+          </Typography>
+        </Link>
       </Stack>
 
       <Link href={"./register"} style={{ textDecoration: "none" }}>
