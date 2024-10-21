@@ -7,7 +7,7 @@ const SettingsPage = () => {
   return (
     <div>
       <AdminHeaderComp />
-      <LeftBar />
+      <LeftBar bgColor="Тохиргоо" />
       <SettingsComp />
     </div>
   );
