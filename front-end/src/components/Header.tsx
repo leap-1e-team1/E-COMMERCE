@@ -42,17 +42,20 @@ export const Header = () => {
             justifyContent={"center"}
             sx={{ gap: "16px" }}
           >
-            <Link href="/" style={{ textDecoration: "none" }}>
-              <Stack direction="row" alignItems="center" sx={{ gap: "12px" }}>
-                <img className="w-[32px] h-[32px]" src="/Vector.png" alt="" />
+            <Link href="/">
+              <Stack direction="row" alignItems="center" sx={{ gap: "6px" }}>
+                <ImageList sx={{ width: "32px", height: "27.39px" }}>
+                  <img src="/Vector.png" alt="" />
+                </ImageList>
                 <Typography
                   style={{ cursor: "pointer" }}
                   sx={{ color: "primary.contrastText" }}
                 >
                   E-COMMERCE
                 </Typography>
-              </Stack>
-            </Link>
+              </Link>
+            </Stack>
+
             <Link style={{ textDecoration: "none" }} href="./">
               <Typography sx={{ color: "primary.contrastText" }}>
                 АНГИЛАЛ
