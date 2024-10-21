@@ -10,7 +10,7 @@ export const AdminPage = () => {
     <Box>
       <AdminHeaderComp />
 
-      <Stack flexDirection={"row"}>
+      <Stack flexDirection={"row"} sx={{ width: "100vw" }}>
         <LeftBar bgColor="Хяналтын самбар" />
         <DashboardComp />
       </Stack>
