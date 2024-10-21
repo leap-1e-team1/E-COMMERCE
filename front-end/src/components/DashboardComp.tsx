@@ -29,7 +29,7 @@ export const DashboardComp = () => {
             paddingY: "16px",
             paddingX: "24px",
             justifyContent: "space-between",
-          }}
+          }} 
         >
           <Box sx={{ display: "flex", gap: "8px" }}>
             <AttachMoneyIcon />
