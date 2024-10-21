@@ -2502,6 +2502,11 @@ stat-mode@0.3.0:
   resolved "https://registry.npmjs.org/statuses/-/statuses-1.5.0.tgz"
   integrity sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==
 
+std@0.1.x:
+  version "0.1.40"
+  resolved "https://registry.npmjs.org/std/-/std-0.1.40.tgz"
+  integrity sha512-wUf57hkDGCoVShrhPA8Q7lAg2Qosk+FaMlECmAsr1A4/rL2NRXFHQGBcgMUFKVkPEemJFW9gzjCQisRty14ohg==
+
 stream-to-array@~2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/stream-to-array/-/stream-to-array-2.3.0.tgz"
@@ -2791,6 +2796,13 @@ typescript@4.9.5:
   version "4.9.5"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
+
+ui@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.npmjs.org/ui/-/ui-0.2.4.tgz"
+  integrity sha512-se2D+frb/i6JwFc7j72IEa0JADF8lfgc6ivOigaYkXHOuZRBtWe8R7UZ2YiXcbJ1dYNsjq40dn39rlNRxmVdPw==
+  dependencies:
+    std "0.1.x"
 
 uid-promise@1.0.0:
   version "1.0.0"
