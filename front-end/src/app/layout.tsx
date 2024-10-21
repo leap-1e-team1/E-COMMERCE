@@ -39,7 +39,7 @@ export default function RootLayout({
             }}
           >
             {pathname.includes("admin") ? <></> : <Header />}
-            <Box component="main" sx={{ flex: 1, mt: "95px" }}>
+            <Box component="main" sx={{ flex: 1 }}>
               {children}
             </Box>
 
