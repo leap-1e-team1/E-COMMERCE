@@ -9,7 +9,13 @@ import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import DiscountIcon from "@mui/icons-material/Discount";
 import Link from "next/link";
 
-export const LeftBar = () => {
+type leftBarProps = {
+  bgColor: string;
+};
+
+export const LeftBar = ({ bgColor }: leftBarProps) => {
+  console.log(bgColor);
+
   const routers = [
     {
       icon: <GridViewIcon />,
@@ -42,30 +48,55 @@ export const LeftBar = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: "20px",
         width: "222px",
         height: "100vh",
         marginTop: "24px",
       }}
     >
-      {routers.map(({ href, title, icon }) => (
-        <Link href={href} key={title}>
-          <Stack
-            flexDirection={"row"}
-            sx={{
-              display: "flex",
-              gap: "16px",
-              color: "black",
-              paddingLeft: "15px",
-              bgcolor: ":hover",
-              hover: "black",
-            }}
-          >
-            <Typography> {icon}</Typography>
-            <Typography> {title}</Typography>
-          </Stack>
-        </Link>
-      ))}
+      {routers.map(({ href, title, icon }) => {
+        if (title == bgColor) {
+          return (
+            <Link href={href} key={title}>
+              <Stack
+                flexDirection={"row"}
+                sx={{
+                  display: "flex",
+                  gap: "16px",
+                  color: "black",
+                  paddingLeft: "15px",
+                  bgcolor: "divider",
+                  hover: "black",
+                  height: "64px",
+                  alignItems: "center",
+                }}
+              >
+                <Typography> {icon}</Typography>
+                <Typography> {title}</Typography>
+              </Stack>
+            </Link>
+          );
+        } else {
+          return (
+            <Link href={href} key={title}>
+              <Stack
+                flexDirection={"row"}
+                sx={{
+                  display: "flex",
+                  gap: "16px",
+                  color: "black",
+                  paddingLeft: "15px",
+                  hover: "black",
+                  height: "64px",
+                  alignItems: "center",
+                }}
+              >
+                <Typography> {icon}</Typography>
+                <Typography> {title}</Typography>
+              </Stack>
+            </Link>
+          );
+        }
+      })}
     </Box>
   );
 };

@@ -7,7 +7,7 @@ const IncomePage = () => {
   return (
     <div>
       <AdminHeaderComp />
-      <LeftBar />
+      <LeftBar bgColor="Орлого" />
       <IncomeComp />
     </div>
   );

@@ -7,7 +7,7 @@ const ProductPage = () => {
   return (
     <div>
       <AdminHeaderComp />
-      <LeftBar />
+      <LeftBar bgColor="Бүтээгдэхүүн" />
       <ProductComp />
     </div>
   );

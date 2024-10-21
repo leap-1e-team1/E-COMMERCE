@@ -7,7 +7,7 @@ const OrderPage = () => {
   return (
     <div>
       <AdminHeaderComp />
-      <LeftBar />
+      <LeftBar bgColor="Захиалга" />
       <OrderComp />
     </div>
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Box, Stack, ImageList, Typography } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
@@ -19,7 +18,7 @@ export const DashboardComp = () => {
           marginTop: "35px",
         }}
       >
-        <Typography
+        <Stack
           bgcolor={"primary.contrastText"}
           flexDirection={"column"}
           sx={{
@@ -30,18 +29,18 @@ export const DashboardComp = () => {
             paddingY: "16px",
             paddingX: "24px",
             justifyContent: "space-between",
-          }}
+          }} 
         >
-          <Typography sx={{ display: "flex", gap: "8px" }}>
+          <Box sx={{ display: "flex", gap: "8px" }}>
             <AttachMoneyIcon />
             <Typography sx={{ fontWeight: "bold" }}>Орлого</Typography>
-          </Typography>
+          </Box>
           <Typography sx={{ fontSize: "32px", fontWeight: "bold" }}>
             235,000₮
           </Typography>
           <Typography sx={{ opacity: "60%" }}>Өнөөдөр</Typography>
-        </Typography>
-        <Typography
+        </Stack>
+        <Box
           bgcolor={"primary.contrastText"}
           flexDirection={"column"}
           sx={{
@@ -54,15 +53,15 @@ export const DashboardComp = () => {
             justifyContent: "space-between",
           }}
         >
-          <Typography sx={{ display: "flex", gap: "8px" }}>
+          <Box sx={{ display: "flex", gap: "8px" }}>
             <ContentPasteIcon />
             <Typography sx={{ fontWeight: "bold" }}>Захиалга</Typography>
-          </Typography>
+          </Box>
           <Typography sx={{ fontSize: "32px", fontWeight: "bold" }}>
             58
           </Typography>
           <Typography sx={{ opacity: "60%" }}>Өнөөдөр</Typography>
-        </Typography>
+        </Box>
       </Stack>
       <Stack
         flexDirection={"row"}
@@ -74,7 +73,7 @@ export const DashboardComp = () => {
           marginTop: "35px",
         }}
       >
-        <Typography
+        <Stack
           bgcolor={"primary.contrastText"}
           sx={{
             width: "100%",
@@ -87,7 +86,7 @@ export const DashboardComp = () => {
             justifyContent: "space-between",
           }}
         >
-          <Typography
+          <Stack
             sx={{
               display: "flex",
               justifyContent: "space-between",
@@ -99,8 +98,8 @@ export const DashboardComp = () => {
               Шилдэг бүтээгдэхүүн
             </Typography>
             <ArrowForwardIosIcon sx={{ fontSize: "15px" }} />
-          </Typography>
-          <Typography
+          </Stack>
+          <Box
             bgcolor={"background.paper"}
             sx={{
               display: "flex",
@@ -115,8 +114,8 @@ export const DashboardComp = () => {
             <Typography>Бүтээгдэхүүн</Typography>
             <Typography>Зарагдсан</Typography>
             <Typography>Үнэ</Typography>
-          </Typography>
-          <Typography
+          </Box>
+          <Box
             sx={{
               display: "flex",
               justifyContent: "space-between",
@@ -127,19 +126,19 @@ export const DashboardComp = () => {
             }}
           >
             <Typography>1</Typography>
-            <Typography sx={{ display: "flex" }}>
-              <Typography>
+            <Box sx={{ display: "flex" }}>
+              <Box>
                 <Typography sx={{ fontSize: "15px", fontWeight: "bold" }}>
                   WOMEN'S HORSEBIT MULE
                 </Typography>
                 <Typography>#12345678</Typography>
-              </Typography>
-            </Typography>
+              </Box>
+            </Box>
             <Typography>200</Typography>
             <Typography>12,000₮</Typography>
-          </Typography>
-        </Typography>
-        <Typography
+          </Box>
+        </Stack>
+        <Box
           bgcolor={"primary.contrastText"}
           sx={{
             width: "100%",
@@ -150,7 +149,7 @@ export const DashboardComp = () => {
             paddingX: "24px",
             justifyContent: "space-between",
           }}
-        ></Typography>
+        ></Box>
       </Stack>
     </Box>
   );
