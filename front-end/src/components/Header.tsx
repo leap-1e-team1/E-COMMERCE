@@ -9,6 +9,7 @@ import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { CustomButton } from "./Button";
 import { cursorTo } from "readline";
+import { Button } from "@/components/ui/button";
 
 export const Header = () => {
   return (
@@ -42,10 +43,8 @@ export const Header = () => {
             sx={{ gap: "16px" }}
           >
             <Link href="/" style={{ textDecoration: "none" }}>
-              <Stack direction="row" alignItems="center" sx={{ gap: "6px" }}>
-                <ImageList sx={{ width: "32px", height: "27.39px" }}>
-                  <img src="/Vector.png" alt="" />
-                </ImageList>
+              <Stack direction="row" alignItems="center" sx={{ gap: "12px" }}>
+                <img className="w-[32px] h-[32px]" src="/Vector.png" alt="" />
                 <Typography
                   style={{ cursor: "pointer" }}
                   sx={{ color: "primary.contrastText" }}
@@ -63,32 +62,18 @@ export const Header = () => {
           <Stack sx={{ alignItems: "center", justifyContent: "center" }}>
             <Search />
           </Stack>
-          <Stack direction="row" alignItems="center" sx={{ gap: "24px" }}>
+          <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
             <FavoriteBorderIcon sx={{ color: "white" }} />
             <LocalGroceryStoreIcon sx={{ color: "white" }} />
-            {/* <PersonOutlineIcon sx={{color:"white"}}/> */}
-
             <Link href="/register">
-              <CustomButton
-                text="Бүртгүүлэх"
-                textColor="background.paper"
-                handleClick={() => console.log("Button clicked!")}
-                bgColor="primary.main"
-                hoverColor="secondary.main"
-                height="36px"
-                border="secondary.main"
-              />
+              <Button className=" w-[101px] border-[1px] border-blue-600 hover:border-blue-700  h-[36px] rounded-2xl">
+                Бүртгүүлэх
+              </Button>
             </Link>
             <Link href="/login">
-              <CustomButton
-                text="Нэвтрэх"
-                textColor="background.paper"
-                handleClick={() => console.log("Button clicked!")}
-                bgColor="secondary.main"
-                hoverColor="secondary.main"
-                height="36px"
-                border="secondary.main"
-              />
+              <Button className="bg-blue-600 w-[82px] hover:bg-blue-700 h-[36px] rounded-3xl">
+                Нэвтрэх
+              </Button>
             </Link>
           </Stack>
         </Stack>

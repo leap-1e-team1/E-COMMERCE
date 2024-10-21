@@ -14,7 +14,7 @@ export const ProductDetail = () => {
   const handleSizeSelect = (size: string) => {
     setSelectedSize(size);
   };
-  const [height, setHeight] = useState(60);
+  const [height, setHeight] = useState(62);
 
   const increaseHeight = () => {
     setHeight((prevHeight) => prevHeight + 330);
@@ -24,7 +24,7 @@ export const ProductDetail = () => {
     setAdd(add);
   };
   return (
-    <div className="flex items-center mt-[20px] gap-[80px] flex-col ">
+    <div className="flex items-center mt-[150px] gap-[80px] flex-col ">
       <div className="flex gap-5 items-start justify-between w-[1040px]">
         <div className="h-[400px] w-[67px] mt-[100px] flex flex-col gap-2">
           <img className="w-[67px] h-[67px]" src="ProductDetail.png" alt="" />
