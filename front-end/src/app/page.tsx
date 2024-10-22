@@ -7,7 +7,9 @@ import Loading from "../components/Loading";
 export default function Home() {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
-      <Typography color="error">Temdeg orsn baih ystoi</Typography>
+      <Typography className="mt-[150px]" color="error">
+        Temdeg orsn baih ystoi
+      </Typography>
     </Stack>
   );
 }
