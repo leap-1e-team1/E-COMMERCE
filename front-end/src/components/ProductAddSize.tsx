@@ -19,39 +19,39 @@ const MenuProps = {
   },
 };
 
-const names = ["Black", "White", "Grey", "Red", "Blue", "Orange", "Purple"];
+const names = ["Short", "Long", "34", "36", "38", "40", "42"];
 
-export default function ProductAddColor() {
-  const [colorName, setColorName] = React.useState<string[]>([]);
+export default function ProductAddSize() {
+  const [sizeName, setSizeName] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof colorName>) => {
+  const handleChange = (event: SelectChangeEvent<typeof sizeName>) => {
     const {
       target: { value },
     } = event;
-    setColorName(
+    setSizeName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
   };
 
   return (
-    <div className=" ml-6 mt-2">
+    <div className=" ml-6 mt-6">
       <div className="mt-2">
-        <FormControl sx={{ width: "250px", height: "18px" }}>
-          <InputLabel id="demo-multiple-checkbox-label">Өнгө</InputLabel>
+        <FormControl sx={{ width: "250px", height: "28px" }}>
+          <InputLabel id="demo-multiple-checkbox-label">Хэмжээ</InputLabel>
           <Select
             labelId="demo-multiple-checkbox-label"
             id="demo-multiple-checkbox"
             multiple
-            value={colorName}
+            value={sizeName}
             onChange={handleChange}
-            input={<OutlinedInput label="Сонгох" />}
+            input={<OutlinedInput label="Хэмжээ" />}
             renderValue={(selected) => selected.join(", ")}
             MenuProps={MenuProps}
           >
             {names.map((name) => (
               <MenuItem key={name} value={name}>
-                <Checkbox checked={colorName.includes(name)} />
+                <Checkbox checked={sizeName.includes(name)} />
                 <ListItemText primary={name} />
               </MenuItem>
             ))}
