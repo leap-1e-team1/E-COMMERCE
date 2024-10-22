@@ -1,13 +1,15 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Checkbox, Rating } from "@mui/material";
-import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { CiHeart } from "react-icons/ci";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
-export const ProductDetail = () => {
+export const ProductDetail: React.FC = () => {
   const [value, setValue] = React.useState<number | null>(2);
   const [selectedSize, setSelectedSize] = useState<string | null>("S");
+  const router = useRouter();
 
   const sizes: string[] = ["S", "M", "L", "XL", "2XL"];
 
@@ -23,6 +25,20 @@ export const ProductDetail = () => {
   const addReview = () => {
     setAdd(add);
   };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:8000/product", {
+        selectedSize,
+      });
+
+      router.push("/");
+    } catch (error: any) {
+      const message = error.response?.data?.message || "Error signing up";
+      alert(message);
+    }
+  };
+
   return (
     <div className="flex items-center mt-[150px] gap-[80px] flex-col ">
       <div className="flex gap-5 items-start justify-between w-[1040px]">
@@ -44,7 +60,7 @@ export const ProductDetail = () => {
                 <CiHeart />
               </button>
             </div>
-            <div className="w-[418px] h-[24px] font-normal">
+            <div className="w-[438px] h-[24px] font-normal">
               Зэрлэг цэцгийн зурагтай даавуун материалтай цамц
             </div>
           </div>
@@ -71,7 +87,10 @@ export const ProductDetail = () => {
           </div>
           <div className="flex flex-col gap-2 mt-2">
             <div className="font-bold text-xl">120’000₮</div>
-            <Button className="bg-blue-600 w-[175px] hover:bg-blue-700 h-[36px] rounded-2xl">
+            <Button
+              onClick={handleSubmit}
+              className="bg-blue-600 w-[175px] text-white hover:bg-blue-700 h-[36px] rounded-2xl"
+            >
               Сагсанд нэмэх
             </Button>
           </div>
