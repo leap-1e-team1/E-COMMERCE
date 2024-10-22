@@ -4,6 +4,7 @@ import { CustomButton } from "@/components/Button";
 import { Stack, Typography, TextField } from "@mui/material";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import { toast, Toaster } from "sonner";
 
 export const UserDetail = () => {
   const [userInput, setUserInput] = useState({
@@ -16,6 +17,7 @@ export const UserDetail = () => {
 
   const updateClickHandler = () => {
     console.log(userInput);
+    toast("medeelel shinechlegdlee");
   };
 
   const handleChange = (event: any) => {
