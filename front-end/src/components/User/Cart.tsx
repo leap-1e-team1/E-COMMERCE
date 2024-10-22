@@ -55,8 +55,12 @@ export const Cart = () => {
         sx={{ width: "572px" }}
         justifyContent={"space-between"}
       >
-        <Typography>Үнийн дүн:</Typography>
-        <Typography>120’000₮</Typography>
+        <Typography sx={{ fontSize: "16px", fontWeight: "400" }}>
+          Үнийн дүн:
+        </Typography>
+        <Typography sx={{ fontSize: "18px", fontWeight: "700" }}>
+          120’000₮
+        </Typography>
       </Stack>
     </Stack>
   );
