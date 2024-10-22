@@ -4,8 +4,6 @@ import bcrypt from "bcryptjs";
 export const registerUser = async (req: any, res: any) => {
   const { firstName, lastName, email, password } = req.body;
 
-  console.log("Received request body:", req.body);
-
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }

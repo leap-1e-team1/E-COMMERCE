@@ -14,7 +14,7 @@ const UserSchema = new Schema<UsersModelType>({
   firstName: { type: String, required: false },
   lastName: { type: String, required: false },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }, // Ensure this is included
+  password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now, required: true, immutable: true },
   updatedAt: { type: Date, default: Date.now, required: true },
 });
