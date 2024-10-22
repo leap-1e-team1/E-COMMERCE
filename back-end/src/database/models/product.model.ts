@@ -4,7 +4,7 @@ export type ProductsModelType = {
   _id: String;
   productName: String;
   price: String;
-  image: [String];
+  images: [String];
   createdAt: Date;
   updatedAt: Date;
   description: String;
@@ -16,7 +16,7 @@ export type ProductsModelType = {
 const ProdcutsSchema = new Schema<ProductsModelType>({
   productName: { type: String, required: false },
   price: { type: String, required: false },
-  image: [{ type: String, required: true }],
+  images: [{ type: String, required: true }],
   size: {
     type: String,
     enum: ["S", "M", "L", "XL", "2XL"],

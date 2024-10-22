@@ -1,29 +1,91 @@
 "use client";
-import React, { useState } from "react";
-
-import { Button, Stack, Typography } from "@mui/material";
+import React, { ChangeEvent, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Stack } from "@mui/material";
 import { Input } from "@/components/Input";
 import UploadImage from "./UploadImage";
 import ProductCategory from "./ProductCategory";
 import ProductSize from "./ProductSize";
 import ProductAddColor from "./ProductAddColor";
-import ProductAddSize from "./ProductAddSize";
-import { BorderColor } from "@mui/icons-material";
+import axios from "axios";
 
 export const ProductDescription = () => {
-  const handleClick = () => {
-    console.log("btn");
+  const [imagesURL, setImagesURL] = useState<string[]>([]);
+  const [uploadImages, setUploadImages] = useState<File[]>([]);
+  const [images, setImages] = useState<(string | null)[]>([null, null, null]);
+
+  const cloud_name = "dvs0wjgcv";
+  const upload_preset = "tsagaanaa";
+  const url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
+
+  const handleImageUpload = async (): Promise<string[]> => {
+    try {
+      const uploadedImageUrls = await Promise.all(
+        uploadImages.map(async (image) => {
+          const formData = new FormData();
+          formData.append("file", image);
+          formData.append("upload_preset", upload_preset);
+
+          const res = await axios.post(url, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          return res.data.secure_url;
+        })
+      );
+
+      return uploadedImageUrls;
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      throw error;
+    }
   };
 
-  const [productName, setProductName] = useState("");
+  const addProduct = async () => {
+    try {
+      const uploadedImageUrls = await handleImageUpload();
+      const response = await axios.post(
+        "http://localhost:8000/product",
+        {
+          images: uploadedImageUrls,
+          selectedSize: "M",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Replace with your JWT key
+          },
+        }
+      );
 
-  const nameHandler = (e: any) => {
-    setProductName(e.target.value);
+      // Clear uploaded images after successful product addition
+      setImagesURL([]);
+      setUploadImages([]);
+      setImages([null, null, null]);
+
+      console.log("Product added successfully:", response.data);
+    } catch (error) {
+      console.error("Error while adding product:", error);
+    }
   };
+
+  // Handle image selection and display the preview in the frontend
+  const onImageChange =
+    (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
+        setUploadImages((prev) => [...prev, file]);
+
+        const newImages = [...images];
+        newImages[index] = URL.createObjectURL(event.target.files[0]);
+        setImages(newImages);
+      }
+    };
+
   return (
     <div className="flex flex-row">
-      <div className="mt-8  gap-6 flex flex-col">
-        <div className="w-[563px] h-[312px] text-[#121316]  border rounded-xl bg-[#e3d7d7] pt-6 pl-6">
+      <div className="mt-8 ml-8 gap-6 flex flex-col">
+        <div className="w-[563px] h-[312px] text-[#121316] border rounded-xl bg-[#e3d7d7] pt-6 pl-6">
           <h1 className="text-sm font-semibold">Бүтээгдэхүүний нэр</h1>
           <Stack
             sx={{
@@ -52,8 +114,7 @@ export const ProductDescription = () => {
           >
             <Input
               label=""
-              placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг
-             онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
+              placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
               helperText=""
               inputHandler={() => {
                 console.log();
@@ -72,7 +133,12 @@ export const ProductDescription = () => {
             />
           </Stack>
         </div>
-        <UploadImage />
+        <UploadImage
+          setImagesURL={setImagesURL}
+          imagesURL={imagesURL}
+          images={images}
+          onImageChange={onImageChange}
+        />
         <div className="flex flex-row gap-4 text-sm font-semibold text-[#121316] w-[563px] h-[132px] bg-[#e3d7d7] pt-6 pl-6 border rounded-xl mt-6">
           <div className="flex flex-col gap-2">
             <h1>Үндсэн үнэ</h1>
@@ -102,141 +168,27 @@ export const ProductDescription = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col ml-[26px]">
-        <Stack
-          sx={{
-            width: "573px",
-            height: "232px",
-            borderRadius: "8px",
-            bgcolor: "#e3d7d7",
-            gap: "12px",
-            marginTop: "34px",
-          }}
-        >
-          <ProductCategory />
-          <ProductSize />
-        </Stack>
-        <Stack
-          sx={{
-            width: "575px",
-            height: "248px",
-            bgcolor: "#e3d7d7",
-            borderRadius: "8px",
-            marginTop: "24px",
-
-            paddingTop: "12px",
-            paddingLeft: "24px",
-          }}
-        >
-          <h1 className="text-lg font-semibold">Төрөл</h1>
-          <ProductAddColor />
-          <ProductAddSize />
-          <Button
-            variant="contained"
-            onClick={() => {
-              handleClick();
-            }}
-            sx={{
-              backgroundColor: "white",
-              color: "#121316",
-              height: "46px",
-              width: "180px",
-              fontSize: "14px",
-              fontWeight: "400",
-              marginTop: "36px",
-              marginLeft: "24px",
-
-              "&:hover": {
-                backgroundColor: "hoverColor",
-              },
-              border: "1px solid",
-              borderColor: "#DBD9D2",
-            }}
-          >
-            {"Төрөл нэмэх"}
-          </Button>
-        </Stack>
-        <div className=" mt-12 w-[575px] h-[195px] border rounded-xl bg-[#e3d7d7] pt-6 pl-6  ">
-          <h1>Таг</h1>
-          <Stack
-            sx={{
-              width: "527px",
-              height: "58px",
-              fontSize: "18px",
-              fontWeight: "400",
-              marginTop: "8px",
-            }}
-          >
-            <Input
-              label=""
-              placeholder="Таг нэмэх..."
-              helperText=""
-              inputHandler={(e: any) => {
-                nameHandler(e);
-              }}
-            />
-          </Stack>
-
-          <p className="text-sm font-normal text-[#5E6166] mt-2">
-            Санал болгох: Гутал , Цүнх , Эмэгтэй
-          </p>
-        </div>
-        <Stack
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "24px",
-            marginLeft: "320px",
-          }}
-        >
-          <Button
-            variant="contained"
-            onClick={() => {
-              handleClick();
-            }}
-            sx={{
-              backgroundColor: "white",
-              color: "#121316",
-              height: "56px",
-              width: "113px",
-              fontSize: "14px",
-              fontWeight: "600",
-              marginTop: "36px",
-
-              "&:hover": {
-                backgroundColor: "hoverColor",
-              },
-              border: "1px solid",
-              borderColor: "#DBD9D2",
-            }}
-          >
-            {"Ноорог"}
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() => {
-              handleClick();
-            }}
-            sx={{
-              backgroundColor: "#121316",
-              color: "white",
-              height: "56px",
-              width: "113px",
-              fontSize: "14px",
-              fontWeight: "600",
-              marginTop: "36px",
-
-              "&:hover": {
-                backgroundColor: "hoverColor",
-              },
-              border: "1px solid",
-              borderColor: "#DBD9D2",
-            }}
-          >
-            {"Нийтлэх"}
-          </Button>
-        </Stack>
-      </div>
+      <Stack
+        sx={{
+          width: "573px",
+          height: "232px",
+          borderRadius: "8px",
+          bgcolor: "#e3d7d7",
+          gap: "12px",
+          marginTop: "34px",
+          marginLeft: "26px",
+        }}
+      >
+        <ProductCategory />
+        <ProductSize />
+        <ProductAddColor />
+      </Stack>
+      <Button
+        onClick={addProduct}
+        className="bg-blue-600 w-[175px] hover:bg-blue-700 h-[36px] rounded-2xl"
+      >
+        Үнэлэх
+      </Button>
     </div>
   );
 };

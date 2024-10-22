@@ -1,60 +1,62 @@
-"use client";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation"; // Updated import
-import { useState } from "react";
 
-const Signup: React.FC = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter(); // Moved outside handleSubmit
+const AddProductForm: React.FC = () => {
+  const [selectedSize, setSelectedSize] = useState<string>("");
+  const [images, setImages] = useState<File[]>([]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSizeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectedSize(e.target.value);
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      setImages(files); // Save the selected files
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/users/signup",
-        { firstName, lastName, email, password }
-      );
 
-      alert(response.data.message);
-      router.push("/login"); // Redirect to login page
-    } catch (error: any) {
-      const message = error.response?.data?.message || "Error signing up";
-      alert(message);
+    const formData = new FormData();
+    formData.append("selectedSize", selectedSize);
+    images.forEach((image) => {
+      formData.append("images", image); // Append each image file
+    });
+
+    try {
+      const token = localStorage.getItem("token"); // Assuming you have a JWT stored in localStorage
+      const response = await axios.post("/api/products", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data", // Specify that you're sending form data
+        },
+      });
+      console.log(response.data); // Log the response from the server
+    } catch (error) {
+      console.error("Error adding product:", error);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        placeholder="First Name"
-      />
-      <input
-        type="text"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-        placeholder="Last Name"
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <button type="submit">Sign Up</button>
+      <label>
+        Size:
+        <input
+          type="text"
+          value={selectedSize}
+          onChange={handleSizeChange}
+          required
+        />
+      </label>
+      <label>
+        Images:
+        <input type="file" multiple onChange={handleImageChange} required />
+      </label>
+      <button type="submit">Add Product</button>
     </form>
   );
 };
 
-export default Signup;
+export default AddProductForm;

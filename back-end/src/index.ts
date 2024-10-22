@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes";
 import { connectDatabase } from "./database/config";
 import productRoutes from "./routes/productRoutes";
+import imgRoutes from "./routes/imgRoutes";
+import adminRoutes from "./routes/adminregisterRoutes";
 
 dotenv.config();
 
@@ -16,6 +18,8 @@ app.use(express.json());
 
 app.use("/", userRoutes);
 app.use("/", productRoutes);
+app.use("/", imgRoutes);
+app.use("/admin", adminRoutes);
 
 const startServer = async () => {
   await connectDatabase();
