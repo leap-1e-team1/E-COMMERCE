@@ -36,13 +36,13 @@ export default function RootLayout({
               display: "flex",
               flexDirection: "column",
               minHeight: "100vh",
+              backgroundColor: "#F7F7F8",
             }}
           >
             {pathname.includes("admin") ? <></> : <Header />}
             <Box component="main" sx={{ flex: 1 }}>
               {children}
             </Box>
-
             {pathname.includes("admin") ? <></> : <Footer />}
           </Box>
         </MuiProvider>
