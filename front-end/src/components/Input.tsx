@@ -6,7 +6,7 @@ type InputProps = {
   label: string;
   placeholder: string;
   helperText: string;
-  inputHandler: () => void;
+  inputHandler: (e: any) => void;
   sx?: any;
 };
 
