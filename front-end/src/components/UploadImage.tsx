@@ -1,56 +1,68 @@
 "use client";
 import axios from "axios";
 import Image from "next/image";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { Stack, Typography } from "@mui/material";
 
-const UploadImage = () => {
-  // huselt yvuulax zuragnuud n state
-  const [uploadImages, setUploadImages] = useState<File[]>([]);
+type UploadImageProps = {
+  setImagesURL: Dispatch<SetStateAction<string[]>>;
+  imagesURL: string[];
+  images: (string | null)[];
+  onImageChange: (
+    index: number
+  ) => (event: ChangeEvent<HTMLInputElement>) => void;
+};
 
-  // front-end dr haruulax state
+const UploadImage = ({
+  setImagesURL,
+  imagesURL,
+  images,
+  onImageChange,
+}: UploadImageProps) => {
+  // const [uploadImages, setUploadImages] = useState<File[]>([]);
+  // const [images, setImages] = useState<(string | null)[]>([null, null, null]);
+  // // const [imagesURL, setImagesURL] = useState<string[]>([]);
 
-  const [images, setImages] = useState<(string | null)[]>([null, null, null]);
+  // const cloud_name = "dvs0wjgcv";
+  // const present_name = "tsagaanaa";
+  // const url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
 
-  const cloud_name = "dvs0wjgcv";
-  const present_name = "tsagaanaa";
-  const url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
+  // const handleImageUpload = async () => {
+  //   try {
+  //     await Promise.all(
+  //       uploadImages.map(async (image) => {
+  //         const formData = new FormData();
+  //         formData.append("file", image);
+  //         formData.append("upload_preset", present_name);
+  //         const res = await axios.post(url, formData, {
+  //           headers: {
+  //             "Content-Type": "multipart/form-data",
+  //           },
+  //         });
+  //         setImagesURL((prev) => [...prev, res.data.secure_url]);
+  //       })
+  //     );
+  //     setUploadImages([]);
+  //     console.log(imagesURL);
 
-  const handleImageUpload = async () => {
-    // ene post huselt array deer yvuulna
+  //     setImages([null, null, null]);
+  //   } catch (error) {
+  //     console.error("Image upload failed:", error);
+  //   }
+  // };
+  // // zurag songohod frontend dr haruulj bui function
 
-    try {
-      await Promise.all(
-        uploadImages.map(async (image) => {
-          const formData = new FormData();
-          formData.append("file", image);
-          formData.append("upload_preset", present_name);
-          await axios.post(url, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-        })
-      );
-      setUploadImages([]);
-      setImages([null, null, null]);
-    } catch (error) {
-      console.error("Image upload failed:", error);
-    }
-  };
-  // zurag songohod frontend dr haruulj bui function
+  // const onImageChange =
+  //   (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
+  //     if (event.target.files && event.target.files[0]) {
+  //       const file = event.target.files[0];
+  //       setUploadImages([...uploadImages, file]);
 
-  const onImageChange =
-    (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
-      if (event.target.files && event.target.files[0]) {
-        const file = event.target.files[0];
-        setUploadImages([...uploadImages, file]);
-
-        const newImages = [...images];
-        newImages[index] = URL.createObjectURL(event.target.files[0]);
-        setImages(newImages);
-      }
-    };
+  //       const newImages = [...images];
+  //       newImages[index] = URL.createObjectURL(event.target.files[0]);
+  //       setImages(newImages);
+  //     }
+  //   };
 
   return (
     <div className="flex flex-col w-[563px] h-[213px] rounded-xl bg-[#f3e9e9] mt-6 ">
@@ -84,7 +96,7 @@ const UploadImage = () => {
           ))}
         </div>
         <button
-          onClick={handleImageUpload}
+          // onClick={handleImageUpload}
           className="w-[125px] h-[125px]  mt-4"
         >
           <img
