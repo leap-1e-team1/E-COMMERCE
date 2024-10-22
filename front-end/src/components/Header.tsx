@@ -42,11 +42,13 @@ export const Header = () => {
             justifyContent={"center"}
             sx={{ gap: "16px" }}
           >
-            <Link href="/">
-              <Stack direction="row" alignItems="center" sx={{ gap: "6px" }}>
-                <ImageList sx={{ width: "32px", height: "27.39px" }}>
-                  <img src="/Vector.png" alt="" />
-                </ImageList>
+            <Stack direction="row" alignItems="center" sx={{ gap: "6px" }}>
+              <ImageList
+                sx={{ alignItems: "center", width: "32px", height: "27.39px" }}
+              >
+                <img src="/Vector.png" alt="" />
+              </ImageList>
+              <Link href="/">
                 <Typography
                   style={{ cursor: "pointer" }}
                   sx={{ color: "primary.contrastText" }}
@@ -55,7 +57,6 @@ export const Header = () => {
                 </Typography>
               </Link>
             </Stack>
-
             <Link style={{ textDecoration: "none" }} href="./">
               <Typography sx={{ color: "primary.contrastText" }}>
                 АНГИЛАЛ
