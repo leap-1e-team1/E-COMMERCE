@@ -1,15 +1,18 @@
 import { AdminHeaderComp } from "@/components/AdminHeaderComp";
 import { LeftBar } from "@/components/LeftBar";
 import { OrderComp } from "@/components/OrderComp";
+import { Box, Stack } from "@mui/material";
 import React from "react";
 
 const OrderPage = () => {
   return (
-    <div>
+    <Box>
       <AdminHeaderComp />
-      <LeftBar bgColor="Захиалга" />
-      <OrderComp />
-    </div>
+      <Stack flexDirection={"row"}>
+        <LeftBar bgColor="Захиалга" />
+        <OrderComp />
+      </Stack>
+    </Box>
   );
 };
 
