@@ -38,7 +38,7 @@ export const HomeComp = () => {
     },
     {
       productName: " The Prompt Magazine5",
-      productPrice: "120’000",
+      productPrice: "120’000$",
       productImg:
         "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
     },
