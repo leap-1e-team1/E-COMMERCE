@@ -7,7 +7,7 @@ export const OrderHIstory = () => {
     <Stack sx={{ gap: "20px" }}>
       <Stack gap={"16px"} direction={"column"}>
         <Typography fontSize={"18px"} fontWeight={"700"}>
-          Захиалгын түүх.
+          Захиалгын түүх
         </Typography>
         <Stack sx={{ border: "1px solid #E4E4E7" }}></Stack>
       </Stack>
