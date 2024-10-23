@@ -6,10 +6,11 @@ import Loading from "../components/Loading";
 
 export default function Home() {
   return (
-    <Stack sx={{ minHeight: "100vh" }}>
-      <Typography className="mt-[150px]" color="error">
-        Temdeg orsn baih ystoi
-      </Typography>
-    </Stack>
+    <div>
+      <button className="border p-2" onClick={sendEmail}>
+        Email sender
+      </button>
+      <ToastContainer />
+    </div>
   );
 }
