@@ -21,8 +21,10 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
-
-interface RootLayoutProps {
+// aa
+export default function RootLayout({
+  children,
+}: Readonly<{
   children: React.ReactNode;
 }
 
@@ -35,26 +37,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AncestorProvider>
-          {" "}
-          {/* Wrap the MuiProvider with AncestorProvider */}
-          <MuiProvider>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "100vh",
-                backgroundColor: "#F7F7F8",
-              }}
-            >
-              {!isAdminRoute && <Header />}
-              <Box component="main" sx={{ flex: 1 }}>
-                {children}
-              </Box>
-              {!isAdminRoute && <Footer />}
+        <MuiProvider>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "100vh",
+              backgroundColor: "#F7F7F8",
+            }}
+          >
+            {pathname.includes("admin") ? <></> : <Header />}
+            <Box component="main" sx={{ flex: 1, marginTop: "68px" }}>
+              {children}
             </Box>
-          </MuiProvider>
-        </AncestorProvider>
+            {pathname.includes("admin") ? <></> : <Footer />}
+          </Box>
+        </MuiProvider>
         <Toaster />
       </body>
     </html>
