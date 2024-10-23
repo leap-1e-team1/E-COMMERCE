@@ -8,16 +8,22 @@ const Savecomp = () => {
   return (
     <Box
       sx={{
-        width: "672px",
-        height: "472px",
-        marginTop: "120px",
-        marginLeft: "409px",
-        marginBottom: "209px",
-        gap: "16px",
+        display: "flex",
+        justifyContent: "center",
       }}
     >
-      <Typography>Хадгалсан бараа()</Typography>
-      <Savebox />
+      <Box
+        sx={{
+          width: "672px",
+          height: "472px",
+          marginTop: "120px",
+          marginBottom: "209px",
+          gap: "16px",
+        }}
+      >
+        <Typography>Хадгалсан бараа()</Typography>
+        <Savebox />
+      </Box>
     </Box>
   );
 };
