@@ -6,8 +6,12 @@ import userRoutes from "./routes/userRoutes";
 import { connectDatabase } from "./database/config";
 import productRoutes from "./routes/productRoutes";
 import imgRoutes from "./routes/imgRoutes";
+
+import loginRouter from "./routes/loginRoutes";
+
 import adminRoutes from "./routes/adminregisterRoutes";
 import nodemailer from "nodemailer";
+
 
 dotenv.config();
 
@@ -18,9 +22,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/", userRoutes);
+app.use("/", loginRouter);
 app.use("/", productRoutes);
 app.use("/", imgRoutes);
-app.use("/admin", adminRoutes);
 
 const startServer = async () => {
   await connectDatabase();

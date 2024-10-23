@@ -8,6 +8,9 @@ import ProductCategory from "./ProductCategory";
 import ProductSize from "./ProductSize";
 import ProductAddColor from "./ProductAddColor";
 import axios from "axios";
+interface CloudinaryUploadResponse {
+  secure_url: string;
+}
 
 export const ProductDescription = () => {
   const [imagesURL, setImagesURL] = useState<string[]>([]);
@@ -26,12 +29,17 @@ export const ProductDescription = () => {
           formData.append("file", image);
           formData.append("upload_preset", upload_preset);
 
-          const res = await axios.post(url, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-          return res.data.secure_url;
+          const res = await axios.post<CloudinaryUploadResponse>(
+            url,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+
+          return res.data.secure_url; // TypeScript now recognizes this as a string
         })
       );
 
@@ -98,9 +106,7 @@ export const ProductDescription = () => {
               label="Нэр"
               placeholder="Нэр"
               helperText=""
-              inputHandler={(e: any) => {
-                nameHandler(e);
-              }}
+              inputHandler={(e: any) => {}}
             />
           </Stack>
           <h1 className="text-sm font-semibold mt-8">Нэмэлт мэдээлэл</h1>
