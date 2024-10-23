@@ -6,7 +6,12 @@ import userRoutes from "./routes/userRoutes";
 import { connectDatabase } from "./database/config";
 import productRoutes from "./routes/productRoutes";
 import imgRoutes from "./routes/imgRoutes";
+
 import loginRouter from "./routes/loginRoutes";
+
+import adminRoutes from "./routes/adminregisterRoutes";
+import nodemailer from "nodemailer";
+
 
 dotenv.config();
 

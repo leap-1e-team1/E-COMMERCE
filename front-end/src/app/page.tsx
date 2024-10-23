@@ -3,12 +3,17 @@ import OTP from "@/components/OTP";
 import { Stack, Typography } from "@mui/material";
 import NewPAss from "../components/NewPass";
 import Loading from "../components/Loading";
+
 import { useState } from "react";
 import { response } from "express";
 import axios from "axios";
 interface ProductCategory {
   images: string;
 }
+
+import { HomeComp } from "@/components/home/HomeComp";
+
+
 export default function Home() {
   const [asd, setAsd] = useState<ProductCategory[]>([]);
 
@@ -31,6 +36,7 @@ export default function Home() {
   };
 
   return (
+
     <Stack sx={{ minHeight: "100vh" }}>
       <Typography className="mt-[350px]" color="error">
         Temdeg orsn baih ystoi
@@ -39,6 +45,10 @@ export default function Home() {
           <img key={index} src={el.images} />
         ))}
       </Typography>
+
+    <Stack sx={{ minHeight: "100vh", display: "flex", direction: "column" }}>
+      <HomeComp />
+
     </Stack>
   );
 }
