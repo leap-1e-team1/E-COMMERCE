@@ -13,7 +13,6 @@ export const HomeComp = () => {
     "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792"
   );
 
-
   const products = [
     {
       productName: " The Prompt Magazine1",
@@ -142,7 +141,6 @@ export const HomeComp = () => {
       sx={{ width: "100vw" }}
       alignItems={"center"}
     >
-
       <Stack alignItems={"center"}>
         <img
           src={coverImage}
@@ -171,6 +169,7 @@ export const HomeComp = () => {
           if (index < 4) {
             return (
               <Link
+                key={index}
                 href={"/user"}
                 onMouseEnter={() => {
                   hoverHandler(index);
@@ -223,6 +222,7 @@ export const HomeComp = () => {
             if (index >= 4 && index < 6) {
               return (
                 <Link
+                  key={index}
                   href={"/user"}
                   onMouseEnter={() => {
                     hoverHandler(index);
@@ -237,6 +237,7 @@ export const HomeComp = () => {
                       flexDirection: "colmun",
                       gap: "8px",
                       width: "245px",
+                      mb: "50px",
                     }}
                   >
                     <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden">
@@ -264,6 +265,7 @@ export const HomeComp = () => {
             if (index == 6) {
               return (
                 <Link
+                  key={index}
                   href={"/user"}
                   onMouseEnter={() => {
                     hoverHandler(index);
@@ -278,6 +280,7 @@ export const HomeComp = () => {
                       flexDirection: "colmun",
                       gap: "8px",
                       width: "508px",
+                      mb: "50px",
                     }}
                   >
                     <div className="w-[508px] h-[692px] rounded-2xl overflow-hidden">
@@ -317,6 +320,7 @@ export const HomeComp = () => {
             if (index === 7) {
               return (
                 <Link
+                  key={index}
                   href={"/user"}
                   onMouseEnter={() => {
                     hoverHandler(index);
@@ -358,6 +362,7 @@ export const HomeComp = () => {
             if (index > 7 && index < 10) {
               return (
                 <Link
+                  key={index}
                   href={"/user"}
                   onMouseEnter={() => {
                     hoverHandler(index);
@@ -402,6 +407,7 @@ export const HomeComp = () => {
           if (index > 9 && index < 18) {
             return (
               <Link
+                key={index}
                 href={"/user"}
                 onMouseEnter={() => {
                   hoverHandler(index);
@@ -442,13 +448,6 @@ export const HomeComp = () => {
           }
         })}
       </Stack>
-
-      <img
-        src={coverImage}
-        alt=""
-        className="w-screen h-[474px] object-cover object-top"
-      />
-
     </Stack>
   );
 };
