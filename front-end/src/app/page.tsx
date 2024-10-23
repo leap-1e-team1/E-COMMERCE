@@ -13,7 +13,6 @@ interface ProductCategory {
 
 import { HomeComp } from "@/components/home/HomeComp";
 
-
 export default function Home() {
   const [asd, setAsd] = useState<ProductCategory[]>([]);
 
@@ -36,7 +35,6 @@ export default function Home() {
   };
 
   return (
-
     <Stack sx={{ minHeight: "100vh" }}>
       <Typography className="mt-[350px]" color="error">
         Temdeg orsn baih ystoi
@@ -46,9 +44,9 @@ export default function Home() {
         ))}
       </Typography>
 
-    <Stack sx={{ minHeight: "100vh", display: "flex", direction: "column" }}>
-      <HomeComp />
-
+      <Stack sx={{ minHeight: "100vh", display: "flex", direction: "column" }}>
+        <HomeComp />
+      </Stack>
     </Stack>
   );
 }
