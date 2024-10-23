@@ -1,31 +1,31 @@
 import express from "express";
+import mongoose from "mongoose";
 import cors from "cors";
-import { UserModel } from "./database/models/user.model";
+import dotenv from "dotenv";
+import userRoutes from "./routes/userRoutes";
 import { connectDatabase } from "./database/config";
+import productRoutes from "./routes/productRoutes";
+import imgRoutes from "./routes/imgRoutes";
+import adminRoutes from "./routes/adminregisterRoutes";
+
+dotenv.config();
 
 const app = express();
-app.use(express.json());
+const PORT = process.env.PORT || 8000;
+
 app.use(cors());
+app.use(express.json());
 
-connectDatabase();
+app.use("/", userRoutes);
+app.use("/", productRoutes);
+app.use("/", imgRoutes);
+app.use("/admin", adminRoutes);
 
-app.post("/", async (req, res) => {
-  const { email, password } = req.body;
-
-  await UserModel.create({
-    email,
-    password,
+const startServer = async () => {
+  await connectDatabase();
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
   });
+};
 
-  // const result = await UserModel.findById("6711cf5cc8cd97905fcc2005");
-
-  // await UserModel.findByIdAndUpdate("6711cf5cc8cd97905fcc2005", {
-  //   email: "uzkhugerSoliv",
-  // });
-
-  res.send("success");
-});
-
-app.listen(8000, () => {
-  console.log("http://localhost:8000");
-});
+startServer();

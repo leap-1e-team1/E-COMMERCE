@@ -1,13 +1,40 @@
 "use client";
 
-import { CustomButton } from "@/components/Button";
-import { Input } from "@/components/Input";
-
+import { Button } from "@/components/ui/button";
 import { List, ListItem, Stack, Typography } from "@mui/material";
+import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-const Register = () => {
+const Register: React.FC = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:8000/admin/signup", {
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+      console.log(response.data); // Log success response
+      setTimeout(() => {
+        router.push("/login");
+      }, 1000);
+    } catch (error: any) {
+      // Handle full error and log to understand the issue
+      console.error("Error:", error.response || error.message);
+      const message = error.response?.data?.message || "Error signing up";
+      alert(message);
+    }
+  };
+
   return (
     <Stack
       alignItems={"center"}
@@ -20,38 +47,36 @@ const Register = () => {
         Бүртгүүлэх
       </Typography>
       <Stack gap={4} sx={{ width: "334px" }}>
-        <Input
-          inputHandler={() => {
-            console.log();
-          }}
-          label="Нэр"
-          placeholder=""
-          helperText=""
-        />
-        <Input
-          inputHandler={() => {
-            console.log();
-          }}
-          placeholder=""
-          label="Имэйл хаяг"
-          helperText=""
-        />
-        <Input
-          inputHandler={() => {
-            console.log();
-          }}
-          label="Нууц үг"
-          placeholder=""
-          helperText=""
-        />
-        <Input
-          inputHandler={() => {
-            console.log();
-          }}
-          label="Нууц үг давтах "
-          placeholder=""
-          helperText=""
-        />
+        <form onSubmit={handleSubmit} className="text-white mt-[200px]">
+          <input
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </form>
         <List disablePadding sx={{ listStyleType: "disc", marginLeft: "20px" }}>
           <ListItem
             disablePadding
@@ -66,20 +91,15 @@ const Register = () => {
             Том, жижиг үсэг, тоо, тэмдэгт орсон байх
           </ListItem>
         </List>
-        <CustomButton
-          text="Бүртгүүлэх"
-          textColor="background.paper"
-          handleClick={() => {
-            console.log("Button clicked!");
-            router.push("/login");
-          }}
-          bgColor="secondary.main"
-          hoverColor="primary.main"
-          height="36px"
-          border="secondary.main"
-        />
+        <Button
+          onClick={handleSubmit}
+          className="bg-blue-600 w-[175px] hover:bg-blue-700 h-[36px] rounded-2xl"
+        >
+          Үнэлэх
+        </Button>
       </Stack>
     </Stack>
   );
 };
+
 export default Register;

@@ -4,6 +4,7 @@ export type UsersModelType = {
   _id: Schema.Types.ObjectId;
   firstName: string;
   lastName: string;
+  password: string;
   email: string;
   createdAt: Date;
   updatedAt: Date;
@@ -12,7 +13,8 @@ export type UsersModelType = {
 const UserSchema = new Schema<UsersModelType>({
   firstName: { type: String, required: false },
   lastName: { type: String, required: false },
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now, required: true, immutable: true },
   updatedAt: { type: Date, default: Date.now, required: true },
 });

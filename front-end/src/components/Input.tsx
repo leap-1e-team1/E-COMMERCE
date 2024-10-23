@@ -6,7 +6,8 @@ type InputProps = {
   label: string;
   placeholder: string;
   helperText: string;
-  inputHandler: () => void;
+  inputHandler: (e: any) => void;
+  sx?: any;
 };
 
 export const Input = ({
@@ -14,11 +15,13 @@ export const Input = ({
   placeholder,
   helperText,
   inputHandler,
+  sx,
 }: InputProps) => {
   return (
     <TextField
       label={label}
       variant="outlined"
+      sx={sx}
       //   sx={{ py: 2, px: 3, height: "36px" }}
       placeholder={placeholder}
       helperText={helperText}
