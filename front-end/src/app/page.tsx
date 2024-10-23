@@ -5,12 +5,5 @@ import NewPAss from "../components/NewPass";
 import Loading from "../components/Loading";
 
 export default function Home() {
-  return (
-    <div>
-      <button className="border p-2" onClick={sendEmail}>
-        Email sender
-      </button>
-      <ToastContainer />
-    </div>
-  );
+  return <div></div>;
 }
