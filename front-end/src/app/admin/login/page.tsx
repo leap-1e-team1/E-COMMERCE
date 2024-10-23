@@ -1,77 +1,89 @@
 "use client";
+
 import { CustomButton } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { useState } from "react";
+import { useUser } from "@/provider/UserProvider";
+import { useRouter } from "next/navigation";
+import { Stack, Typography } from "@mui/material";
 
-export default function Login() {
+import Loading from "@/components/Loading";
+
+export default function Login({ jump }: { jump: () => void }) {
+  const { loginHandler, isLoggedIn } = useUser();
+  const router = useRouter();
+
+  const [inputValue, setInputValue] = useState({ email: "", password: "" });
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  if (isLoggedIn) {
+    // router.push("/confirm");
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setInputValue((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const logInputValue = async () => {
+    const { email, password } = inputValue;
+    setLoading(true);
+    try {
+      await loginHandler(email, password);
+      jump();
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <Stack
-      gap={12}
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        mt: "108px",
-      }}
-    >
-      <Typography color="primary.main" sx={{ fontSize: "24px" }}>
-        Нэвтрэх
-      </Typography>
+    <div className="flex h-screen w-full">
+      {loading && <Loading />}
 
-      <Stack
-        gap={4}
-        sx={{ width: "334px", display: "flex", justifyContent: "center" }}
-      >
-        <Input
-          label="Нэр"
-          placeholder="Нэр"
-          helperText=""
-          inputHandler={() => {
-            console.log();
-          }}
-        />
-        <Input
-          label="Нууц үг"
-          placeholder="Нууц үг"
-          helperText=""
-          inputHandler={() => {
-            console.log();
-          }}
-        />
-        <CustomButton
-          text="Нэвтрэх"
-          textColor="background.paper"
-          handleClick={() => console.log("Button clicked!")}
-          bgColor="secondary.main"
-          hoverColor="primary.main"
-          height="36px"
-          border="secondary.main"
-        />
-        <Link href="./register">
-          <Typography
-            component="div"
-            color="text.secondary"
-            sx={{
-              textAlign: "center",
-            }}
-          >
-            Нууц үг мартсан
-          </Typography>
-        </Link>
-      </Stack>
+      <div className="flex w-1/2 justify-center items-center gap-2 flex-col">
+        <Typography sx={{ fontSize: "32px", color: "primary.main" }}>
+          Нэвтрэх
+        </Typography>
+        <Stack gap={4} sx={{ width: "350px" }}>
+          <Input
+            label="Нэр"
+            name="email"
+            placeholder="Email"
+            helperText=""
+            inputHandler={handleChange}
+          />
+          <Input
+            label="Нууц үг"
+            name="password"
+            placeholder="Password"
+            helperText=""
+            inputHandler={handleChange}
+          />
 
-      <Stack sx={{ width: "334px" }}>
-        <CustomButton
-          text="Бүртгүүлэх"
-          textColor="secondary.main"
-          handleClick={() => console.log("Button clicked!")}
-          bgColor="background.paper"
-          hoverColor="primary.main"
-          height="36px"
-          border="secondary.main"
-        />
-      </Stack>
-    </Stack>
+          <CustomButton
+            text="Log In"
+            textColor="background.paper"
+            handleClick={logInputValue}
+            bgColor="secondary.main"
+            hoverColor="primary.main"
+            height="36px"
+            border="secondary.main"
+          />
+        </Stack>
+
+        <div className="flex mt-8 gap-4">
+          <Typography>Don't have an account?</Typography>
+          <Link className="text-blue-500" href="/signup">
+            Sign up
+          </Link>
+        </div>
+      </div>
+
+      <div className="flex w-[50%] bg-blue-600"></div>
+    </div>
   );
 }

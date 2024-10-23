@@ -26,6 +26,7 @@ export default function Login() {
         sx={{ width: "334px", display: "flex", justifyContent: "center" }}
       >
         <Input
+          name=""
           label="Нэр"
           placeholder="Нэр"
           helperText=""
@@ -34,6 +35,7 @@ export default function Login() {
           }}
         />
         <Input
+          name=""
           label="Нууц үг"
           placeholder="Нууц үг"
           helperText=""

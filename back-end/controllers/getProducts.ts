@@ -1,26 +1,15 @@
-import { Request, Response } from "express";
-import { ProductsModel } from "../src/database/models/product.model"; // Assuming your Mongoose model is UserModel
+import { ProductsModel } from "../src/database/models/product.model";
 
-export const getProducts = async (req: Request, res: Response) => {
-  const { userId } = res.locals; // Assuming userId is stored in res.locals after authentication middleware
-
+export const getProducts = async (req: any, res: any): Promise<void> => {
   try {
-    const user = await ProductsModel.findOne(
-      { _id: userId },
-      "images size"
-    ).exec();
+    const images = await ProductsModel.find();
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    if (!images.length) {
+      return res.status(404).json({ message: "No images found" });
     }
 
-    const { images, size } = user;
-    res.json({
-      images,
-      size,
-    });
+    res.status(200).json(images);
   } catch (error) {
-    console.error("Error fetching user products:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ error: "Internal server error" });
   }
 };

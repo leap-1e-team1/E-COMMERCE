@@ -8,9 +8,11 @@ type InputProps = {
   helperText: string;
   inputHandler: (e: any) => void;
   sx?: any;
+  name: any;
 };
 
 export const Input = ({
+  name,
   label,
   placeholder,
   helperText,
@@ -22,7 +24,7 @@ export const Input = ({
       label={label}
       variant="outlined"
       sx={sx}
-      //   sx={{ py: 2, px: 3, height: "36px" }}
+      name={name}
       placeholder={placeholder}
       helperText={helperText}
       onChange={inputHandler}

@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import localFont from "next/font/local";
 import "./globals.css";
 import { MuiProvider } from "@/provider/MuiProvider";
+import { AncestorProvider } from "@/provider/UserProvider"; // Import the UserProvider
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Box } from "@mui/material";
@@ -14,39 +15,46 @@ const geistSans = localFont({
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface RootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   const pathname = usePathname();
-  console.log(pathname, " pathname pathname pathname pathname");
+  console.log(pathname, "pathname");
+
+  const isAdminRoute = pathname.includes("admin");
 
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <MuiProvider>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "100vh",
-              backgroundColor: "#F7F7F8",
-            }}
-          >
-            {pathname.includes("admin") ? <></> : <Header />}
-            <Box component="main" sx={{ flex: 1 }}>
-              {children}
+        <AncestorProvider>
+          {" "}
+          {/* Wrap the MuiProvider with AncestorProvider */}
+          <MuiProvider>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100vh",
+                backgroundColor: "#F7F7F8",
+              }}
+            >
+              {!isAdminRoute && <Header />}
+              <Box component="main" sx={{ flex: 1 }}>
+                {children}
+              </Box>
+              {!isAdminRoute && <Footer />}
             </Box>
-            {pathname.includes("admin") ? <></> : <Footer />}
-          </Box>
-        </MuiProvider>
+          </MuiProvider>
+        </AncestorProvider>
         <Toaster />
       </body>
     </html>
