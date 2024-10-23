@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import { Stack, Typography, IconButton, Button } from "@mui/material";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -14,7 +13,7 @@ const initialProducts = [
   { id: 4, name: "Chunky Glyph Tee", price: 120000, quantity: 1 },
 ];
 
-export default function Carts() {
+export default function Delivery() {
   const [products, setProducts] = useState(initialProducts);
 
   const handleQuantityChange = (productId: number, action: string) => {
@@ -38,14 +37,13 @@ export default function Carts() {
       prevProducts.filter((product) => product.id !== productId)
     );
   };
-
   return (
     <Box
       sx={{
         bgcolor: "primary.contrastText",
         m: 1,
-        width: { xs: "100%", md: 638 },
-        height: "664px",
+        width: { xs: "100%", md: 333 },
+        height: "448px",
         borderRadius: "16px",
         padding: "20px",
         borderColor: "white",
@@ -63,6 +61,7 @@ export default function Carts() {
       <Box
         sx={{
           display: "flex",
+          justifyContent: "space-between",
           flexDirection: "column",
           gap: "16px",
           overflowY: "auto",
@@ -74,6 +73,8 @@ export default function Carts() {
             sx={{
               display: "flex",
               justifyContent: "space-between",
+              height: "80px",
+              width: "285px",
               alignItems: "center",
               padding: "16px",
               border: "1px solid #E0E0E0",
@@ -85,8 +86,8 @@ export default function Carts() {
                 style={{ borderRadius: "16px" }}
                 src="avatar.png"
                 alt="product"
-                width={100}
-                height={100}
+                width={80}
+                height={80}
               />
 
               <Stack>
@@ -121,9 +122,7 @@ export default function Carts() {
             <IconButton
               size="large"
               onClick={() => handleRemoveProduct(product.id)}
-            >
-              <DeleteIcon />
-            </IconButton>
+            ></IconButton>
           </Box>
         ))}
       </Box>
@@ -131,41 +130,18 @@ export default function Carts() {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-          mt: 4,
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="body1">Нийт төлөх дүн:</Typography>
-          <Typography variant="h6">
-            {products.reduce(
-              (total, product) => total + product.price * product.quantity,
-              0
-            )}
-            ₮
-          </Typography>
-        </Box>
-
-        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <CustomButton
-            text="Худалдан авах"
-            textColor="primary.contrastText"
-            handleClick={() => {
-              console.log("aa");
-            }}
-            bgColor="secondary.main"
-            hoverColor=""
-            height="36px"
-            border="secondary.main"
-          />
-        </Box>
+        <Typography variant="body1">Нийт төлөх дүн:</Typography>
+        <Typography variant="h6">
+          {products.reduce(
+            (total, product) => total + product.price * product.quantity,
+            0
+          )}
+          ₮
+        </Typography>
       </Box>
     </Box>
   );
