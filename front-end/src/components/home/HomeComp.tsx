@@ -137,7 +137,6 @@ export const HomeComp = () => {
     <Stack
       gap={"16px"}
       direction={"column"}
-      mt={"67px"}
       sx={{ width: "100vw" }}
       alignItems={"center"}
     >

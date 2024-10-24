@@ -36,14 +36,6 @@ export default function Home() {
 
   return (
     <Stack sx={{ minHeight: "100vh" }}>
-      <Typography className="mt-[350px]" color="error">
-        Temdeg orsn baih ystoi
-        <button onClick={handleSubmit}>asd</button>
-        {asd.map((el, index) => (
-          <img key={index} src={el.images} />
-        ))}
-      </Typography>
-
       <Stack sx={{ minHeight: "100vh", display: "flex", direction: "column" }}>
         <HomeComp />
       </Stack>

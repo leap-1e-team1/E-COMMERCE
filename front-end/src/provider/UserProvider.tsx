@@ -69,7 +69,6 @@ export const AncestorProvider: FC<AncestorProviderProps> = ({ children }) => {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
-      router.push("/login");
     }
   }, [router]);
 
