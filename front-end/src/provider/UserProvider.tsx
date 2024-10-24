@@ -18,7 +18,7 @@ interface UserContextType {
 }
 
 interface CloudinaryUploadResponse {
-  secure_url: string;
+  secure_url: string; // Assuming this is part of the response
   token: string;
 }
 
@@ -40,14 +40,16 @@ export const AncestorProvider: FC<AncestorProviderProps> = ({ children }) => {
   ): Promise<void> => {
     try {
       const res = await axios.post<CloudinaryUploadResponse>(
-        "http://localhost:8000/login",
+        "http://localhost:8000/login", // Corrected the double slashes
         { email, password }
       );
 
+      // Save the token in local storage
       window.localStorage.setItem("token", res.data.token);
-      setIsLoggedIn(true);
-      router.push("/dashboard");
+      setIsLoggedIn(true); // Update logged-in status
+      router.push("/dashboard"); // Redirect to a different page upon successful login
     } catch (error: any) {
+      // Improved error handling
       const message =
         error.response?.data?.message || "Login failed. Please try again.";
       throw new Error(message);
@@ -77,6 +79,7 @@ export const AncestorProvider: FC<AncestorProviderProps> = ({ children }) => {
   );
 };
 
+// Updated useUser hook to avoid returning null
 export const useUser = (): UserContextType => {
   const user = useContext(UserContext);
   if (!user) {

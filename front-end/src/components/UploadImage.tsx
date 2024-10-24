@@ -19,8 +19,53 @@ const UploadImage = ({
   images,
   onImageChange,
 }: UploadImageProps) => {
+  // const [uploadImages, setUploadImages] = useState<File[]>([]);
+  // const [images, setImages] = useState<(string | null)[]>([null, null, null]);
+  // // const [imagesURL, setImagesURL] = useState<string[]>([]);
+
+  // const cloud_name = "dvs0wjgcv";
+  // const present_name = "tsagaanaa";
+  // const url = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
+
+  // const handleImageUpload = async () => {
+  //   try {
+  //     await Promise.all(
+  //       uploadImages.map(async (image) => {
+  //         const formData = new FormData();
+  //         formData.append("file", image);
+  //         formData.append("upload_preset", present_name);
+  //         const res = await axios.post(url, formData, {
+  //           headers: {
+  //             "Content-Type": "multipart/form-data",
+  //           },
+  //         });
+  //         setImagesURL((prev) => [...prev, res.data.secure_url]);
+  //       })
+  //     );
+  //     setUploadImages([]);
+  //     console.log(imagesURL);
+
+  //     setImages([null, null, null]);
+  //   } catch (error) {
+  //     console.error("Image upload failed:", error);
+  //   }
+  // };
+  // // zurag songohod frontend dr haruulj bui function
+
+  // const onImageChange =
+  //   (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
+  //     if (event.target.files && event.target.files[0]) {
+  //       const file = event.target.files[0];
+  //       setUploadImages([...uploadImages, file]);
+
+  //       const newImages = [...images];
+  //       newImages[index] = URL.createObjectURL(event.target.files[0]);
+  //       setImages(newImages);
+  //     }
+  //   };
+
   return (
-    <div className="flex flex-col w-[563px] h-[213px] rounded-xl bg-[white] mt-6 ">
+    <div className="flex flex-col w-[563px] h-[213px] rounded-xl bg-[#f3e9e9] mt-6 ">
       <h1 className="flex text-lg font-semibold mt-6 ml-6 ">
         Бүтээгдэхүүний зураг
       </h1>

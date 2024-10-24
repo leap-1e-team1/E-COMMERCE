@@ -4,49 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Stack } from "@mui/material";
 import { Input } from "@/components/Input";
 import UploadImage from "./UploadImage";
+import ProductCategory from "./ProductCategory";
+import ProductSize from "./ProductSize";
+import ProductAddColor from "./ProductAddColor";
 import axios from "axios";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 interface CloudinaryUploadResponse {
   secure_url: string;
-  name: string;
 }
 
 export const ProductDescription = () => {
   const [imagesURL, setImagesURL] = useState<string[]>([]);
   const [uploadImages, setUploadImages] = useState<File[]>([]);
   const [images, setImages] = useState<(string | null)[]>([null, null, null]);
-  const [selectedSize, setSelectedSize] = useState<string>("S");
-
-  const [inputValue, setInputValue] = useState({
-    productname: "",
-    Nemelt: "",
-    barcode: "",
-    price: "",
-    selectedSize: "",
-    productName: "",
-    description: "",
-    remainingQuantity: "",
-    Subclass: "",
-    color: "",
-    images: "",
-    type: "",
-    category: "",
-  });
-
-  const sizes: string[] = ["S", "M", "L", "XL", "2XL"];
-
-  const handleSizeSelect = (size: string) => {
-    setSelectedSize(size);
-  };
 
   const cloud_name = "dvs0wjgcv";
   const upload_preset = "tsagaanaa";
@@ -70,7 +39,7 @@ export const ProductDescription = () => {
             }
           );
 
-          return res.data.secure_url;
+          return res.data.secure_url; // TypeScript now recognizes this as a string
         })
       );
 
@@ -81,80 +50,34 @@ export const ProductDescription = () => {
     }
   };
 
-  const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-
-    setInputValue((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleCategoryChange = (value: string) => {
-    setInputValue((prev) => ({ ...prev, category: value }));
-  };
-
-  const handleSubCategoryChange = (value: string) => {
-    setInputValue((prev) => ({ ...prev, Subclass: value }));
-  };
-
-  const handleColorChange = (value: string) => {
-    setInputValue((prev) => ({ ...prev, color: value }));
-  };
-
-  const addProduct = async (event: any) => {
-    event.preventDefault();
-    setSelectedSize("S");
-
-    console.log("", inputValue);
-
+  const addProduct = async () => {
     try {
       const uploadedImageUrls = await handleImageUpload();
       const response = await axios.post(
         "http://localhost:8000/product",
         {
           images: uploadedImageUrls,
-          productName: inputValue.productname,
-          description: inputValue.Nemelt,
-          selectedSize,
-          barcode: inputValue.barcode,
-          price: inputValue.price,
-          remainingQuantity: inputValue.remainingQuantity,
-          categoryName: inputValue.category,
-          Subclass: inputValue.Subclass,
-          color: inputValue.color,
-          type: inputValue.type,
+          selectedSize: "M",
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Replace with your JWT key
           },
         }
       );
 
+      // Clear uploaded images after successful product addition
       setImagesURL([]);
       setUploadImages([]);
       setImages([null, null, null]);
-      setInputValue({
-        productname: "",
-        Nemelt: "",
-        barcode: "",
-        price: "",
-        selectedSize: "S",
-        productName: "",
-        description: "",
-        remainingQuantity: "",
-        Subclass: "",
-        color: "",
-        images: "",
-        type: "",
-        category: "",
-      });
 
-      console.log("Product added successfully:", inputValue.category);
+      console.log("Product added successfully:", response.data);
     } catch (error) {
       console.error("Error while adding product:", error);
     }
   };
 
+  // Handle image selection and display the preview in the frontend
   const onImageChange =
     (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
       if (event.target.files && event.target.files[0]) {
@@ -170,7 +93,7 @@ export const ProductDescription = () => {
   return (
     <div className="flex flex-row">
       <div className="mt-8 ml-8 gap-6 flex flex-col">
-        <div className="w-[563px] h-[312px] text-[#121316] border rounded-xl bg-[white] pt-6 pl-6">
+        <div className="w-[563px] h-[312px] text-[#121316] border rounded-xl bg-[#e3d7d7] pt-6 pl-6">
           <h1 className="text-sm font-semibold">Бүтээгдэхүүний нэр</h1>
           <Stack
             sx={{
@@ -180,12 +103,10 @@ export const ProductDescription = () => {
             }}
           >
             <Input
-              value={inputValue.productname}
-              name="productname"
               label="Нэр"
               placeholder="Нэр"
               helperText=""
-              inputHandler={inputHandler}
+              inputHandler={(e: any) => {}}
             />
           </Stack>
           <h1 className="text-sm font-semibold mt-8">Нэмэлт мэдээлэл</h1>
@@ -198,29 +119,23 @@ export const ProductDescription = () => {
             }}
           >
             <Input
-              value={inputValue.Nemelt}
-              name="Nemelt"
               label=""
               placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
               helperText=""
-              inputHandler={inputHandler}
+              inputHandler={() => {
+                console.log();
+              }}
             />
           </Stack>
           <h1 className="text-sm font-semibold">Барааны код</h1>
-          <Stack
-            sx={{
-              width: "515px",
-              height: "44px",
-              paddingTop: "8px",
-            }}
-          >
+          <Stack sx={{ width: "515px", height: "44px", paddingTop: "8px" }}>
             <Input
-              value={inputValue.barcode}
-              name="barcode"
               label=""
               placeholder="#12345678"
               helperText=""
-              inputHandler={inputHandler}
+              inputHandler={() => {
+                console.log();
+              }}
             />
           </Stack>
         </div>
@@ -230,17 +145,17 @@ export const ProductDescription = () => {
           images={images}
           onImageChange={onImageChange}
         />
-        <div className="flex flex-row gap-4 text-sm font-semibold text-[#121316] w-[563px] h-[132px] bg-[white] pt-6 pl-6 border rounded-xl mt-6">
+        <div className="flex flex-row gap-4 text-sm font-semibold text-[#121316] w-[563px] h-[132px] bg-[#e3d7d7] pt-6 pl-6 border rounded-xl mt-6">
           <div className="flex flex-col gap-2">
             <h1>Үндсэн үнэ</h1>
             <Stack sx={{ width: "249.5px", height: "56px", paddingTop: "8px" }}>
               <Input
-                value={inputValue.price}
-                name="price"
                 label=""
                 placeholder="Үндсэн үнэ"
                 helperText=""
-                inputHandler={inputHandler}
+                inputHandler={() => {
+                  console.log();
+                }}
               />
             </Stack>
           </div>
@@ -248,162 +163,38 @@ export const ProductDescription = () => {
             <h1>Үлдэгдэл тоо ширхэг</h1>
             <Stack sx={{ width: "249.5px", height: "56px", paddingTop: "8px" }}>
               <Input
-                value={inputValue.remainingQuantity}
-                name="remainingQuantity"
                 label=""
                 placeholder="Үлдэгдэл тоо ширхэг"
                 helperText=""
-                inputHandler={inputHandler}
+                inputHandler={() => {
+                  console.log();
+                }}
               />
             </Stack>
           </div>
         </div>
       </div>
-      <div>
-        <Stack
-          sx={{
-            paddingTop: "24px",
-            paddingLeft: "24px",
-            width: "573px",
-            height: "232px",
-            borderRadius: "8px",
-            bgcolor: "#fff",
-            gap: "12px",
-            marginTop: "34px",
-            marginLeft: "26px",
-          }}
-        >
-          <p className="font-bold text-sm">Ерөнхий ангилал</p>
-          <Select
-            onValueChange={handleCategoryChange}
-            name="categoryName"
-            value={inputValue.category}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Сонгох" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <p className="font-bold text-sm">Дэд ангилал</p>
-
-          <Select
-            onValueChange={handleSubCategoryChange}
-            name="Subclass"
-            value={inputValue.Subclass}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Сонгох" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Fruits</SelectLabel>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </Stack>
-        <Stack
-          sx={{
-            paddingTop: "24px",
-            paddingLeft: "24px",
-            width: "573px",
-            height: "232px",
-            borderRadius: "8px",
-            bgcolor: "#fff",
-            gap: "12px",
-            marginTop: "34px",
-            marginLeft: "26px",
-          }}
-        >
-          <p className="font-bold text-xl">Төрөл</p>
-
-          <div className="flex w-[176px] gap-1 h-[32px]">
-            {sizes.map((size) => (
-              <Button
-                key={size}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSizeSelect(size);
-                }}
-                className={`w-8 h-8 rounded-full border-[1px] flex items-center justify-center text-xs
-            ${
-              selectedSize === size
-                ? "bg-black text-white"
-                : "bg-white border-gray-400 text-black"
-            }`}
-              >
-                {size}
-              </Button>
-            ))}
-          </div>
-          <Select
-            onValueChange={handleColorChange}
-            name="color"
-            value={inputValue.color}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Сонгох" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Fruits</SelectLabel>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </Stack>
-        <Stack
-          sx={{
-            paddingTop: "24px",
-            paddingLeft: "24px",
-            width: "573px",
-            height: "218px",
-            borderRadius: "8px",
-            bgcolor: "#fff",
-            gap: "12px",
-            marginTop: "34px",
-            marginLeft: "26px",
-          }}
-        >
-          <p className="font-bold text-xl">Таг</p>
-
-          <Stack className="w-[510px] h-[44px]">
-            <Input
-              value={inputValue.type}
-              name="type"
-              label=""
-              placeholder="Таг нэмэх..."
-              helperText=""
-              inputHandler={inputHandler}
-            />
-          </Stack>
-          <p className="mt-4 text-sm text-gray-400">
-            Санал болгох: Гутал , Цүнх , Эмэгтэй{" "}
-          </p>
-        </Stack>
-        <Button
-          onClick={addProduct}
-          className="bg-black w-[121px] hover:bg-slate-950 mt-8 ml-[472px] text-white h-[56px] rounded-xl"
-        >
-          Нийтлэх
-        </Button>
-      </div>
+      <Stack
+        sx={{
+          width: "573px",
+          height: "232px",
+          borderRadius: "8px",
+          bgcolor: "#e3d7d7",
+          gap: "12px",
+          marginTop: "34px",
+          marginLeft: "26px",
+        }}
+      >
+        <ProductCategory />
+        <ProductSize />
+        <ProductAddColor />
+      </Stack>
+      <Button
+        onClick={addProduct}
+        className="bg-blue-600 w-[175px] hover:bg-blue-700 h-[36px] rounded-2xl"
+      >
+        Үнэлэх
+      </Button>
     </div>
   );
 };

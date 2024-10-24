@@ -1,12 +1,9 @@
+import Category from "@/components/Category";
 
-import Category1 from "@/components/Category";
-
-const page = () => {
+export default function CategoryPage() {
   return (
-    <div>
-      <Category1 />
+    <div className="  flex justify-center ">
+      <Category />
     </div>
   );
-};
-
-export default page;
+}

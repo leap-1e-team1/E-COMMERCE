@@ -18,73 +18,56 @@ export const Header = () => {
   const { isLoggedIn } = useUser();
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        width: "100%",
-        position: "fixed",
-        top: 0,
-        bgcolor: "primary.main",
-        gap: "12px",
-        zIndex: 100,
-        height: "68px",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Stack
-        direction="row"
+    <div>
+      <Box
         sx={{
-          width: "1040px",
-          justifyContent: "space-between",
-          paddingLeft: "8px",
+          display: "flex",
+          width: "100%",
+          position: "fixed",
+          top: 0,
+          bgcolor: "primary.main",
+          gap: "12px",
+          zIndex: 100,
+          height: "68px",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Stack
           direction="row"
-          alignItems="center"
-          justifyContent={"center"}
-          sx={{ gap: "16px" }}
+          sx={{
+            width: "1040px",
+            justifyContent: "space-between",
+            paddingLeft: "8px",
+          }}
         >
-          <Stack direction="row" alignItems="center" sx={{ gap: "6px" }}>
-            <ImageList
-              sx={{ alignItems: "center", width: "32px", height: "27.39px" }}
-            >
-              <img src="/Vector.png" alt="" />
-            </ImageList>
-            <Link href="/">
-              <Typography
-                style={{ cursor: "pointer" }}
-                sx={{ color: "primary.contrastText" }}
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent={"center"}
+            sx={{ gap: "16px" }}
+          >
+            <Stack direction="row" alignItems="center" sx={{ gap: "6px" }}>
+              <ImageList
+                sx={{ alignItems: "center", width: "32px", height: "27.39px" }}
               >
-                E-COMMERCE
+                <img src="/Vector.png" alt="" />
+              </ImageList>
+              <Link href="/">
+                <Typography
+                  style={{ cursor: "pointer" }}
+                  sx={{ color: "primary.contrastText" }}
+                >
+                  E-COMMERCE
+                </Typography>
+              </Link>
+            </Stack>
+            <Link style={{ textDecoration: "none" }} href="./">
+              <Typography sx={{ color: "primary.contrastText" }}>
+                АНГИЛАЛ
               </Typography>
             </Link>
           </Stack>
-
-          <Link style={{ textDecoration: "none" }} href="/category">
-            <Typography sx={{ color: "primary.contrastText" }}>
-              АНГИЛАЛ
-            </Typography>
-          </Link>
-        </Stack>
-        <Stack sx={{ alignItems: "center", justifyContent: "center" }}>
-          <Search />
-        </Stack>
-        <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
-          <FavoriteBorderIcon sx={{ color: "white" }} />
-          <LocalGroceryStoreIcon sx={{ color: "white" }} />
-          <Link href="/register">
-            <Button className=" w-[101px] text-white border-[1px] border-blue-600 hover:border-blue-700  h-[36px] rounded-2xl">
-              Бүртгүүлэх
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button className="bg-blue-600 w-[82px] hover:bg-blue-700 h-[36px] rounded-3xl">
-              Нэвтрэх
-            </Button>
-          </Link>
-
           <Stack sx={{ alignItems: "center", justifyContent: "center" }}>
             <Search />
           </Stack>
@@ -111,9 +94,8 @@ export const Header = () => {
               </Stack>
             )}
           </Stack>
-
         </Stack>
-      </Stack>
-    </Box>
+      </Box>
+    </div>
   );
 };

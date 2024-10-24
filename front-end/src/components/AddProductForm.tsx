@@ -3,7 +3,7 @@ import axios from "axios";
 
 interface Product {
   size: string;
-  images: string[];
+  images: string[]; // Assuming images are stored as URLs or paths
 }
 
 const ProductList: React.FC = () => {
@@ -13,15 +13,15 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token"); // Assuming you have a JWT token stored
         console.log(token);
 
-        const response = await axios.get<Product[]>("/api/products", {
+        const response = await axios.get("/api/products", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setProducts(response.data);
+        setProducts(response.data); // Set products in state
       } catch (error) {
         setError("Failed to fetch products");
       }

@@ -7,8 +7,6 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
-import { Stack } from "@mui/system";
-import { Input } from "./Input";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -38,8 +36,7 @@ export default function ProductAddColor() {
 
   return (
     <div className=" ml-6 mt-2">
-      <div className="flex flex-col gap-12 mt-2">
-        <div className="font-bold">Төрөл</div>
+      <div className="mt-2">
         <FormControl sx={{ width: "250px", height: "18px" }}>
           <InputLabel id="demo-multiple-checkbox-label">Өнгө</InputLabel>
           <Select
@@ -60,50 +57,6 @@ export default function ProductAddColor() {
             ))}
           </Select>
         </FormControl>
-        <FormControl sx={{ width: "250px", height: "18px" }}>
-          <InputLabel id="demo-multiple-checkbox-label">Хэмжээ</InputLabel>
-          <Select
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={colorName}
-            onChange={handleChange}
-            input={<OutlinedInput label="Сонгох" />}
-            renderValue={(selected) => selected.join(", ")}
-            MenuProps={MenuProps}
-          >
-            {names.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={colorName.includes(name)} />
-                <ListItemText primary={name} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-      <div className="flex flex-col gap-2 mt-[70px]">
-        <div className="font-bold">Төрөл</div>
-        <Stack
-          sx={{
-            width: "515px",
-            height: "72px",
-            fontSize: "18px",
-            fontWeight: "400",
-          }}
-        >
-          <Input
-            name=""
-            label=""
-            placeholder="Таг нэмэх..."
-            helperText=""
-            inputHandler={() => {
-              console.log();
-            }}
-          />
-          <p className="mt-2 text-sm text-gray-400">
-            Санал болгох: Гутал , Цүнх , Эмэгтэй{" "}
-          </p>
-        </Stack>
       </div>
     </div>
   );
