@@ -137,7 +137,6 @@ export const HomeComp = () => {
     <Stack
       gap={"16px"}
       direction={"column"}
-      mt={"67px"}
       sx={{ width: "100vw" }}
       alignItems={"center"}
     >
@@ -170,7 +169,7 @@ export const HomeComp = () => {
             return (
               <Link
                 key={index}
-                href={"/user"}
+                href={"/productdetail"}
                 onMouseEnter={() => {
                   hoverHandler(index);
                 }}

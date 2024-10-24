@@ -1,3 +1,4 @@
+
 import Category1 from "@/components/Category";
 
 const page = () => {

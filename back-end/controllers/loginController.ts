@@ -23,7 +23,7 @@ export const loginController = async (req: any, res: any) => {
       {
         userId: user._id,
         email: user.email,
-        firstName: user.firstName,
+        username: user.username,
         isAdmin: user.isAdmin,
       },
       SECRET_KEY,

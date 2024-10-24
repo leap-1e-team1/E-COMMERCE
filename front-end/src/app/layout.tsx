@@ -21,7 +21,7 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
-
+// aa
 interface RootLayoutProps {
   children: React.ReactNode;
 }
@@ -46,13 +46,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
               }}
             >
               <Box component="main" sx={{ flex: 1 }}>
+
                 {children}
               </Box>
-              {!isAdminRoute && <Footer />}
+              {pathname.includes("admin") ? <></> : <Footer />}
             </Box>
           </MuiProvider>
+          <Toaster />
         </AncestorProvider>
-        <Toaster />
       </body>
     </html>
   );
