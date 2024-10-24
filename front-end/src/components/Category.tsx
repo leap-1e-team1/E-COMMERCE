@@ -1,27 +1,74 @@
 "use client";
-import * as React from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 import { CategoryImages } from "./CategoryImages";
-
-const types = ["Малгай", "Усны сав", "T-shirt", "Hoodie", "Tee", "Цүнх"];
-const sizes = ["Free", "S", "M", "L", "XL", "2XL", "3XL"];
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Category() {
+  const [sizeFilter, setSizeFilter] = useState<any>({
+    s: false,
+    m: false,
+    l: false,
+    xl: false,
+    xxl: false,
+    xxxl: false,
+  });
+
+  const [typesFilter, setTypesFilter] = useState<any>({
+    hat: false,
+    bottle: false,
+    tshirt: false,
+    hoodie: false,
+    tee: false,
+    bag: false,
+  });
+
+  const { push } = useRouter();
+  const pathname = usePathname();
+
+  const filterHandler = (event: any) => {
+    const { name, checked } = event.target;
+
+    setSizeFilter((prev: any) => ({ ...prev, [name]: checked }));
+  };
+
+  const sizeFilterHandler = (event: any) => {
+    const { name, checked } = event.target;
+
+    setTypesFilter((prev: any) => ({ ...prev, [name]: checked }));
+  };
+
+  // useEffect(() => {
+  //   // push(`${pathname}?filter=${filter}`);
+  // }, [typesFilter, sizeFilter]);
+
   return (
     <div className="mt-[60px] mb-[60px] flex flex-row  gap-5">
       <div className="flex flex-col w-[245px] gap-12 ">
         <div className="flex flex-col gap-4 ">
           <h1 className="text-base font-semibold">Ангилал</h1>
+
+          {JSON.stringify(typesFilter)}
+          {JSON.stringify(sizeFilter)}
+
           <div className=" text-sm font-medium ">
-            {types.map((el, index) => {
+            {Object.keys(typesFilter).map((el, index) => {
               return (
                 <FormGroup key={index}>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
+                    control={
+                      <Checkbox
+                        name={el}
+                        defaultChecked
+                        checked={typesFilter[el]}
+                        onClick={sizeFilterHandler}
+                      />
+                    }
                     label={el}
+                    value={el}
                   />
                 </FormGroup>
               );
@@ -31,11 +78,18 @@ export default function Category() {
         <div className="flex flex-col gap-4 ">
           <h1 className="text-base font-semibold">Хэмжээ</h1>
           <div className=" text-sm font-medium ">
-            {sizes.map((el, index) => {
+            {Object.keys(sizeFilter).map((el: any, index: number) => {
               return (
                 <FormGroup key={index}>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
+                    control={
+                      <Checkbox
+                        name={el}
+                        defaultChecked
+                        checked={sizeFilter[el]}
+                        onClick={filterHandler}
+                      />
+                    }
                     label={el}
                   />
                 </FormGroup>
