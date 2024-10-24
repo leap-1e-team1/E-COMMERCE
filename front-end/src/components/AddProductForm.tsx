@@ -21,7 +21,7 @@ const ProductList: React.FC = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setProducts(response.data); // Set products in state
+        setProducts(response.data);
       } catch (error) {
         setError("Failed to fetch products");
       }

@@ -2,11 +2,13 @@
 
 import { Image } from "@mui/icons-material";
 
-import { Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Link from "next/link";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import { useState } from "react";
+import icon from "@mui/icons-material/icon";
 
 export const HomeComp = () => {
   const [coverImage, setCoverImage] = useState(
@@ -185,7 +187,7 @@ export const HomeComp = () => {
                     width: "245px",
                   }}
                 >
-                  <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden">
+                  <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden flex justify-end">
                     <img
                       src={productImg}
                       className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
@@ -193,6 +195,16 @@ export const HomeComp = () => {
                       }`}
                       alt=""
                     />
+                    <Button
+                      sx={{
+                        position: "absolute",
+                        width: "24px",
+                        height: "24px",
+                        top: "575px",
+                      }}
+                    >
+                      <FavoriteBorderIcon sx={{ color: "black" }} />
+                    </Button>
                   </div>
 
                   <Stack>
@@ -239,7 +251,7 @@ export const HomeComp = () => {
                       mb: "50px",
                     }}
                   >
-                    <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden">
+                    <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden flex justify-end">
                       <img
                         src={productImg}
                         className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
@@ -247,6 +259,16 @@ export const HomeComp = () => {
                         }`}
                         alt=""
                       />
+                      <Button
+                        sx={{
+                          width: "24px",
+                          height: "24px",
+                          position: "absolute",
+                          top: "1010px",
+                        }}
+                      >
+                        <FavoriteBorderIcon sx={{ color: "black" }} />
+                      </Button>
                     </div>
 
                     <Stack>
@@ -378,7 +400,7 @@ export const HomeComp = () => {
                       width: "245px",
                     }}
                   >
-                    <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden">
+                    <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden flex justify-end">
                       <img
                         src={productImg}
                         className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
@@ -386,6 +408,16 @@ export const HomeComp = () => {
                         }`}
                         alt=""
                       />
+                      <Button
+                        sx={{
+                          width: "24px",
+                          height: "24px",
+                          position: "absolute",
+                          top: "1810px",
+                        }}
+                      >
+                        <FavoriteBorderIcon sx={{ color: "black" }} />
+                      </Button>
                     </div>
 
                     <Stack>
@@ -418,12 +450,12 @@ export const HomeComp = () => {
                 <Stack
                   sx={{
                     display: "flex",
-                    flexDirection: "colmun",
+                    flexDirection: "column",
                     gap: "8px",
                     width: "245px",
                   }}
                 >
-                  <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden">
+                  <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden flex justify-end">
                     <img
                       src={productImg}
                       className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
@@ -431,6 +463,26 @@ export const HomeComp = () => {
                       }`}
                       alt=""
                     />
+                    <Button
+                      sx={{
+                        width: "24px",
+                        height: "24px",
+                        position: "absolute",
+                        top: "2300px",
+                      }}
+                    >
+                      <FavoriteBorderIcon sx={{ color: "black" }} />
+                    </Button>
+                    <Button
+                      sx={{
+                        width: "24px",
+                        height: "24px",
+                        position: "absolute",
+                        top: "2738px",
+                      }}
+                    >
+                      <FavoriteBorderIcon sx={{ color: "black" }} />
+                    </Button>
                   </div>
 
                   <Stack>
