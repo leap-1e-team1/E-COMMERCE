@@ -4,14 +4,31 @@ import { Image } from "@mui/icons-material";
 
 import { Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import Link from "next/link";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const HomeComp = () => {
   const [coverImage, setCoverImage] = useState(
     "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792"
   );
+
+  useEffect(() => {
+    const handleSubmit = async () => {
+      // try {
+      //   const { data }: any = await axios.get(
+      //     "http://localhost:8000/login",
+      //     {}
+      //   );
+      // } catch (error: any) {
+      //   const message = error.response?.data?.message || "Error login";
+      //   alert(message);
+      //   console.log(error);
+      // }
+    };
+    handleSubmit();
+  });
 
   const products = [
     {

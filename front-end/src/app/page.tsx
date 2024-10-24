@@ -10,9 +10,7 @@ import { HomeComp } from "@/components/home/HomeComp";
 
 export default function Home() {
   return (
-
     <Stack>
-
       <Stack sx={{ minHeight: "100vh", display: "flex", direction: "column" }}>
         <HomeComp />
       </Stack>
