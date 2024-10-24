@@ -35,23 +35,25 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <MuiProvider>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "100vh",
-              backgroundColor: "#F7F7F8",
-            }}
-          >
-            {pathname.includes("admin") ? <></> : <Header />}
-            <Box component="main" sx={{ flex: 1, marginTop: "68px" }}>
-              {children}
+        <AncestorProvider>
+          <MuiProvider>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100vh",
+                backgroundColor: "#F7F7F8",
+              }}
+            >
+              {pathname.includes("admin") ? <></> : <Header />}
+              <Box component="main" sx={{ flex: 1, marginTop: "68px" }}>
+                {children}
+              </Box>
+              {pathname.includes("admin") ? <></> : <Footer />}
             </Box>
-            {pathname.includes("admin") ? <></> : <Footer />}
-          </Box>
-        </MuiProvider>
-        <Toaster />
+          </MuiProvider>
+          <Toaster />
+        </AncestorProvider>
       </body>
     </html>
   );

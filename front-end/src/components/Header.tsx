@@ -6,12 +6,17 @@ import Link from "next/link";
 import { Search } from "./Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import { CustomButton } from "./Button";
-import { cursorTo } from "readline";
 import { Button } from "@/components/ui/button";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useUser } from "@/provider/UserProvider";
 
 export const Header = () => {
+  const router = useRouter();
+  const { isLoggedIn } = useUser();
+
   return (
     <div>
       <Box
@@ -69,16 +74,25 @@ export const Header = () => {
           <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
             <FavoriteBorderIcon sx={{ color: "white" }} />
             <LocalGroceryStoreIcon sx={{ color: "white" }} />
-            <Link href="/register">
-              <Button className=" w-[101px] border-[1px] border-blue-600 hover:border-blue-700  h-[36px] rounded-2xl">
-                Бүртгүүлэх
-              </Button>
-            </Link>
-            <Link href="/login">
-              <Button className="bg-blue-600 w-[82px] hover:bg-blue-700 h-[36px] rounded-3xl">
-                Нэвтрэх
-              </Button>
-            </Link>
+
+            {isLoggedIn ? (
+              <Link href={"/user"}>
+                <PermIdentityIcon sx={{ color: "white" }} />
+              </Link>
+            ) : (
+              <Stack direction="row" alignItems="center" sx={{ gap: "8px" }}>
+                <Link href="/register">
+                  <Button className=" w-[101px] border-[1px] text-white border-blue-600 hover:border-blue-700  h-[36px] rounded-2xl">
+                    Бүртгүүлэх
+                  </Button>
+                </Link>
+                <Link href="/login">
+                  <Button className="bg-blue-600 w-[82px] text-white hover:bg-blue-700 h-[36px] rounded-3xl">
+                    Нэвтрэх
+                  </Button>
+                </Link>
+              </Stack>
+            )}
           </Stack>
         </Stack>
       </Box>

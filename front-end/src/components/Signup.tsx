@@ -1,7 +1,8 @@
 "use client";
+import { useUser } from "@/provider/UserProvider";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Signup: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -10,6 +11,8 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState("");
   const [isSignedUp, setIsSignedUp] = useState(false);
   const router = useRouter();
+
+  const { isLoggedIn } = useUser();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +34,12 @@ const Signup: React.FC = () => {
       alert(message);
     }
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  });
 
   return (
     <div>
