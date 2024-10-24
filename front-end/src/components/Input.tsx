@@ -8,6 +8,7 @@ type InputProps = {
   helperText: string;
   inputHandler: (e: any) => void;
   sx?: any;
+  value: string;
   name: any;
 };
 
@@ -17,10 +18,12 @@ export const Input = ({
   placeholder,
   helperText,
   inputHandler,
+  value,
   sx,
 }: InputProps) => {
   return (
     <TextField
+      value={value}
       label={label}
       variant="outlined"
       sx={sx}

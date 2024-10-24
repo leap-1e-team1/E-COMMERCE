@@ -3,12 +3,13 @@ import { Typography, Stack, Box, List, ListItem } from "@mui/material";
 import { CustomButton } from "./Button";
 import { Input } from "./Input";
 
-type NewPassComponentsPropsType = { 
+type NewPassComponentsPropsType = {
   continueHandler: () => void;
-}
+};
 
-
-export default function NewPass({ continueHandler }: NewPassComponentsPropsType) {
+export default function NewPass({
+  continueHandler,
+}: NewPassComponentsPropsType) {
   const textStyles = {
     color: "#71717A",
     fontSize: 12,
@@ -19,11 +20,10 @@ export default function NewPass({ continueHandler }: NewPassComponentsPropsType)
     alignSelf: "stretch",
   };
 
-
   const clickHandler = async () => {
     // backend duudah
-    continueHandler()
-  }
+    continueHandler();
+  };
 
   return (
     <Box sx={{ width: "334px", mx: "auto" }}>
@@ -55,6 +55,7 @@ export default function NewPass({ continueHandler }: NewPassComponentsPropsType)
           }}
         >
           <Input
+            name=""
             helperText=""
             placeholder=""
             label="Шинэ нууц үг"
@@ -71,6 +72,7 @@ export default function NewPass({ continueHandler }: NewPassComponentsPropsType)
           }}
         >
           <Input
+            name=""
             helperText=""
             placeholder=""
             label="Шинэ нууц үг давтах"

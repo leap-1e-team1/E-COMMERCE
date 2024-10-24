@@ -41,6 +41,7 @@ export default function ForgetPass({
         }}
       >
         <Input
+          name=""
           helperText=""
           placeholder=""
           inputHandler={() => {

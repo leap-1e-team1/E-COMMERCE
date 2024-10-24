@@ -3,6 +3,16 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 const options = ["Малгай", "Усны сав", "T-shirt", "Hoodie", "Tee", "Цүнх"];
 
 export default function ProductCategory() {
