@@ -169,7 +169,7 @@ export const HomeComp = () => {
             return (
               <Link
                 key={index}
-                href={"/user"}
+                href={"/productdetail"}
                 onMouseEnter={() => {
                   hoverHandler(index);
                 }}
