@@ -2,7 +2,7 @@ import { UserModel } from "../src/database/models/user.model";
 import bcrypt from "bcryptjs";
 
 export const registerUser = async (req: any, res: any) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { username, email, password } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
@@ -16,8 +16,7 @@ export const registerUser = async (req: any, res: any) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new UserModel({
-      firstName,
-      lastName,
+      username,
       email,
       password: hashedPassword,
     });

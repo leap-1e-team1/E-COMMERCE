@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react"; // Make sure to import useState
 import { Typography, Stack } from "@mui/material";
 import { CustomButton } from "./Button";
 import { Input } from "./Input";
@@ -10,6 +11,8 @@ type ForgetPassComponentsPropsType = {
 export default function ForgetPass({
   continueHandler,
 }: ForgetPassComponentsPropsType) {
+  const [email, setEmail] = useState("");
+
   return (
     <Stack
       sx={{
@@ -41,12 +44,16 @@ export default function ForgetPass({
         }}
       >
         <Input
+          name="email"
+          label="Имэйл хаяг оруулах"
+          type="email"
+          sx=""
+          value={email}
           helperText=""
           placeholder=""
-          inputHandler={() => {
-            console.log();
+          inputHandler={(e) => {
+            setEmail(e.target.value); 
           }}
-          label="Имэйл хаяг оруулах"
         />
       </Stack>
 

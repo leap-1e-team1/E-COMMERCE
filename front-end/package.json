@@ -29,7 +29,7 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "ui": "^0.2.4",
-    "vercel": "^37.9.0"
+    "vercel": "^32.3.0"
   },
   "devDependencies": {
     "@types/node": "20.16.11",
