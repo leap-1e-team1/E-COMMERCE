@@ -1,45 +1,45 @@
 "use client";
 
-import axios from "axios";
-import { useState } from "react";
+// import axios from "axios";
+// import { useState } from "react";
 
-interface ProductCategory {
-  images: string;
-}
+// interface ProductCategory {
+//   images: string;
+// }
 
-const Category1 = () => {
-  const [asd, setAsd] = useState<ProductCategory[]>([]);
+// const Category1 = () => {
+//   const [asd, setAsd] = useState<ProductCategory[]>([]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await axios.get<ProductCategory[]>(
-        "http://localhost:8000/imageavah"
-      );
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     try {
+//       const response = await axios.get<ProductCategory[]>(
+//         "http://localhost:8000/imageavah"
+//       );
 
-      if (Array.isArray(response.data)) {
-        setAsd(response.data);
-      } else {
-        alert("Unexpected response structure");
-      }
-    } catch (error: any) {
-      const message = error.response?.data?.message || "Error fetching data";
-      alert(`Error: ${message}`);
-    }
-  };
+//       if (Array.isArray(response.data)) {
+//         setAsd(response.data);
+//       } else {
+//         alert("Unexpected response structure");
+//       }
+//     } catch (error: any) {
+//       const message = error.response?.data?.message || "Error fetching data";
+//       alert(`Error: ${message}`);
+//     }
+//   };
 
-  return (
-    <div className="mt-[200px]">
-      <button onClick={handleSubmit}>asd</button>
-      {asd.map((el, index) => (
-        <img key={index} src={el.images} />
-      ))}
-    </div>
-  );
-};
+//   return (
+//     <div className="mt-[200px]">
+//       <button onClick={handleSubmit}>asd</button>
+//       {asd.map((el, index) => (
+//         <img key={index} src={el.images} />
+//       ))}
+//     </div>
+//   );
+// };
 
-export default Category1;
-=======
+// export default Category1;
+
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -67,9 +67,6 @@ export default function Category() {
     bag: false,
   });
 
-  const { push } = useRouter();
-  const pathname = usePathname();
-
   const filterHandler = (event: any) => {
     const { name, checked } = event.target;
 
@@ -81,10 +78,6 @@ export default function Category() {
 
     setTypesFilter((prev: any) => ({ ...prev, [name]: checked }));
   };
-
-  // useEffect(() => {
-  //   // push(`${pathname}?filter=${filter}`);
-  // }, [typesFilter, sizeFilter]);
 
   return (
     <div className="mt-[60px] mb-[60px] flex flex-row  gap-5">
@@ -103,7 +96,7 @@ export default function Category() {
                     control={
                       <Checkbox
                         name={el}
-                        defaultChecked
+                        // defaultChecked
                         checked={typesFilter[el]}
                         onClick={sizeFilterHandler}
                       />
@@ -126,7 +119,7 @@ export default function Category() {
                     control={
                       <Checkbox
                         name={el}
-                        defaultChecked
+                        // defaultChecked
                         checked={sizeFilter[el]}
                         onClick={filterHandler}
                       />
@@ -143,4 +136,3 @@ export default function Category() {
     </div>
   );
 }
-

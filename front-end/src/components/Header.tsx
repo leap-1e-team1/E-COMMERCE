@@ -68,23 +68,8 @@ export const Header = () => {
             </Typography>
           </Link>
         </Stack>
-        <Stack sx={{ alignItems: "center", justifyContent: "center" }}>
-          <Search />
-        </Stack>
-        <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
-          <FavoriteBorderIcon sx={{ color: "white" }} />
-          <LocalGroceryStoreIcon sx={{ color: "white" }} />
-          <Link href="/register">
-            <Button className=" w-[101px] text-white border-[1px] border-blue-600 hover:border-blue-700  h-[36px] rounded-2xl">
-              Бүртгүүлэх
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button className="bg-blue-600 w-[82px] hover:bg-blue-700 h-[36px] rounded-3xl">
-              Нэвтрэх
-            </Button>
-          </Link>
 
+        <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
           <Stack sx={{ alignItems: "center", justifyContent: "center" }}>
             <Search />
           </Stack>
@@ -111,7 +96,6 @@ export const Header = () => {
               </Stack>
             )}
           </Stack>
-
         </Stack>
       </Stack>
     </Box>

@@ -146,7 +146,7 @@ export const HomeComp = () => {
           alt=""
           className="w-screen h-[474px] object-cover object-top"
         />
-        <Box position={"absolute"} width={"1040px"} gap={"8px"} top={"442px"}>
+        <Box position={"absolute"} width={"1040px"} gap={"8px"} top={"390px"}>
           <Typography sx={{ fontSize: "18px" }}>Wildflower Hoodie</Typography>
           <Typography sx={{ fontSize: "36px", fontWeight: "700" }}>
             120’000₮
@@ -215,6 +215,7 @@ export const HomeComp = () => {
             flexDirection: "row",
             justifyContent: "space-between",
             flexWrap: "wrap",
+            rowGap: "50px",
           }}
         >
           {products.map(({ productName, productPrice, productImg }, index) => {
@@ -236,7 +237,6 @@ export const HomeComp = () => {
                       flexDirection: "colmun",
                       gap: "8px",
                       width: "245px",
-                      mb: "50px",
                     }}
                   >
                     <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden">
@@ -279,7 +279,6 @@ export const HomeComp = () => {
                       flexDirection: "colmun",
                       gap: "8px",
                       width: "508px",
-                      mb: "50px",
                     }}
                   >
                     <div className="w-[508px] h-[692px] rounded-2xl overflow-hidden">
@@ -313,6 +312,7 @@ export const HomeComp = () => {
             flexDirection: "row",
             justifyContent: "space-between",
             flexWrap: "wrap",
+            rowGap: "50px",
           }}
         >
           {products.map(({ productName, productPrice, productImg }, index) => {
