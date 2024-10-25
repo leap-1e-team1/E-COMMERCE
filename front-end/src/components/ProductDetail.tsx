@@ -1,14 +1,23 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Checkbox, Rating, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CiHeart } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Stack } from "@mui/system";
 import Link from "next/link";
 
-export const ProductDetail: React.FC = () => {
+type productType = {
+  productName: string;
+  description: string;
+  price: string;
+  images: [string];
+};
+
+export const ProductDetail = ({ id }: { id: string }) => {
+  console.log(id);
+
   const [value, setValue] = React.useState<number | null>(2);
   const [selectedSize, setSelectedSize] = useState<string | null>("S");
   const router = useRouter();
@@ -23,10 +32,26 @@ export const ProductDetail: React.FC = () => {
   const increaseHeight = () => {
     setHeight((prevHeight) => prevHeight + 330);
   };
-  const [add, setAdd] = useState([]);
-  const addReview = () => {
-    setAdd(add);
-  };
+  const [product, setProduct] = useState<productType>();
+
+  useEffect(() => {
+    const handleSubmit = async () => {
+      try {
+        const { data }: any = await axios.get(
+          `http://localhost:8000/productDetail/${id}`
+        );
+        setProduct(data.product);
+      } catch (error: any) {
+        const message = error.response?.data?.message || "Error login";
+        alert(message);
+        console.log(error);
+      }
+    };
+    handleSubmit();
+  }, []);
+
+  console.log(product);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -165,29 +190,39 @@ export const ProductDetail: React.FC = () => {
     <div className="flex items-center mt-[150px] gap-[80px] flex-col ">
       <div className="flex gap-5 items-start justify-between w-[1040px]">
         <div className="h-[400px] w-[67px] mt-[100px] flex flex-col gap-2">
-          <img className="w-[67px] h-[67px]" src="ProductDetail.png" alt="" />
-          <img className="w-[67px] h-[67px]" src="ProductDetail.png" alt="" />
-          <img className="w-[67px] h-[67px]" src="ProductDetail.png" alt="" />
-          <img className="w-[67px] h-[67px]" src="ProductDetail.png" alt="" />
+          {product?.images.map((el, index) => {
+            return (
+              <img
+                key={index}
+                className="w-[67px] object-cover h-[67px] rounded-[4px]"
+                src={el}
+                alt=""
+              />
+            );
+          })}
         </div>
-        <img className="w-[421px] h-[521px]" src="ProductDetail.png" alt="" />
+        <img
+          className="w-[421px] object-cover rounded-[16px] h-[521px]"
+          src={product?.images[0]}
+          alt=""
+        />
         <div className="flex flex-col mt-[100px]">
           <div className="flex flex-col gap-2">
             <div className="w-[52px] h-[20px] justify-center rounded-full border-blue-600 flex items-center border-[1px] text-xs font-semibold">
               Шинэ
             </div>
             <div className="flex w-[256px] h-[40px] gap-2 justify-between items-center">
-              <div className="text-2xl font-bold">Wildflower Hoodie</div>
+              <div className="text-2xl font-bold">{product?.productName}</div>
               <button className="text-2xl">
                 <CiHeart />
               </button>
             </div>
             <div className="w-[438px] h-[24px] font-normal">
-              Зэрлэг цэцгийн зурагтай даавуун материалтай цамц
+              {product?.description}
             </div>
           </div>
-          <div className="flex flex-col gap-2 mt-2">
-            <div>Хэмжээний заавар</div>
+          <div className="flex flex-col gap-2 mt-4">
+            <div className="flex ">Хэмжээний заавар</div>
             <div className="flex w-[176px] gap-1 h-[32px]">
               {sizes.map((size) => (
                 <button
@@ -208,7 +243,7 @@ export const ProductDetail: React.FC = () => {
             <div></div>
           </div>
           <div className="flex flex-col gap-2 mt-2">
-            <div className="font-bold text-xl">120’000₮</div>
+            <div className="font-bold text-xl">{product?.price}</div>
             <Button
               onClick={handleSubmit}
               className="bg-blue-600 w-[175px] text-white hover:bg-blue-700 h-[36px] rounded-2xl"

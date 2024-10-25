@@ -1,9 +1,10 @@
 import { ProductDetail } from "@/components/ProductDetail";
 
-const Page = () => {
+const Page = ({ params }: { params: any }) => {
+  const { id } = params;
   return (
     <div>
-      <ProductDetail />
+      <ProductDetail id={id} />
     </div>
   );
 };

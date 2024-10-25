@@ -4,127 +4,36 @@ import { Image } from "@mui/icons-material";
 
 import { Button, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import Link from "next/link";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-import { useState } from "react";
-import icon from "@mui/icons-material/icon";
+import { useEffect, useState } from "react";
 
 export const HomeComp = () => {
   const [coverImage, setCoverImage] = useState(
     "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792"
   );
 
-  const products = [
-    {
-      productName: " The Prompt Magazine1",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine2",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine3",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine4",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine5",
-      productPrice: "120’000$",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine6",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine7",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine8",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine9",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine10",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine11",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine12",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine13",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine14",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine15",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine16",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine17",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine18",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-  ];
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    const handleSubmit = async () => {
+      try {
+        const { data }: any = await axios.get(
+          "http://localhost:8000/product",
+          {}
+        );
+        setProduct(data);
+        console.log(data);
+      } catch (error: any) {
+        const message = error.response?.data?.message || "Error login";
+        alert(message);
+        console.log(error);
+      }
+    };
+    handleSubmit();
+  }, []);
 
   const [isHover, setIsHover] = useState(Number);
 
@@ -133,6 +42,10 @@ export const HomeComp = () => {
   };
   const hoverHandlerLeaver = (i: number) => {
     setIsHover(NaN);
+  };
+
+  const productClickHandler = (e: any) => {
+    console.log(e);
   };
 
   return (
@@ -166,12 +79,12 @@ export const HomeComp = () => {
           mb: "90px",
         }}
       >
-        {products.map(({ productName, productPrice, productImg }, index) => {
+        {product.map(({ _id, productName, price, images }, index) => {
           if (index < 4) {
             return (
               <Link
                 key={index}
-                href={"/productdetail"}
+                href={`/productdetail/${_id}`}
                 onMouseEnter={() => {
                   hoverHandler(index);
                 }}
@@ -189,7 +102,7 @@ export const HomeComp = () => {
                 >
                   <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden flex justify-end">
                     <img
-                      src={productImg}
+                      src={images[0]}
                       className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
                         isHover === index ? "scale-[1.2]" : ""
                       }`}
@@ -212,7 +125,7 @@ export const HomeComp = () => {
                       {productName}
                     </Typography>
                     <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                      {productPrice}
+                      {price}
                     </Typography>
                   </Stack>
                 </Stack>
@@ -230,12 +143,12 @@ export const HomeComp = () => {
             rowGap: "50px",
           }}
         >
-          {products.map(({ productName, productPrice, productImg }, index) => {
+          {product.map(({ _id, productName, price, images }, index) => {
             if (index >= 4 && index < 6) {
               return (
                 <Link
                   key={index}
-                  href={"/user"}
+                  href={`/productdetail/${_id}`}
                   onMouseEnter={() => {
                     hoverHandler(index);
                   }}
@@ -253,7 +166,7 @@ export const HomeComp = () => {
                   >
                     <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden flex justify-end">
                       <img
-                        src={productImg}
+                        src={images[0]}
                         className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
                           isHover === index ? "scale-[1.2]" : ""
                         }`}
@@ -276,7 +189,7 @@ export const HomeComp = () => {
                         {productName}
                       </Typography>
                       <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                        {productPrice}
+                        {price}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -287,7 +200,7 @@ export const HomeComp = () => {
               return (
                 <Link
                   key={index}
-                  href={"/user"}
+                  href={`/productdetail/${_id}`}
                   onMouseEnter={() => {
                     hoverHandler(index);
                   }}
@@ -305,7 +218,7 @@ export const HomeComp = () => {
                   >
                     <div className="w-[508px] h-[692px] rounded-2xl overflow-hidden">
                       <img
-                        src={productImg}
+                        src={images[0]}
                         className={`object-cover w-[508px] h-[692px] rounded-2xl transition duration-300 ${
                           isHover === index ? "scale-[1.2]" : ""
                         }`}
@@ -318,7 +231,7 @@ export const HomeComp = () => {
                         {productName}
                       </Typography>
                       <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                        {productPrice}
+                        {price}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -337,12 +250,12 @@ export const HomeComp = () => {
             rowGap: "50px",
           }}
         >
-          {products.map(({ productName, productPrice, productImg }, index) => {
+          {product.map(({ _id, productName, price, images }, index) => {
             if (index === 7) {
               return (
                 <Link
                   key={index}
-                  href={"/user"}
+                  href={`/productdetail/${_id}`}
                   onMouseEnter={() => {
                     hoverHandler(index);
                   }}
@@ -360,7 +273,7 @@ export const HomeComp = () => {
                   >
                     <div className="w-[508px] h-[692px] rounded-2xl overflow-hidden">
                       <img
-                        src={productImg}
+                        src={images[0]}
                         className={`object-cover w-[508px] h-[692px] rounded-2xl transition duration-300 ${
                           isHover === index ? "scale-[1.2]" : ""
                         }`}
@@ -373,7 +286,7 @@ export const HomeComp = () => {
                         {productName}
                       </Typography>
                       <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                        {productPrice}
+                        {price}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -384,7 +297,7 @@ export const HomeComp = () => {
               return (
                 <Link
                   key={index}
-                  href={"/user"}
+                  href={`/productdetail/${_id}`}
                   onMouseEnter={() => {
                     hoverHandler(index);
                   }}
@@ -402,7 +315,7 @@ export const HomeComp = () => {
                   >
                     <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden flex justify-end">
                       <img
-                        src={productImg}
+                        src={images}
                         className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
                           isHover === index ? "scale-[1.2]" : ""
                         }`}
@@ -425,7 +338,7 @@ export const HomeComp = () => {
                         {productName}
                       </Typography>
                       <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                        {productPrice}
+                        {price}
                       </Typography>
                     </Stack>
                   </Stack>
@@ -434,12 +347,12 @@ export const HomeComp = () => {
             }
           })}
         </Stack>
-        {products.map(({ productName, productPrice, productImg }, index) => {
+        {product.map(({ _id, productName, price, images }, index) => {
           if (index > 9 && index < 18) {
             return (
               <Link
                 key={index}
-                href={"/user"}
+                href={`/productdetail/${_id}`}
                 onMouseEnter={() => {
                   hoverHandler(index);
                 }}
@@ -457,7 +370,7 @@ export const HomeComp = () => {
                 >
                   <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden flex justify-end">
                     <img
-                      src={productImg}
+                      src={images[0]}
                       className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
                         isHover === index ? "scale-[1.2]" : ""
                       }`}
@@ -490,7 +403,7 @@ export const HomeComp = () => {
                       {productName}
                     </Typography>
                     <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                      {productPrice}
+                      {price}
                     </Typography>
                   </Stack>
                 </Stack>

@@ -19,10 +19,10 @@ const PORT = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 
-app.use("/", userRoutes);
-app.use("/", loginRouter);
-app.use("/", productRoutes);
-app.use("/", imgRoutes);
+app.use(userRoutes);
+app.use(loginRouter);
+app.use(productRoutes);
+app.use(imgRoutes);
 
 const startServer = async () => {
   await connectDatabase();
