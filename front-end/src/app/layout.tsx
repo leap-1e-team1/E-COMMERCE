@@ -48,6 +48,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             >
               {!isAdminRoute && <Header />}
               <Box component="main" sx={{ flex: 1 }}>
+                <ToastContainer />
                 {children}
               </Box>
               {isAdminRoute ? null : <Footer />}

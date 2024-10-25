@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "react-toastify";
 
 interface CloudinaryUploadResponse {
   secure_url: string;
@@ -24,7 +25,7 @@ export const ProductDescription = () => {
   const [imagesURL, setImagesURL] = useState<string[]>([]);
   const [uploadImages, setUploadImages] = useState<File[]>([]);
   const [images, setImages] = useState<(string | null)[]>([null, null, null]);
-  const [selectedSize, setSelectedSize] = useState<string>("S");
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
   const [inputValue, setInputValue] = useState({
     productname: "",
@@ -45,7 +46,12 @@ export const ProductDescription = () => {
   const sizes: string[] = ["S", "M", "L", "XL", "2XL"];
 
   const handleSizeSelect = (size: string) => {
-    setSelectedSize(size);
+    setSelectedSizes(
+      (prev) =>
+        prev.includes(size)
+          ? prev.filter((s) => s !== size) // Remove size if it's already selected
+          : [...prev, size] // Add size if it's not selected
+    );
   };
 
   const cloud_name = "dvs0wjgcv";
@@ -100,11 +106,38 @@ export const ProductDescription = () => {
     setInputValue((prev) => ({ ...prev, color: value }));
   };
 
-  const addProduct = async (event: any) => {
+  const addProduct = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    setSelectedSize("S");
 
-    console.log("", inputValue);
+    // Check if all required fields are filled
+    const {
+      productname,
+      Nemelt,
+      barcode,
+      price,
+      remainingQuantity,
+      category,
+      Subclass,
+      color,
+      type,
+    } = inputValue;
+
+    if (
+      !productname ||
+      !Nemelt ||
+      !barcode ||
+      !price ||
+      !remainingQuantity ||
+      !category ||
+      !Subclass ||
+      !color ||
+      !type
+    ) {
+      toast.error("All fields are required"); // Show toast if any required field is empty
+      return; // Exit the function if validation fails
+    }
+
+    setSelectedSizes([]); // Reset selected sizes
 
     try {
       const uploadedImageUrls = await handleImageUpload();
@@ -112,16 +145,16 @@ export const ProductDescription = () => {
         "http://localhost:8000/product",
         {
           images: uploadedImageUrls,
-          productName: inputValue.productname,
-          description: inputValue.Nemelt,
-          selectedSize,
-          barcode: inputValue.barcode,
-          price: inputValue.price,
-          remainingQuantity: inputValue.remainingQuantity,
-          categoryName: inputValue.category,
-          Subclass: inputValue.Subclass,
-          color: inputValue.color,
-          type: inputValue.type,
+          productName: productname,
+          description: Nemelt,
+          selectedSizes,
+          barcode,
+          price,
+          remainingQuantity,
+          categoryName: category,
+          Subclass,
+          color,
+          type,
         },
         {
           headers: {
@@ -148,10 +181,12 @@ export const ProductDescription = () => {
         type: "",
         category: "",
       });
+      toast.success("Product added successfully");
 
-      console.log("Product added successfully:", inputValue.category);
+      console.log("Product added successfully:", category);
     } catch (error) {
       console.error("Error while adding product:", error);
+      toast.error("Failed to add product");
     }
   };
 
@@ -284,11 +319,11 @@ export const ProductDescription = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
+                <SelectItem value="apple">Юу байх юм</SelectItem>
+                <SelectItem value="banana">Юу байх юм</SelectItem>
+                <SelectItem value="blueberry">Юу байх юм</SelectItem>
+                <SelectItem value="grapes">Юу байх юм</SelectItem>
+                <SelectItem value="pineapple">Юу байх юм</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -304,12 +339,11 @@ export const ProductDescription = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Fruits</SelectLabel>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
+                <SelectItem value="apple">Юу байх юм</SelectItem>
+                <SelectItem value="banana">Юу байх юм</SelectItem>
+                <SelectItem value="blueberry">Юу байх юм</SelectItem>
+                <SelectItem value="grapes">Юу байх юм</SelectItem>
+                <SelectItem value="pineapple">Юу байх юм</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -339,7 +373,7 @@ export const ProductDescription = () => {
                 }}
                 className={`w-8 h-8 rounded-full border-[1px] flex items-center justify-center text-xs
             ${
-              selectedSize === size
+              selectedSizes.includes(size)
                 ? "bg-black text-white"
                 : "bg-white border-gray-400 text-black"
             }`}
@@ -358,12 +392,11 @@ export const ProductDescription = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Fruits</SelectLabel>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
+                <SelectItem value="apple">Юу байх юм</SelectItem>
+                <SelectItem value="banana">Юу байх юм</SelectItem>
+                <SelectItem value="blueberry">Юу байх юм</SelectItem>
+                <SelectItem value="grapes">Юу байх юм</SelectItem>
+                <SelectItem value="pineapple">Юу байх юм</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
