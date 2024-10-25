@@ -2,7 +2,10 @@ import { Model, Schema, models, model } from "mongoose";
 
 export type UsersModelType = {
   _id: Schema.Types.ObjectId;
-  username: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  address: string;
   password: string;
   email: string;
   isAdmin: boolean;
@@ -11,7 +14,10 @@ export type UsersModelType = {
 };
 
 const UserSchema = new Schema<UsersModelType>({
-  username: { type: String, required: false },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: false },
+  address: { type: String, required: false },
+  phoneNumber: { type: String, required: false },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
