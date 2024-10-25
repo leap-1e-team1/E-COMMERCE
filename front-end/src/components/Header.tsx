@@ -74,8 +74,13 @@ export const Header = () => {
             <Search />
           </Stack>
           <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
-            <FavoriteBorderIcon sx={{ color: "white" }} />
-            <LocalGroceryStoreIcon sx={{ color: "white" }} />
+            <Link href="/savepage">
+              <FavoriteBorderIcon sx={{ color: "white" }} />
+            </Link>
+
+            <Link href="/cart">
+              <LocalGroceryStoreIcon sx={{ color: "white" }} />
+            </Link>
 
             {isLoggedIn ? (
               <Link href={"/user"}>
