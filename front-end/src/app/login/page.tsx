@@ -7,37 +7,28 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-
-  const { isLoggedIn } = useUser();
+  const { isLoggedIn,loginHandler } = useUser();
 
   useEffect(() => {
     if (isLoggedIn) {
       router.push("/");
     }
-  });
-  // aasdasdas
+  }, [isLoggedIn, router]);
+
   const handleSubmit = async () => {
-    console.log(password);
-
     try {
-      const { data }: any = await axios.post("http://localhost:8000/login", {
-        email,
-        password,
-      });
-      const dataToken = data.token;
-      window.localStorage.setItem("token", dataToken);
+      loginHandler(email,password)
 
-      setTimeout(() => {
-        router.push("/");
-      }, 1000);
+      toast.success("Амжилттай нэвтэрлээ!");
     } catch (error: any) {
-      const message = error.response?.data?.message || "Error login";
-      alert(message);
+      const message = error.response?.data?.message || "Нэвтрэхэд алдаа гарлаа"; 
+      toast.error(message); 
       console.log(error);
     }
   };
@@ -52,31 +43,40 @@ export default function Login() {
         mt: "108px",
       }}
     >
-      <Typography color="primary.main" sx={{ fontSize: "24px" }}>
+      <Typography
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "24px",
+          fontFamily: "Inter",
+          fontWeight: 600,
+        }}
+        color="primary"
+      >
         Нэвтрэх
       </Typography>
 
-      <Stack
-        gap={4}
-        sx={{ width: "334px", display: "flex", justifyContent: "center" }}
-      >
+      <Stack gap={4} sx={{ width: "334px", display: "flex", justifyContent: "center" }}>
         <Input
-          name=""
-          label="Нэр"
-          placeholder="Нэр"
+          name="Email"
+          label="Имэйл хаяг"
+          type="email"
+          placeholder=""
           helperText=""
-          inputHandler={(e) => {
-            setEmail(e.target.value);
-          }}
+          sx=""
+          value={email}
+          inputHandler={(e) => setEmail(e.target.value)}
         />
         <Input
-          name=""
+          name="Password"
           label="Нууц үг"
-          placeholder="Нууц үг"
+          type="password"
+          placeholder=""
           helperText=""
-          inputHandler={(e) => {
-            setPassword(e.target.value);
-          }}
+          sx=""
+          value={password}
+          inputHandler={(e) => setPassword(e.target.value)}
         />
         <CustomButton
           text="Нэвтрэх"
@@ -94,6 +94,10 @@ export default function Login() {
             color="text.secondary"
             sx={{
               textAlign: "center",
+              textDecoration: "none",
+              "&:hover": {
+                textDecoration: "underline",
+              },
             }}
           >
             Нууц үг мартсан
@@ -101,7 +105,7 @@ export default function Login() {
         </Link>
       </Stack>
 
-      <Link href={"./register"} style={{ textDecoration: "none" }}>
+      <Link href="./register" style={{ textDecoration: "none" }}>
         <Stack sx={{ width: "334px" }}>
           <CustomButton
             text="Бүртгүүлэх"
