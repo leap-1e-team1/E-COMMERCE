@@ -18,7 +18,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -27,7 +26,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -36,7 +34,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -45,7 +42,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -54,7 +50,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -63,7 +58,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -72,7 +66,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -81,7 +74,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -90,7 +82,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -99,7 +90,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -108,7 +98,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -117,7 +106,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -126,7 +114,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "s",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -135,7 +122,6 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "l",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -144,9 +130,9 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Tee",
       size: "m",
-      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
   ];
+
   const [isHover, setIsHover] = useState(Number);
 
   const hoverHandler = (i: number) => {
@@ -165,6 +151,16 @@ export const CategoryImages = () => {
     setFilter(filterParam as string);
   }, [filterParam]);
 
+  const handleAddToCart = (image: any) => {
+    const fetch = localStorage.getItem("cart") as string;
+    const items = JSON.parse(fetch);
+    if (items) {
+      localStorage.setItem("cart", JSON.stringify([...items, image]));
+    } else {
+      localStorage.setItem("cart", JSON.stringify([image]));
+    }
+  };
+
   const filteredImages =
     filter?.length >= 1
       ? images.filter((image) => filterParam?.includes(image.category))
@@ -172,58 +168,59 @@ export const CategoryImages = () => {
 
   return (
     <div className="w-[774px] flex flex-wrap gap-y-12 gap-x-2 justify-between">
-      {filteredImages.map(
-        (
-          { productImage, productName, productPrice, category, size, icona },
-          index
-        ) => {
-          return (
-            <Link
-              key={index}
-              href={"/user"}
-              onMouseEnter={() => {
-                hoverHandler(index);
-              }}
-              onMouseLeave={() => {
-                hoverHandlerLeaver(index);
+      {filteredImages.map((image, index) => {
+        return (
+          <Link
+            key={index}
+            href={"/user"}
+            onMouseEnter={() => {
+              hoverHandler(index);
+            }}
+            onMouseLeave={() => {
+              hoverHandlerLeaver(index);
+            }}
+          >
+            <Stack
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+                width: "245px",
               }}
             >
-              <Stack
-                sx={{
-                  display: "flex",
-                  flexDirection: "colmun",
-                  gap: "8px",
-                  width: "245px",
-                }}
-              >
-                <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden relative flex justify-end">
-                  <img
-                    src={productImage}
-                    className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
-                      isHover === index ? "scale-[1.2]" : ""
-                    }`}
-                    alt=""
-                  />
-                  <button className="absolute top-[13px] right-[10px]  ">
-                    {icona}
+              <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden relative flex justify-end">
+                <img
+                  src={image.productImage}
+                  className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
+                    isHover === index ? "scale-[1.2]" : ""
+                  }`}
+                  alt=""
+                />
+                <Link key={index} href={"/category"}>
+                  <button
+                    className="absolute top-[13px] right-[10px]"
+                    onClick={() => handleAddToCart(image)}
+                  >
+                    <FavoriteBorderIcon sx={{ color: "black" }} />
                   </button>
-                </div>
-
-                <Stack>
-                  <Typography sx={{ fontSize: "16px" }}>
-                    {productName}
-                  </Typography>
-                  <Typography sx={{ fontSize: "14px" }}>{size}</Typography>
-                  <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                    {productPrice}
-                  </Typography>
-                  <Typography sx={{ fontSize: "16px" }}>{category}</Typography>
-                </Stack>
+                </Link>
+              </div>
+              <Stack>
+                <Typography sx={{ fontSize: "16px" }}>
+                  {image.productName}
+                </Typography>
+                <Typography sx={{ fontSize: "14px" }}>{image.size}</Typography>
+                <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
+                  {image.productPrice}
+                </Typography>
+                <Typography sx={{ fontSize: "16px" }}>
+                  {image.category}
+                </Typography>
               </Stack>
-            </Link>
-          );
-        }
-      )}
+            </Stack>
+          </Link>
+        );
+      })}
     </div>
   );
 };
