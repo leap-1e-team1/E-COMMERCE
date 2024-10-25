@@ -12,22 +12,25 @@ export const authMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).send({ message: "Token missing" });
+    res.status(401).send({ message: "Token missing" });
+    return;
   }
 
   const jwtToken = token.split(" ")[1];
 
   if (!jwtToken) {
-    return res.status(401).send({ message: "Token is missing" });
+    res.status(401).send({ message: "Token is missing" });
+    return;
   }
 
   jwt.verify(jwtToken, process.env.JWT_SECRET as string, (err, decoded) => {
     if (err) {
-      return res.status(401).send({ message: err.message });
+      res.status(401).send({ message: err.message });
+      return;
     } else {
       const payload = decoded as CustomJwtPayload; // Cast to custom payload type
       res.locals.userId = payload.userId;

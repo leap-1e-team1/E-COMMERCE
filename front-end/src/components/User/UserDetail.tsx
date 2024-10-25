@@ -5,8 +5,10 @@ import { Stack, Typography, TextField } from "@mui/material";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { toast, Toaster } from "sonner";
+import axios from "axios";
 
 export const UserDetail = () => {
+  const token = window.localStorage.getItem("token");
   const [userInput, setUserInput] = useState({
     lastName: "",
     firstName: "",
@@ -16,8 +18,16 @@ export const UserDetail = () => {
   });
 
   const updateClickHandler = () => {
-    console.log(userInput);
-    toast("medeelel shinechlegdlee");
+    try {
+      axios.post("http://localhost:8000/userUpdate", userInput, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast("medeelel shinechlegdlee");
+    } catch (error) {
+      console.error("Failed to update user information");
+    }
   };
 
   const handleChange = (event: any) => {
