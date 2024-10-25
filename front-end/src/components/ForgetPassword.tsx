@@ -44,19 +44,15 @@ export default function ForgetPass({
         }}
       >
         <Input
-
-          name=""
-
           name="email"
           label="Имэйл хаяг оруулах"
           type="email"
           sx=""
           value={email}
-
           helperText=""
           placeholder=""
           inputHandler={(e) => {
-            setEmail(e.target.value); 
+            setEmail(e.target.value);
           }}
         />
       </Stack>

@@ -13,7 +13,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { isLoggedIn,loginHandler } = useUser();
+  const { isLoggedIn, loginHandler } = useUser();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -23,12 +23,12 @@ export default function Login() {
 
   const handleSubmit = async () => {
     try {
-      loginHandler(email,password)
+      loginHandler(email, password);
 
       toast.success("Амжилттай нэвтэрлээ!");
     } catch (error: any) {
-      const message = error.response?.data?.message || "Нэвтрэхэд алдаа гарлаа"; 
-      toast.error(message); 
+      const message = error.response?.data?.message || "Нэвтрэхэд алдаа гарлаа";
+      toast.error(message);
       console.log(error);
     }
   };
@@ -57,7 +57,10 @@ export default function Login() {
         Нэвтрэх
       </Typography>
 
-      <Stack gap={4} sx={{ width: "334px", display: "flex", justifyContent: "center" }}>
+      <Stack
+        gap={4}
+        sx={{ width: "334px", display: "flex", justifyContent: "center" }}
+      >
         <Input
           name="Email"
           label="Имэйл хаяг"
@@ -110,9 +113,6 @@ export default function Login() {
           <CustomButton
             text="Бүртгүүлэх"
             textColor="secondary.main"
-            handleClick={() => {
-              console.log("Button clicked!");
-            }}
             bgColor="background.paper"
             hoverColor="primary.main"
             height="36px"

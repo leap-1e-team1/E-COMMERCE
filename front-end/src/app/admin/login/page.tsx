@@ -3,14 +3,13 @@
 import { CustomButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "@/provider/UserProvider";
 import { useRouter } from "next/navigation";
 import { Stack, Typography } from "@mui/material";
-
 import Loading from "@/components/Loading";
 
-export default function Login({ jump }: { jump: () => void }) {
+export default function Login() {
   const { loginHandler, isLoggedIn } = useUser();
   const router = useRouter();
 
@@ -18,9 +17,12 @@ export default function Login({ jump }: { jump: () => void }) {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  if (isLoggedIn) {
-    // router.push("/confirm");
-  }
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/confirm"); // Redirect to confirm page if logged in
+    }
+  }, [isLoggedIn, router]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -32,7 +34,7 @@ export default function Login({ jump }: { jump: () => void }) {
     setLoading(true);
     try {
       await loginHandler(email, password);
-      jump();
+      router.push("/confirm"); // Redirect after successful login
     } catch (error: any) {
       setError(error.message);
     } finally {

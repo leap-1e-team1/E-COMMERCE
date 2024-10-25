@@ -5,7 +5,7 @@ import { DashboardComp } from "@/components/DashboardComp";
 import { LeftBar } from "@/components/LeftBar";
 import { Box, Stack } from "@mui/material";
 
-export const AdminPage = () => {
+const AdminPage = () => {
   return (
     <Box>
       <AdminHeaderComp />
