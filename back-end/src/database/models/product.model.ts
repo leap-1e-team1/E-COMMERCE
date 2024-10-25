@@ -1,35 +1,35 @@
 import { Model, Schema, models, model } from "mongoose";
 
 export type ProductsModelType = {
-  _id: String;
-  productName: String;
-  price: String;
-  images: [String];
+  _id: string;
+  productName: string;
+  price: string;
+  images: string[];
   createdAt: Date;
   updatedAt: Date;
-  description: String;
-  barcode: String;
-  count: Number;
-  color: String;
-  size: "S" | "M" | "L" | "XL" | "2XL";
-  categoryName: String;
-  remainingQuantity: Number;
-  Subclass: String;
-  type: String;
+  description: string;
+  barcode: string;
+  count: number;
+  color: string;
+  sizes: string[];
+  categoryName: string;
+  remainingQuantity: number;
+  Subclass: string;
+  type: string;
 };
 
-const ProdcutsSchema = new Schema<ProductsModelType>({
+const ProductsSchema = new Schema<ProductsModelType>({
   productName: { type: String, required: false },
   description: { type: String, required: false },
   barcode: { type: String, required: false },
   images: [{ type: String, required: true }],
   price: { type: String, required: false },
-  remainingQuantity: { type: String, required: false },
+  remainingQuantity: { type: Number, required: false },
   categoryName: { type: String, required: false },
   Subclass: { type: String, required: false },
   color: { type: String, required: false },
-  size: {
-    type: String,
+  sizes: {
+    type: [String],
     enum: ["S", "M", "L", "XL", "2XL"],
     required: true,
   },
@@ -39,4 +39,4 @@ const ProdcutsSchema = new Schema<ProductsModelType>({
 });
 
 export const ProductsModel: Model<ProductsModelType> =
-  models["Products"] || model<ProductsModelType>("Products", ProdcutsSchema);
+  models["Products"] || model<ProductsModelType>("Products", ProductsSchema);

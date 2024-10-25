@@ -1,58 +1,75 @@
-"use client";
-import { useUser } from "@/provider/UserProvider";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { CustomButton } from "./Button";
-import { Input } from "./Input";
-import { Typography, Stack, List, ListItem } from "@mui/material";
+  "use client";
+  import { useUser } from "@/provider/UserProvider";
+  import axios from "axios";
+  import { useRouter } from "next/navigation";
+  import { useEffect, useState } from "react";
+  import { CustomButton } from "./Button";
+  import { Input } from "./Input";
+  import { Typography, Stack, List, ListItem } from "@mui/material";
+  import { toast } from "react-toastify"; // Import toast
 
-const Signup: React.FC = () => {
-  const [username, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
-  const [isSignedUp, setIsSignedUp] = useState(false);
-  const router = useRouter();
+  const Signup: React.FC = () => {
+    const [username, setUserName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [rePassword, setRePassword] = useState("");
+    const router = useRouter();
+    const { isLoggedIn } = useUser();
 
-  const { isLoggedIn } = useUser();
+    // Password Requirements
+    const [validations, setValidations] = useState({
+      length: false,
+      uppercase: false,
+      lowercase: false,
+      number: false,
+      specialChar: false,
+    });
 
-  const handleSubmit = async () => {
-    try {
-      if (password !== rePassword) {
-        alert("Нууц үг таарахгүй байна!");
-        return;
-      }
-      await axios.post("http://localhost:8000/signup", {
-        username,
-        email,
-        password,
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setPassword(value);
+
+      // Update validation criteria
+      setValidations({
+        length: value.length >= 8,
+        uppercase: /[A-Z]/.test(value),
+        lowercase: /[a-z]/.test(value),
+        number: /\d/.test(value),
+        specialChar: /[!@#$%^&*]/.test(value),
       });
+    };
 
-      setIsSignedUp(true);
-      setTimeout(() => {
-        router.push("/login");
-      }, 1000);
-    } catch (error: any) {
-      const message = error.response?.data?.message || "Error signing up";
-      alert(message);
-    }
-  };
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      try {
+        if (password !== rePassword) {
+          toast.error("Нууц үг таарахгүй байна!");
+          return;
+        }
+        await axios.post("http://localhost:8000/signup", {
+          username,
+          email,
+          password,
+        });
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/");
-    }
-  });
+        toast.success("Амжилттай бүртгүүллээ!");
+        setTimeout(() => {
+          router.push("/login");
+        }, 1000);
+      } catch (error: any) {
+        const message = error.response?.data?.message || "Бүртгүүлэхэд алдаа гарлаа";
+        toast.error(message); // Use toast for errors
+      }
+    };
 
-  return (
-    <Stack sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      {isSignedUp && (
-        <div className="mt-[108px]">
-          <p>Signed up successfully!</p>
-        </div>
-      )}
-      {!isSignedUp && (
+    useEffect(() => {
+      if (isLoggedIn) {
+        router.push("/");
+      }
+    }, [isLoggedIn, router]);
+
+    return (
+      <Stack sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <form className="mt-[108px]" onSubmit={handleSubmit}>
           <Typography
             sx={{
@@ -107,7 +124,7 @@ const Signup: React.FC = () => {
               helperText=""
               sx=""
               value={password}
-              inputHandler={(e) => setPassword(e.target.value)}
+              inputHandler={handlePasswordChange}
             />
             <Input
               name="Re-password"
@@ -122,16 +139,32 @@ const Signup: React.FC = () => {
           </Stack>
 
           <List disablePadding sx={{ listStyleType: "disc", marginBottom: "16px", marginTop: "16px", marginLeft: "20px" }}>
-            <ListItem disablePadding sx={{ display: "list-item", fontSize: "12px", fontWeight: "400", lineHeight: "20px", color: "#71717A" }}>
+            <ListItem
+              disablePadding
+              className={validations.uppercase ? 'text-green-500' : 'text-[#71717A]'}
+              sx={{ display: "list-item", fontSize: "12px", fontWeight: "400", lineHeight: "20px", color: "#71717A" }}
+            >
               Том үсэг орсон байх
             </ListItem>
-            <ListItem disablePadding sx={{ display: "list-item", fontSize: "12px", fontWeight: "400", lineHeight: "20px", color: "#71717A" }}>
+            <ListItem
+              disablePadding
+              className={validations.lowercase ? 'text-green-500' : 'text-[#71717A]'}
+              sx={{ display: "list-item", fontSize: "12px", fontWeight: "400", lineHeight: "20px", color: "#71717A" }}
+            >
               Жижиг үсэг орсон байх
             </ListItem>
-            <ListItem disablePadding sx={{ display: "list-item", fontSize: "12px", fontWeight: "400", lineHeight: "20px", color: "#71717A" }}>
+            <ListItem
+              disablePadding
+              className={validations.number ? 'text-green-500' : 'text-[#71717A]'}
+              sx={{ display: "list-item", fontSize: "12px", fontWeight: "400", lineHeight: "20px", color: "#71717A" }}
+            >
               Тоо орсон байх
             </ListItem>
-            <ListItem disablePadding sx={{ display: "list-item", fontSize: "12px", fontWeight: "400", lineHeight: "20px", color: "#71717A" }}>
+            <ListItem
+              disablePadding
+              className={validations.specialChar ? 'text-green-500' : 'text-[#71717A]'}
+              sx={{ display: "list-item", fontSize: "12px", fontWeight: "400", lineHeight: "20px", color: "#71717A" }}
+            >
               Тэмдэгт орсон байх
             </ListItem>
           </List>
@@ -156,9 +189,8 @@ const Signup: React.FC = () => {
             />
           </Stack>
         </form>
-      )}
-    </Stack>
-  );
-};
+      </Stack>
+    );
+  };
 
-export default Signup;
+  export default Signup;

@@ -2,7 +2,7 @@ import { ProductsModel } from "../src/database/models/product.model";
 
 export const ProductAdd = async (req: any, res: any) => {
   const {
-    selectedSize,
+    selectedSizes,
     images,
     productName,
     description,
@@ -16,7 +16,7 @@ export const ProductAdd = async (req: any, res: any) => {
   } = req.body;
 
   console.log(
-    selectedSize,
+    selectedSizes,
     images,
     productName,
     description,
@@ -31,7 +31,7 @@ export const ProductAdd = async (req: any, res: any) => {
 
   try {
     const newProduct = await ProductsModel.create({
-      size: selectedSize,
+      sizes: selectedSizes,
       images,
       productName,
       description,
