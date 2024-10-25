@@ -19,7 +19,6 @@ export const SettingsComp = () => {
   const [storeType, setStoreType] = useState();
 
   const [deliveryType, setdeliveryType] = useState("");
-
   const [firstProduct, setFirstProduct] = useState("");
 
   const settingsList: { list: string; btn: string }[] = [
