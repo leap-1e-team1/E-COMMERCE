@@ -9,6 +9,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Box } from "@mui/material";
 import { Toaster } from "sonner";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -46,6 +48,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               }}
             >
               <Box component="main" sx={{ flex: 1 }}>
+                <ToastContainer />
 
                 {children}
               </Box>
