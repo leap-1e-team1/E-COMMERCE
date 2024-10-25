@@ -3,25 +3,17 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import React from "react";
 import { borders } from "@mui/system";
 
-const Savebox = (handleclick: any) => {
-  const routers = [
-    {
-      text: "Chunky Glyph Tee",
-      price: "120000₮",
-      image: "./save1.png",
-    },
-    {
-      text: "Doodle Hoodie",
-      price: "120000₮",
-      image: "./save2.png",
-    },
-    {
-      text: "Local Styles Crewneck",
-      price: "120000₮",
-      image: "./save3.png",
-    },
-  ];
+type SaveBoxProps = {
+  items: itemsType[];
+};
 
+type itemsType = {
+  text: string;
+  price: string;
+  image: string;
+};
+
+const Savebox = ({ items }: SaveBoxProps) => {
   return (
     <Stack
       sx={{
@@ -32,7 +24,7 @@ const Savebox = (handleclick: any) => {
         gap: "24px",
       }}
     >
-      {routers.map(({ text, price, image }, index) => (
+      {items.map(({ text, price, image }, index) => (
         <Stack
           sx={{
             display: "flex",
@@ -69,7 +61,7 @@ const Savebox = (handleclick: any) => {
               сагслах
             </Button>
           </Stack>
-          <Button sx={{ width: "20px", height: "20px" }} onClick={handleclick}>
+          <Button sx={{ width: "20px", height: "20px" }}>
             <FavoriteIcon />
           </Button>
         </Stack>

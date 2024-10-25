@@ -5,11 +5,24 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Savebox from "./Savebox";
 
 const Savecomp = () => {
-  // const [number, setNumber] = useState(0);
+  const items = [
+    {
+      text: "Chunky Glyph Tee",
+      price: "120000₮",
+      image: "./save1.png",
+    },
+    {
+      text: "Doodle Hoodie",
+      price: "120000₮",
+      image: "./save2.png",
+    },
+    {
+      text: "Local Styles Crewneck",
+      price: "120000₮",
+      image: "./save3.png",
+    },
+  ];
 
-  // const handleclick = () => {
-  //   setNumber(number + 1);
-  // };
   return (
     <Box
       sx={{
@@ -26,8 +39,8 @@ const Savecomp = () => {
           gap: "16px",
         }}
       >
-        <Typography>Хадгалсан бараа()</Typography>
-        <Savebox />
+        <Typography>Хадгалсан бараа({items.length})</Typography>
+        <Savebox items={items} />
       </Box>
     </Box>
   );
