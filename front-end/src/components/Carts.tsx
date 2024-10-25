@@ -1,32 +1,35 @@
 "use client";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Stack, Typography, IconButton, Button } from "@mui/material";
+import { Stack, Typography, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { CustomButton } from "./Button";
 
-const initialProducts = [
-  { id: 1, name: "Chunky Glyph Tee", price: 120000, quantity: 1 },
-  { id: 2, name: "Chunky Glyph Tee", price: 120000, quantity: 1 },
-  { id: 3, name: "Chunky Glyph Tee", price: 120000, quantity: 1 },
-  { id: 4, name: "Chunky Glyph Tee", price: 120000, quantity: 1 },
-];
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
 
-export default function Carts() {
-  const [products, setProducts] = useState(initialProducts);
+interface CartsProps {
+  products: Product[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  onNext: () => void;
+}
 
-  const handleQuantityChange = (productId: number, action: string) => {
+const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
+  const handleQuantityChange = (productId: number, isIncrement: boolean) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
         product.id === productId
           ? {
               ...product,
-              quantity:
-                action === "increment"
-                  ? product.quantity + 1
-                  : Math.max(product.quantity - 1, 1),
+              quantity: isIncrement
+                ? product.quantity + 1
+                : Math.max(product.quantity - 1, 1),
             }
           : product
       )
@@ -39,6 +42,11 @@ export default function Carts() {
     );
   };
 
+  const totalAmount = products.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+
   return (
     <Box
       sx={{
@@ -48,9 +56,7 @@ export default function Carts() {
         height: "664px",
         borderRadius: "16px",
         padding: "20px",
-        borderColor: "white",
-        gap: "24px",
-        border: "1px  #E0E0E0",
+        border: "1px solid #E0E0E0",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -88,7 +94,6 @@ export default function Carts() {
                 width={100}
                 height={100}
               />
-
               <Stack>
                 <Typography>{product.name}</Typography>
                 <Stack direction="row" spacing={2} alignItems="center">
@@ -96,20 +101,15 @@ export default function Carts() {
                     sx={{ borderRadius: "50%" }}
                     size="small"
                     color="primary"
-                    onClick={() =>
-                      handleQuantityChange(product.id, "decrement")
-                    }
+                    onClick={() => handleQuantityChange(product.id, false)}
                   >
                     <RemoveIcon />
                   </IconButton>
-
                   <Typography>{product.quantity}</Typography>
                   <IconButton
                     size="small"
                     color="primary"
-                    onClick={() =>
-                      handleQuantityChange(product.id, "increment")
-                    }
+                    onClick={() => handleQuantityChange(product.id, true)}
                   >
                     <AddIcon />
                   </IconButton>
@@ -117,7 +117,6 @@ export default function Carts() {
                 <Typography variant="body2">{product.price}₮</Typography>
               </Stack>
             </Stack>
-
             <IconButton
               size="large"
               onClick={() => handleRemoveProduct(product.id)}
@@ -129,12 +128,7 @@ export default function Carts() {
       </Box>
 
       <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-          mt: 4,
-        }}
+        sx={{ display: "flex", flexDirection: "column", gap: "16px", mt: 4 }}
       >
         <Box
           sx={{
@@ -144,24 +138,15 @@ export default function Carts() {
           }}
         >
           <Typography variant="body1">Нийт төлөх дүн:</Typography>
-          <Typography variant="h6">
-            {products.reduce(
-              (total, product) => total + product.price * product.quantity,
-              0
-            )}
-            ₮
-          </Typography>
+          <Typography variant="h6">{totalAmount}₮</Typography>
         </Box>
 
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <CustomButton
             text="Худалдан авах"
             textColor="primary.contrastText"
-            handleClick={() => {
-              console.log("aa");
-            }}
+            handleClick={onNext}
             bgColor="secondary.main"
-            hoverColor=""
             height="36px"
             border="secondary.main"
           />
@@ -169,4 +154,6 @@ export default function Carts() {
       </Box>
     </Box>
   );
-}
+};
+
+export default Carts;

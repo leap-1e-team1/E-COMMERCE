@@ -5,7 +5,7 @@ interface CustomButtonProps {
   text: string;
   textColor: string;
   bgColor: string;
-  hoverColor: string;
+  hoverColor?: string;
   height?: string;
   border: string;
   handleClick: () => void;
