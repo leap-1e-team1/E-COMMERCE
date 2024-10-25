@@ -3,7 +3,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import React from "react";
 import { borders } from "@mui/system";
 
-const Savebox = () => {
+const Savebox = (handleclick: any) => {
   const routers = [
     {
       text: "Chunky Glyph Tee",
@@ -69,7 +69,9 @@ const Savebox = () => {
               сагслах
             </Button>
           </Stack>
-          <FavoriteIcon />
+          <Button sx={{ width: "20px", height: "20px" }} onClick={handleclick}>
+            <FavoriteIcon />
+          </Button>
         </Stack>
       ))}
     </Stack>

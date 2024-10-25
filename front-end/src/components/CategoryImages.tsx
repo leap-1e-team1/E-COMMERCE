@@ -7,6 +7,7 @@ import Link from "next/link";
 import Category from "./Category";
 import ProductCategory from "./ProductCategory";
 import { useSearchParams } from "next/navigation";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export const CategoryImages = () => {
   const images = [
@@ -17,6 +18,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -25,6 +27,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -33,6 +36,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -41,6 +45,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -49,6 +54,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -57,6 +63,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -65,6 +72,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -73,6 +81,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -81,6 +90,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -89,6 +99,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -97,6 +108,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -105,6 +117,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -113,6 +126,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "s",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -121,6 +135,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Hoodie",
       size: "l",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
     {
       productImage:
@@ -129,6 +144,7 @@ export const CategoryImages = () => {
       productPrice: "120 000 ₮",
       category: "Tee",
       size: "m",
+      icona: <FavoriteBorderIcon sx={{ color: "black" }} />,
     },
   ];
   const [isHover, setIsHover] = useState(Number);
@@ -158,7 +174,7 @@ export const CategoryImages = () => {
     <div className="w-[774px] flex flex-wrap gap-y-12 gap-x-2 justify-between">
       {filteredImages.map(
         (
-          { productImage, productName, productPrice, category, size },
+          { productImage, productName, productPrice, category, size, icona },
           index
         ) => {
           return (
@@ -180,7 +196,7 @@ export const CategoryImages = () => {
                   width: "245px",
                 }}
               >
-                <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden">
+                <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden relative flex justify-end">
                   <img
                     src={productImage}
                     className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
@@ -188,6 +204,9 @@ export const CategoryImages = () => {
                     }`}
                     alt=""
                   />
+                  <button className="absolute top-[13px] right-[10px]  ">
+                    {icona}
+                  </button>
                 </div>
 
                 <Stack>
