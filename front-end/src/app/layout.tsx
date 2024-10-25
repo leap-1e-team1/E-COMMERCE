@@ -28,30 +28,32 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const pathname = usePathname();
-  console.log(pathname, "pathname");
 
   const isAdminRoute = pathname.includes("admin");
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <MuiProvider>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "100vh",
-              backgroundColor: "#F7F7F8",
-            }}
-          >
-            {pathname.includes("admin") ? <></> : <Header />}
-            <Box component="main" sx={{ flex: 1, marginTop: "68px" }}>
-              {children}
+      <body>
+        <AncestorProvider>
+          <MuiProvider>
+            {!isAdminRoute && <Header />}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100vh",
+                backgroundColor: "#F7F7F8",
+              }}
+            >
+              <Box component="main" sx={{ flex: 1 }}>
+
+                {children}
+              </Box>
+              {pathname.includes("admin") ? <></> : <Footer />}
             </Box>
-            {pathname.includes("admin") ? <></> : <Footer />}
-          </Box>
-        </MuiProvider>
-        <Toaster />
+          </MuiProvider>
+          <Toaster />
+        </AncestorProvider>
       </body>
     </html>
   );

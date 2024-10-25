@@ -15,7 +15,7 @@ export const CartDetail = () => {
       price: "120000$",
       totalPrice: "120000$",
       quantity: 1,
-      productPic: "/image.png",
+      productPic: "/save2.png",
     },
   ];
   return (
@@ -28,6 +28,7 @@ export const CartDetail = () => {
               // justifyContent="center"
               direction={"row"}
               sx={{ gap: "8px" }}
+              key={index}
             >
               <Stack
                 justifyContent={"center"}
