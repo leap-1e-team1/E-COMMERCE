@@ -23,14 +23,13 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
-// aa
+
 interface RootLayoutProps {
   children: React.ReactNode;
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const pathname = usePathname();
-
   const isAdminRoute = pathname.includes("admin");
 
   return (
@@ -38,7 +37,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <AncestorProvider>
           <MuiProvider>
-            {!isAdminRoute && <Header />}
+            <ToastContainer />
             <Box
               sx={{
                 display: "flex",
@@ -47,15 +46,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 backgroundColor: "#F7F7F8",
               }}
             >
+              {!isAdminRoute && <Header />}
               <Box component="main" sx={{ flex: 1 }}>
                 <ToastContainer />
-
                 {children}
               </Box>
-              {pathname.includes("admin") ? <></> : <Footer />}
+              {isAdminRoute ? null : <Footer />}
             </Box>
+            <Toaster />
           </MuiProvider>
-          <Toaster />
         </AncestorProvider>
       </body>
     </html>
