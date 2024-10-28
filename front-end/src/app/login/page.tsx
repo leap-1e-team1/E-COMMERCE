@@ -23,7 +23,7 @@ export default function Login() {
 
   const handleSubmit = async () => {
     try {
-      loginHandler(email, password);
+      await loginHandler(email, password);
 
       toast.success("Амжилттай нэвтэрлээ!");
     } catch (error: any) {
@@ -41,8 +41,7 @@ export default function Login() {
         justifyContent: "center",
         alignItems: "center",
         mt: "108px",
-      }}
-    >
+      }}>
       <Typography
         sx={{
           display: "flex",
@@ -52,15 +51,13 @@ export default function Login() {
           fontFamily: "Inter",
           fontWeight: 600,
         }}
-        color="primary"
-      >
+        color="primary">
         Нэвтрэх
       </Typography>
 
       <Stack
         gap={4}
-        sx={{ width: "334px", display: "flex", justifyContent: "center" }}
-      >
+        sx={{ width: "334px", display: "flex", justifyContent: "center" }}>
         <Input
           name="Email"
           label="Имэйл хаяг"
@@ -101,8 +98,7 @@ export default function Login() {
               "&:hover": {
                 textDecoration: "underline",
               },
-            }}
-          >
+            }}>
             Нууц үг мартсан
           </Typography>
         </Link>
