@@ -21,14 +21,12 @@ export const HomeComp = () => {
     const handleSubmit = async () => {
       try {
         const { data }: any = await axios.get(
-          "http://localhost:8000/product",
+          "https://e-commerce-t6c9.onrender.com/product",
           {}
         );
         setProduct(data);
         console.log(data);
       } catch (error: any) {
-        const message = error.response?.data?.message || "Error login";
-        alert(message);
         console.log(error);
       }
     };

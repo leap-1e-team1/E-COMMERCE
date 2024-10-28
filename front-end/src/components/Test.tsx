@@ -15,7 +15,7 @@ const ImageSelector = () => {
   const fetchImages = async () => {
     try {
       const response = await axios.get<ProductCategory[]>(
-        "http://localhost:8000/imageavah"
+        "https://e-commerce-t6c9.onrender.com/imageavah"
       );
 
       if (Array.isArray(response.data)) {

@@ -38,7 +38,7 @@ export const ProductDetail = ({ id }: { id: string }) => {
     const handleSubmit = async () => {
       try {
         const { data }: any = await axios.get(
-          `http://localhost:8000/productDetail/${id}`
+          `https://e-commerce-t6c9.onrender.com/productDetail/${id}`
         );
         setProduct(data.product);
       } catch (error: any) {
@@ -55,7 +55,7 @@ export const ProductDetail = ({ id }: { id: string }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/product", {
+      await axios.post("https://e-commerce-t6c9.onrender.com/product", {
         selectedSize,
       });
 

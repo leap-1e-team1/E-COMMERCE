@@ -19,7 +19,7 @@ export const UserDetail = () => {
 
   const updateClickHandler = () => {
     try {
-      axios.post("http://localhost:8000/userUpdate", userInput, {
+      axios.post("https://e-commerce-t6c9.onrender.com/userUpdate", userInput, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

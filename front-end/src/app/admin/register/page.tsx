@@ -14,7 +14,7 @@ const Signup: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/signup", {
+      await axios.post("https://e-commerce-t6c9.onrender.com/signup", {
         firstName,
         lastName,
         email,

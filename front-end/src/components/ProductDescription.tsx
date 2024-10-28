@@ -142,7 +142,7 @@ export const ProductDescription = () => {
     try {
       const uploadedImageUrls = await handleImageUpload();
       const response = await axios.post(
-        "http://localhost:8000/product",
+        "https://e-commerce-t6c9.onrender.com/product",
         {
           images: uploadedImageUrls,
           productName: productname,

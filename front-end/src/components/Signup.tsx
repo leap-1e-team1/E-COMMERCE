@@ -46,7 +46,7 @@ const Signup: React.FC = () => {
         toast.error("Нууц үг таарахгүй байна!");
         return;
       }
-      await axios.post("http://localhost:8000/signup", {
+      await axios.post("https://e-commerce-t6c9.onrender.com/signup", {
         username,
         email,
         password,
