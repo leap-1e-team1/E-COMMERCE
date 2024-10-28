@@ -2,7 +2,7 @@ import { UserModel } from "../src/database/models/user.model";
 import bcrypt from "bcryptjs";
 
 export const registerUser = async (req: any, res: any) => {
-  const { username, email, password } = req.body;
+  const { firstName, email, password } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
@@ -10,16 +10,22 @@ export const registerUser = async (req: any, res: any) => {
 
   try {
     const existingUser = await UserModel.findOne({ email });
+    console.log(existingUser, "exists");
+
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log(hashedPassword, "hash");
+
     const user = new UserModel({
-      username,
+      firstName,
       email,
       password: hashedPassword,
     });
+    console.log(user, "user");
+
     await user.save();
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {

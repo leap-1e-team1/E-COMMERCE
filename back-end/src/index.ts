@@ -28,8 +28,8 @@ app.use("/", userUpdate);
 
 const startServer = async () => {
   await connectDatabase();
-  app.listen(() => {
-    console.log(`https://e-commerce-t6c9.onrender.com`);
+  app.listen(PORT, () => {
+    console.log(`http://localhost:8000`);
   });
 };
 
