@@ -51,8 +51,7 @@ export const LeftBar = ({ bgColor }: leftBarProps) => {
         width: "222px",
         height: "100vh",
         marginTop: "24px",
-      }}
-    >
+      }}>
       {routers.map(({ href, title, icon }) => {
         if (title == bgColor) {
           return (
@@ -69,8 +68,7 @@ export const LeftBar = ({ bgColor }: leftBarProps) => {
                   hover: "black",
                   height: "64px",
                   alignItems: "center",
-                }}
-              >
+                }}>
                 <Typography> {icon}</Typography>
                 <Typography> {title}</Typography>
               </Stack>
@@ -90,8 +88,7 @@ export const LeftBar = ({ bgColor }: leftBarProps) => {
                   hover: "black",
                   height: "64px",
                   alignItems: "center",
-                }}
-              >
+                }}>
                 <Typography> {icon}</Typography>
                 <Typography> {title}</Typography>
               </Stack>
