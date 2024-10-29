@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../src/database/models/user.model";
 
-const SECRET_KEY = process.env.SECRET || "uzkhu";
+const SECRET_KEY = process.env.JWT_SECRET as string;
 
 export const loginController = async (req: any, res: any) => {
   const { email, password } = req.body;
