@@ -8,8 +8,7 @@ interface CustomButtonProps {
   hoverColor?: string;
   height?: string;
   border: string;
-  handleClick?: () => void;
-  handleClickVoid?: (_: any) => Promise<void>;
+  handleClick?: any;
 }
 
 export const CustomButton: React.FC<CustomButtonProps> = ({

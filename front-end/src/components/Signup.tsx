@@ -7,16 +7,16 @@ import { CustomButton } from "./Button";
 import { Input } from "./Input";
 import { Typography, Stack, List, ListItem } from "@mui/material";
 import { toast } from "react-toastify"; // Import toast
+import { log } from "console";
 
 const Signup: React.FC = () => {
-  const [username, setUserName] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const router = useRouter();
   const { isLoggedIn } = useUser();
 
-  // Password Requirements
   const [validations, setValidations] = useState({
     length: false,
     uppercase: false,
@@ -29,7 +29,6 @@ const Signup: React.FC = () => {
     const value = e.target.value;
     setPassword(value);
 
-    // Update validation criteria
     setValidations({
       length: value.length >= 8,
       uppercase: /[A-Z]/.test(value),
@@ -47,10 +46,11 @@ const Signup: React.FC = () => {
         return;
       }
       await axios.post("https://e-commerce-t6c9.onrender.com/signup", {
-        username,
+        firstName,
         email,
         password,
       });
+      console.log(handleSubmit);
 
       toast.success("Амжилттай бүртгүүллээ!");
       setTimeout(() => {
@@ -73,7 +73,7 @@ const Signup: React.FC = () => {
     <Stack
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
-      <form className="mt-[108px]" onSubmit={handleSubmit}>
+      <form className="mt-[108px]">
         <Typography
           sx={{
             display: "flex",
@@ -106,8 +106,8 @@ const Signup: React.FC = () => {
             placeholder=""
             helperText=""
             sx=""
-            value={username}
-            inputHandler={(e) => setUserName(e.target.value)}
+            value={firstName}
+            inputHandler={(e) => setFirstName(e.target.value)}
           />
           <Input
             name="Email"
@@ -226,7 +226,7 @@ const Signup: React.FC = () => {
             height="36px"
             border="secondary.main"
             bgColor="secondary.main"
-            handleClickVoid={handleSubmit}
+            handleClick={handleSubmit}
           />
         </Stack>
       </form>

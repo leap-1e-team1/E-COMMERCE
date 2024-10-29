@@ -46,7 +46,7 @@ export const AncestorProvider: FC<AncestorProviderProps> = ({ children }) => {
 
       window.localStorage.setItem("token", res.data.token);
       setIsLoggedIn(true);
-      router.push("/dashboard");
+      router.push("/");
     } catch (error: any) {
       const message =
         error.response?.data?.message || "Login failed. Please try again.";
