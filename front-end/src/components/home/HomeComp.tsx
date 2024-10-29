@@ -21,7 +21,7 @@ export const HomeComp = () => {
     const handleSubmit = async () => {
       try {
         const { data }: any = await axios.get(
-          "https://e-commerce-t6c9.onrender.com/product",
+          `${process.env.BACKEND_URL}/product`,
           {}
         );
         setProduct(data);

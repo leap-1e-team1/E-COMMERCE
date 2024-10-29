@@ -9,10 +9,10 @@ import { response } from "express";
 import { HomeComp } from "@/components/home/HomeComp";
 
 export default function Home() {
+  console.log(process.env.BACKEND_URL);
+
   return (
-
     <Stack>
-
       <Stack sx={{ minHeight: "100vh", display: "flex", direction: "column" }}>
         <HomeComp />
       </Stack>
