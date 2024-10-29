@@ -1,6 +1,6 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
-import { Request, Response, NextFunction } from "express"; // Import types for Express
+import { Request, Response, NextFunction } from "express";
 
 dotenv.config();
 
@@ -29,12 +29,12 @@ export const authMiddleware = async (
 
   jwt.verify(jwtToken, process.env.JWT_SECRET as string, (err, decoded) => {
     if (err) {
-      res.status(401).send({ message: err.message });
-      return;
-    } else {
-      const payload = decoded as CustomJwtPayload; // Cast to custom payload type
-      res.locals.userId = payload.userId;
-      next();
+      console.error("JWT Verification Error:", err);
+      return res.status(401).send({ message: "Invalid token" });
     }
+
+    const payload = decoded as CustomJwtPayload; // Cast to custom payload type
+    res.locals.userId = payload.userId;
+    next();
   });
 };

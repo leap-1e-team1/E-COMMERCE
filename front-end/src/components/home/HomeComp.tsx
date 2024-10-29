@@ -25,7 +25,6 @@ export const HomeComp = () => {
           {}
         );
         setProduct(data);
-        console.log(data);
       } catch (error: any) {
         console.log(error);
       }
@@ -123,7 +122,7 @@ export const HomeComp = () => {
                       {productName}
                     </Typography>
                     <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                      {price}
+                      {price} $
                     </Typography>
                   </Stack>
                 </Stack>
