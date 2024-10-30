@@ -17,13 +17,6 @@ export default function Login() {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Redirect if already logged in
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/confirm"); // Redirect to confirm page if logged in
-    }
-  }, [isLoggedIn, router]);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setInputValue((prev) => ({ ...prev, [name]: value }));
@@ -34,13 +27,19 @@ export default function Login() {
     setLoading(true);
     try {
       await loginHandler(email, password);
-      router.push("/confirm"); // Redirect after successful login
+      router.push("/confirm");
     } catch (error: any) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/confirm");
+    }
+  }, []);
 
   return (
     <div className="flex h-screen w-full">

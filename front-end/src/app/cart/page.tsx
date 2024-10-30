@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Stack } from "@mui/material";
 import Steps from "@/components/Step";
 import Carts from "@/components/Carts";
@@ -7,18 +7,20 @@ import Delivery from "@/components/DeliveryInformation";
 import Payment from "@/components/Payment";
 import Done from "@/components/Done";
 
-const initialProducts = [
-  { id: 1, name: "Chunky Glyph Tee", price: 120000, quantity: 1 },
-  { id: 2, name: "aaaaa", price: 120000, quantity: 1 },
-];
-
 export default function Cart() {
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const cartedItems = localStorage.getItem("cartedItems");
+    const items = cartedItems ? JSON.parse(cartedItems) : [];
+    setProducts(items);
+  }, []);
 
   const handleNextStep = () => {
     setCurrentStep((prevStep) => prevStep + 1);
   };
+
   const handleBackStep = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };

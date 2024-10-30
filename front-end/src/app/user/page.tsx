@@ -8,7 +8,7 @@ import { useState } from "react";
 const ToggleWords = ["history", "user"];
 
 const User = () => {
-  const [toggle, setToggle] = useState(ToggleWords[0]);
+  const [toggle, setToggle] = useState("userDetail");
 
   const toggleHandler = (word: string) => {
     setToggle(word);

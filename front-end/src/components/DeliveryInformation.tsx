@@ -1,17 +1,20 @@
 "use client";
-import { Box, Input, Stack, Typography } from "@mui/material";
+import { Box, Input, Typography } from "@mui/material";
 import { useState } from "react";
 import { CustomButton } from "./Button";
+import axios from "axios"; // Make sure to import axios
 
 interface Product {
   id: number;
   name: string;
   price: number;
   quantity: number;
+  description: string;
+  images: string[];
 }
 
 interface DeliveryProps {
-  products: { id: number; name: string; price: number; quantity: number }[];
+  products: Product[];
   onNext: () => void;
   onBack: () => void;
 }
@@ -22,6 +25,24 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
+
+  const handleOrderSubmit = async () => {
+    try {
+      const res = await axios.post(`${process.env.BACKEND_URL}/order`, {
+        surname,
+        name,
+        phone,
+        address,
+        additionalInfo,
+        products,
+      });
+
+      console.log("Order submitted successfully:", res.data);
+      onNext();
+    } catch (error) {
+      console.error("Error submitting order:", error);
+    }
+  };
 
   return (
     <Box sx={{ display: "flex", gap: "20px", width: "1040px" }}>
@@ -43,18 +64,39 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
         </Typography>
 
         {products.map((product) => (
-          <Box key={product.id}>
-            <Typography>
-              {product.name} - {product.quantity} x {product.price}₮
-            </Typography>
+          <Box
+            key={product.id}
+            sx={{ mb: 2, display: "flex", alignItems: "center" }}
+          >
+            {product.images.length > 0 && (
+              <img
+                style={{
+                  borderRadius: "16px",
+                  marginRight: "10px",
+                  width: "80px",
+                  height: "80px",
+                }}
+                src={product.images[0]}
+                alt={product.name}
+              />
+            )}
+            <Box>
+              <Typography sx={{ fontSize: "16px" }}>
+                {product.description}
+              </Typography>
+              <Typography sx={{ flexGrow: 1, fontSize: "12px" }}>
+                {product.quantity} x {product.price}₮
+              </Typography>
+            </Box>
           </Box>
         ))}
-        <Typography variant="body1">Нийт төлөх дүн:</Typography>
-        <Typography variant="h6">
+
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Нийт төлөх дүн:{" "}
           {products.reduce(
             (total, product) => total + product.price * product.quantity,
             0
-          )}
+          )}{" "}
           ₮
         </Typography>
       </Box>
@@ -155,7 +197,7 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
           <CustomButton
             text="Үргэлжлүүлэх"
             textColor="primary.contrastText"
-            handleClick={onNext}
+            handleClick={handleOrderSubmit} // Update to call the new function
             bgColor="secondary.main"
             height="36px"
             border="secondary.main"

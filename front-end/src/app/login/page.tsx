@@ -3,10 +3,9 @@ import { CustomButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { useUser } from "@/provider/UserProvider";
 import { Stack, Typography } from "@mui/material";
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Login() {
@@ -14,12 +13,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const { isLoggedIn, loginHandler } = useUser();
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/");
-    }
-  }, [isLoggedIn, router]);
 
   const handleSubmit = async () => {
     try {
@@ -29,9 +22,13 @@ export default function Login() {
     } catch (error: any) {
       const message = error.response?.data?.message || "Нэвтрэхэд алдаа гарлаа";
       toast.error(message);
-      console.log(error);
     }
   };
+
+  if (isLoggedIn) {
+    router.push("/");
+    return;
+  }
 
   return (
     <Stack
@@ -41,7 +38,8 @@ export default function Login() {
         justifyContent: "center",
         alignItems: "center",
         mt: "108px",
-      }}>
+      }}
+    >
       <Typography
         sx={{
           display: "flex",
@@ -51,13 +49,15 @@ export default function Login() {
           fontFamily: "Inter",
           fontWeight: 600,
         }}
-        color="primary">
+        color="primary"
+      >
         Нэвтрэх
       </Typography>
 
       <Stack
         gap={4}
-        sx={{ width: "334px", display: "flex", justifyContent: "center" }}>
+        sx={{ width: "334px", display: "flex", justifyContent: "center" }}
+      >
         <Input
           name="Email"
           label="Имэйл хаяг"
@@ -98,13 +98,14 @@ export default function Login() {
               "&:hover": {
                 textDecoration: "underline",
               },
-            }}>
+            }}
+          >
             Нууц үг мартсан
           </Typography>
         </Link>
       </Stack>
 
-      <Link href="./register" style={{ textDecoration: "none" }}>
+      <Link href="/register" style={{ textDecoration: "none" }}>
         <Stack sx={{ width: "334px" }}>
           <CustomButton
             text="Бүртгүүлэх"
