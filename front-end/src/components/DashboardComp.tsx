@@ -4,6 +4,7 @@ import { Box, Stack, ImageList, Typography } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { BarChartComponent } from "./Chart";
 
 export const DashboardComp = () => {
   return (
@@ -149,7 +150,9 @@ export const DashboardComp = () => {
             paddingX: "24px",
             justifyContent: "space-between",
           }}
-        ></Box>
+        >
+          <BarChartComponent />
+        </Box>
       </Stack>
     </Box>
   );
