@@ -26,7 +26,6 @@ interface SearchProviderProps {
 
 export const SearchProvider: FC<SearchProviderProps> = ({ children }) => {
   const [productData, setProductData] = useState<ProductsModelType[]>([]);
-  console.log(productData, "productDataproductDataproductData");
 
   return (
     <SearchContext.Provider value={{ productData, setProductData }}>
