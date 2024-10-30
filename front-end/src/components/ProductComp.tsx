@@ -13,9 +13,12 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import TableProduct from "./TableProduct";
+import { useRouter } from "next/navigation";
 
 export const ProductComp = () => {
   const [price, setPrice] = React.useState("");
+  const router = useRouter();
 
   const handleChange = (event: SelectChangeEvent) => {
     setPrice(event.target.value as string);
@@ -24,7 +27,7 @@ export const ProductComp = () => {
   const [value, setValue] = React.useState<string | null>(options[0]);
   const [inputValue, setInputValue] = React.useState("");
   return (
-    <div>
+    <div className="flex flex-col">
       <div className="flex flex-col ml-6">
         <div className="text-sm flex flex-row gap-6 mt-4 ml-4">
           <h1>Бүтээгдэхүүн</h1>
@@ -33,6 +36,9 @@ export const ProductComp = () => {
         <div className=" border-b-2 w-screen mt-5 border-b-[#cfcfd9]"></div>
         <Stack sx={{ display: "flex", marginTop: "24px" }}>
           <Button
+            onClick={() => {
+              router.push("/admin/product/add-product");
+            }}
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -86,10 +92,11 @@ export const ProductComp = () => {
                     label="price"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>20 000</MenuItem>
-                    <MenuItem value={50}>50 000</MenuItem>
-                    <MenuItem value={100}>100 000 </MenuItem>
-                    <MenuItem value={200}>200 000 </MenuItem>
+                    <MenuItem value={10}>20 000 - 40 000</MenuItem>
+                    <MenuItem value={50}>40 000 - 60 000</MenuItem>
+                    <MenuItem value={100}>100 000 - 150000 </MenuItem>
+                    <MenuItem value={200}>200 000 - 300 000 </MenuItem>
+                    <MenuItem value={300}>300 000 - 500 000 </MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -128,6 +135,8 @@ export const ProductComp = () => {
           </div>
         </div>
       </div>
+
+      <TableProduct />
     </div>
   );
 };
