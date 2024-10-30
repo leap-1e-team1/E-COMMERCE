@@ -111,6 +111,7 @@ export default function Category() {
       </Suspense>
       <div className="flex flex-col justify-items-center absolute top-[-60px] right-[1080px]">
         {searchedData.length ? <SearchInput product={searchedData} /> : <></>}
+        {/* aa */}
       </div>
     </div>
   );
