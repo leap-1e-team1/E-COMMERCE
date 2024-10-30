@@ -3,26 +3,21 @@
 import { CustomButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUser } from "@/provider/UserProvider";
 import { useRouter } from "next/navigation";
 import { Stack, Typography } from "@mui/material";
 import Loading from "@/components/Loading";
 
 export default function Login() {
-  const { loginHandler, isLoggedIn } = useUser();
+  const { adminLoginHandler, isAdminLoggedIn } = useUser();
+  console.log(isAdminLoggedIn);
+
   const router = useRouter();
 
   const [inputValue, setInputValue] = useState({ email: "", password: "" });
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
-  // Redirect if already logged in
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/confirm"); // Redirect to confirm page if logged in
-    }
-  }, [isLoggedIn, router]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -33,14 +28,18 @@ export default function Login() {
     const { email, password } = inputValue;
     setLoading(true);
     try {
-      await loginHandler(email, password);
-      router.push("/confirm"); // Redirect after successful login
+      await adminLoginHandler(email, password);
+      router.push("/admin"); // Redirect after successful login
     } catch (error: any) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
   };
+
+  if (isAdminLoggedIn) {
+    router.push("/admin");
+  }
 
   return (
     <div className="flex h-screen w-full">

@@ -7,8 +7,8 @@ import { connectDatabase } from "./database/config";
 import productRoutes from "./routes/productRoutes";
 import imgRoutes from "./routes/imgRoutes";
 import userUpdate from "./routes/userUpdateRoutes";
-
 import loginRouter from "./routes/loginRoutes";
+import adminLoginRouter from "./routes/adminloginRoutes";
 
 import nodemailer from "nodemailer";
 
@@ -25,6 +25,7 @@ app.use("/", loginRouter);
 app.use("/", productRoutes);
 app.use("/", imgRoutes);
 app.use("/", userUpdate);
+app.use("/", adminLoginRouter);
 
 const startServer = async () => {
   await connectDatabase();

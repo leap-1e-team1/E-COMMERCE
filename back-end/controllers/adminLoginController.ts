@@ -4,7 +4,7 @@ import { UserModel } from "../src/database/models/user.model";
 
 const SECRET_KEY = process.env.JWT_SECRET as string;
 
-export const loginController = async (req: any, res: any) => {
+export const adminLoginController = async (req: any, res: any) => {
   const { email, password } = req.body;
 
   try {
@@ -15,16 +15,19 @@ export const loginController = async (req: any, res: any) => {
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Нууц үг таарахгүй байна" });
     }
 
+    if (!user.isAdmin) {
+      return res.status(400).json({ message: "admin bish bna" });
+    }
     const token = jwt.sign(
       {
         userId: user._id,
         email: user.email,
         username: user.firstName,
-        isAdmin: user.isAdmin,
       },
       SECRET_KEY,
       { expiresIn: "30d" }

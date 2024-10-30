@@ -13,8 +13,10 @@ import {
 
 interface UserContextType {
   loginHandler: (email: string, password: string) => Promise<void>;
+  adminLoginHandler: (email: string, password: string) => Promise<void>;
   isLoggedIn: boolean;
   logOutHandler: () => void;
+  isAdminLoggedIn: boolean;
 }
 
 interface CloudinaryUploadResponse {
@@ -32,6 +34,8 @@ interface AncestorProviderProps {
 
 export const AncestorProvider: FC<AncestorProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(false);
+
   const router = useRouter();
 
   const loginHandler = async (
@@ -54,6 +58,25 @@ export const AncestorProvider: FC<AncestorProviderProps> = ({ children }) => {
     }
   };
 
+  const adminLoginHandler = async (
+    email: string,
+    password: string
+  ): Promise<void> => {
+    try {
+      const res = await axios.post<CloudinaryUploadResponse>(
+        `${process.env.BACKEND_URL}/adminlogin`,
+        { email, password }
+      );
+
+      setIsAdminLoggedIn(true);
+      window.localStorage.setItem("token", res.data.token);
+    } catch (error: any) {
+      const message =
+        error.response?.data?.message || "Login failed. Please try again.";
+      throw new Error(message);
+    }
+  };
+
   const logOutHandler = (): void => {
     window.localStorage.removeItem("token");
     setIsLoggedIn(false);
@@ -62,16 +85,26 @@ export const AncestorProvider: FC<AncestorProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
-
+    // backend how is it?
     if (token) {
+      setIsAdminLoggedIn(true);
       setIsLoggedIn(true);
     } else {
+      setIsAdminLoggedIn(false);
       setIsLoggedIn(false);
     }
-  }, [router]);
+  }, []);
 
   return (
-    <UserContext.Provider value={{ loginHandler, isLoggedIn, logOutHandler }}>
+    <UserContext.Provider
+      value={{
+        loginHandler,
+        adminLoginHandler,
+        isLoggedIn,
+        isAdminLoggedIn,
+        logOutHandler,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

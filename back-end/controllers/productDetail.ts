@@ -9,7 +9,6 @@ export const productDetail = async (req: any, res: any) => {
     if (!product) {
       return res.status(400).json({ message: "not-found" });
     }
-    console.log(product);
 
     return res.status(200).json({ product });
   } catch (error) {
