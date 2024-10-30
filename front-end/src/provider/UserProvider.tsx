@@ -68,7 +68,7 @@ export const AncestorProvider: FC<AncestorProviderProps> = ({ children }) => {
     } else {
       setIsLoggedIn(false);
     }
-  }, [router]);
+  }, []);
 
   return (
     <UserContext.Provider value={{ loginHandler, isLoggedIn, logOutHandler }}>

@@ -1,7 +1,5 @@
 "use client";
 
-import { Image } from "@mui/icons-material";
-
 import { Button, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";

@@ -8,7 +8,6 @@ import { AncestorProvider } from "@/provider/UserProvider"; // Import the UserPr
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Box } from "@mui/material";
-import { Toaster } from "sonner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SearchProvider } from "@/provider/SearchProvider";
@@ -37,27 +36,23 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body>
         <AncestorProvider>
-          <SearchProvider>
-            <MuiProvider>
-              <ToastContainer />
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  minHeight: "100vh",
-                  backgroundColor: "#F7F7F8",
-                }}
-              >
-                {!isAdminRoute && <Header />}
-                <Box component="main" sx={{ flex: 1 }}>
-                  <ToastContainer />
-                  {children}
-                </Box>
-                {isAdminRoute ? null : <Footer />}
+          <MuiProvider>
+            <ToastContainer />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100vh",
+                backgroundColor: "#F7F7F8",
+              }}
+            >
+              {!isAdminRoute && <Header />}
+              <Box component="main" sx={{ flex: 1 }}>
+                {children}
               </Box>
-              <Toaster />
-            </MuiProvider>
-          </SearchProvider>
+              {isAdminRoute ? null : <Footer />}
+            </Box>
+          </MuiProvider>
         </AncestorProvider>
       </body>
     </html>

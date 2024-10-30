@@ -1,11 +1,10 @@
 "use client";
 
-import { CustomButton } from "@/components/Button";
-import { Stack, Typography, TextField } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { toast, Toaster } from "sonner";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const UserDetail = () => {
   const token = window.localStorage.getItem("token");
@@ -24,7 +23,7 @@ export const UserDetail = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      toast("medeelel shinechlegdlee");
+      toast.success("medeelel shinechlegdlee");
     } catch (error) {
       console.error("Failed to update user information");
     }
