@@ -5,7 +5,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSearch } from "@/provider/SearchProvider";
-import { SearchInput } from "./SearchInput";
 
 type SearchResponse = {
   foundProducts: ProductsModelType[];
@@ -32,7 +31,7 @@ export type ProductsModelType = {
 export const Search = () => {
   const [inputValue, setInputValue] = useState("");
 
-  const { setProductData } = useSearch();
+  const { setSearchedData } = useSearch();
 
   useEffect(() => {
     const productDatas = async () => {
@@ -42,8 +41,7 @@ export const Search = () => {
           value: inputValue,
         }
       );
-
-      setProductData(data?.foundProducts);
+      setSearchedData(data?.foundProducts);
     };
 
     productDatas();

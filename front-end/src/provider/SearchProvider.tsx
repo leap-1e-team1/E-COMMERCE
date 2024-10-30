@@ -14,6 +14,8 @@ import {
 interface UserContextType {
   setProductData: Dispatch<SetStateAction<ProductsModelType[]>>;
   productData: ProductsModelType[];
+  searchedData: ProductsModelType[];
+  setSearchedData: Dispatch<SetStateAction<ProductsModelType[]>>;
 }
 
 export const SearchContext = createContext<UserContextType | undefined>(
@@ -26,9 +28,12 @@ interface SearchProviderProps {
 
 export const SearchProvider: FC<SearchProviderProps> = ({ children }) => {
   const [productData, setProductData] = useState<ProductsModelType[]>([]);
+  const [searchedData, setSearchedData] = useState<ProductsModelType[]>([]);
 
   return (
-    <SearchContext.Provider value={{ productData, setProductData }}>
+    <SearchContext.Provider
+      value={{ productData, setProductData, searchedData, setSearchedData }}
+    >
       {children}
     </SearchContext.Provider>
   );
