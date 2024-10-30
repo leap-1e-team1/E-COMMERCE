@@ -2,154 +2,26 @@
 
 import React, { useEffect, useState } from "react";
 import { Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import Link from "next/link";
-import Category from "./Category";
-import ProductCategory from "./ProductCategory";
 import { useSearchParams } from "next/navigation";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useSearch } from "@/provider/SearchProvider";
 
 export const CategoryImages = () => {
-  const images = [
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "The Prompt Magazine",
-      productPrice: "120 000 ₮",
-      category: "hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "m",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "s",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Hoodie",
-      size: "l",
-    },
-    {
-      productImage:
-        "https://res.cloudinary.com/dvs0wjgcv/image/upload/v1729660207/p42gjrbqa3hisyocxg1p.png",
-      productName: "Chunky Glyph Tee",
-      productPrice: "120 000 ₮",
-      category: "Tee",
-      size: "m",
-    },
-  ];
-
+  const { productData } = useSearch();
   const [isHover, setIsHover] = useState(Number);
 
   const hoverHandler = (i: number) => {
     setIsHover(i);
   };
+
   const hoverHandlerLeaver = (i: number) => {
     setIsHover(NaN);
   };
 
   const [filter, setFilter] = useState("");
-
   const searchParams = useSearchParams();
   const filterParam = searchParams.get("filter");
-
-  useEffect(() => {
-    setFilter(filterParam as string);
-  }, [filterParam]);
 
   const handleAddToCart = (image: any) => {
     const fetch = localStorage.getItem("cart") as string;
@@ -163,12 +35,16 @@ export const CategoryImages = () => {
 
   const filteredImages =
     filter?.length >= 1
-      ? images.filter((image) => filterParam?.includes(image.category))
-      : images;
+      ? productData.filter((image) => filterParam?.includes(image.categoryName))
+      : productData;
+
+  useEffect(() => {
+    setFilter(filterParam as string);
+  }, [filterParam]);
 
   return (
-    <div className="w-[774px] flex flex-wrap gap-y-12 gap-x-2 justify-between">
-      {filteredImages.map((image, index) => {
+    <div className="w-[774px] flex flex-wrap gap-y-12 gap-x-2 ">
+      {productData?.map((image, index) => {
         return (
           <Link
             key={index}
@@ -190,7 +66,7 @@ export const CategoryImages = () => {
             >
               <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden relative flex justify-end">
                 <img
-                  src={image.productImage}
+                  src={image.images[0]}
                   className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
                     isHover === index ? "scale-[1.2]" : ""
                   }`}
@@ -209,13 +85,13 @@ export const CategoryImages = () => {
                 <Typography sx={{ fontSize: "16px" }}>
                   {image.productName}
                 </Typography>
-                <Typography sx={{ fontSize: "14px" }}>{image.size}</Typography>
+                {/* <Typography sx={{ fontSize: "14px" }}>{image.sizes}</Typography> */}
                 <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                  {image.productPrice}
+                  {image.price}
                 </Typography>
-                <Typography sx={{ fontSize: "16px" }}>
-                  {image.category}
-                </Typography>
+                {/* <Typography sx={{ fontSize: "16px" }}>
+                  {image.categoryName} */}
+                {/* </Typography> */}
               </Stack>
             </Stack>
           </Link>
