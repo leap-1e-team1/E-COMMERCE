@@ -1,11 +1,16 @@
 "use client";
-import React, { useEffect, useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { CategoryImages } from "./CategoryImages";
+import axios from "axios";
+import { useSearch } from "@/provider/SearchProvider";
+import { ProductsModelType } from "./Search";
 
 export default function Category() {
+  const { setProductData } = useSearch();
+
   const [sizeFilter, setSizeFilter] = useState<any>({
     s: false,
     m: false,
@@ -16,33 +21,36 @@ export default function Category() {
   });
 
   const [typesFilter, setTypesFilter] = useState<any>({
-    hat: false,
-    bottle: false,
-    tshirt: false,
-    hoodie: false,
-    tee: false,
-    bag: false,
+    Hat: false,
+    Bottle: false,
+    Tshirt: false,
+    Hoodie: false,
+    Tee: false,
+    Bag: false,
   });
 
-  const filterHandler = (event: any) => {
+  const filterHandler = async (event: any) => {
     const { name, checked } = event.target;
     setSizeFilter((prev: any) => ({ ...prev, [name]: checked }));
   };
 
-  const sizeFilterHandler = (event: any) => {
+  const sizeFilterHandler = async (event: any) => {
     const { name, checked } = event.target;
     setTypesFilter((prev: any) => ({ ...prev, [name]: checked }));
+
+    const { data }: { data: { foundByFilter: ProductsModelType[] } } =
+      await axios.post(`${process.env.BACKEND_URL}/filter`, {
+        filterValue: checked ? name?.toLowerCase() : "",
+      });
+
+    setProductData(data.foundByFilter);
   };
 
   return (
-    <div className="mt-[60px] mb-[60px] flex flex-row gap-5">
+    <div className="mt-[128px] mb-[60px] flex flex-row gap-5 pl-[200px]">
       <div className="flex flex-col w-[245px] gap-12">
         <div className="flex flex-col gap-4 ">
           <h1 className="text-base font-semibold">Ангилал</h1>
-
-          {JSON.stringify(typesFilter)}
-          {JSON.stringify(sizeFilter)}
-
           <div className="text-sm font-medium ">
             {Object.keys(typesFilter).map((el, index) => {
               return (

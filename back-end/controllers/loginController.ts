@@ -7,6 +7,8 @@ const SECRET_KEY = process.env.JWT_SECRET as string;
 export const loginController = async (req: any, res: any) => {
   const { email, password } = req.body;
 
+  console.log(SECRET_KEY);
+
   try {
     const user = await UserModel.findOne({ email });
 
