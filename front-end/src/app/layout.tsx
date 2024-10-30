@@ -11,6 +11,7 @@ import { Box } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SearchProvider } from "@/provider/SearchProvider";
+import { Toaster } from "sonner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,23 +37,27 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body>
         <AncestorProvider>
-          <MuiProvider>
-            <ToastContainer />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "100vh",
-                backgroundColor: "#F7F7F8",
-              }}
-            >
-              {!isAdminRoute && <Header />}
-              <Box component="main" sx={{ flex: 1 }}>
-                {children}
+          <SearchProvider>
+            <MuiProvider>
+              <ToastContainer />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  minHeight: "100vh",
+                  backgroundColor: "#F7F7F8",
+                }}
+              >
+                {!isAdminRoute && <Header />}
+                <Box component="main" sx={{ flex: 1 }}>
+                  <ToastContainer />
+                  {children}
+                </Box>
+                {isAdminRoute ? null : <Footer />}
               </Box>
-              {isAdminRoute ? null : <Footer />}
-            </Box>
-          </MuiProvider>
+              <Toaster />
+            </MuiProvider>
+          </SearchProvider>
         </AncestorProvider>
       </body>
     </html>
