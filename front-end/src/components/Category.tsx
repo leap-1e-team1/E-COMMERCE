@@ -44,6 +44,7 @@ export default function Category() {
       });
 
     setProductData(data.foundByFilter);
+    console.log(data);
   };
 
   return (

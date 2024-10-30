@@ -48,7 +48,7 @@ export const CategoryImages = () => {
         return (
           <Link
             key={index}
-            href={"/user"}
+            href={`/productdetail/${image._id}`}
             onMouseEnter={() => {
               hoverHandler(index);
             }}
