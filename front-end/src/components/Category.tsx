@@ -37,15 +37,25 @@ export default function Category() {
   const sizeFilterHandler = async (event: any) => {
     const { name, checked } = event.target;
     setTypesFilter((prev: any) => ({ ...prev, [name]: checked }));
-
-    const { data }: { data: { foundByFilter: ProductsModelType[] } } =
-      await axios.post(`${process.env.BACKEND_URL}/filter`, {
-        filterValue: checked ? name?.toLowerCase() : "",
-      });
-
-    setProductData(data.foundByFilter);
-    console.log(data);
   };
+
+  useEffect(() => {
+    const filterArray = Object.keys(typesFilter).map((el) => {
+      if (typesFilter[el]) {
+        return el.toLowerCase();
+      }
+    });
+
+    const getFilteredData = async () => {
+      const { data }: { data: { foundByFilter: ProductsModelType[] } } =
+        await axios.post(`${process.env.BACKEND_URL}/filter`, {
+          filterValue: filterArray,
+        });
+
+      setProductData(data.foundByFilter);
+    };
+    getFilteredData();
+  }, [typesFilter]);
 
   return (
     <div className="mt-[128px] mb-[60px] flex flex-row gap-5 pl-[200px]">
