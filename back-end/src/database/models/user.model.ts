@@ -2,11 +2,11 @@ import { Model, Schema, models, model } from "mongoose";
 
 export type UsersModelType = {
   _id: Schema.Types.ObjectId;
-  firstName: string;
   lastName: string;
+  firstName: string;
+  password: string;
   phoneNumber: string;
   address: string;
-  password: string;
   email: string;
   isAdmin: boolean;
   createdAt: Date;
@@ -14,12 +14,12 @@ export type UsersModelType = {
 };
 
 const UserSchema = new Schema<UsersModelType>({
-  firstName: { type: String, required: true },
   lastName: { type: String, required: false },
-  address: { type: String, required: false },
-  phoneNumber: { type: String, required: false },
+  firstName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  phoneNumber: { type: String, required: false },
+  address: { type: String, required: false },
   isAdmin: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now, required: true, immutable: true },
   updatedAt: { type: Date, default: Date.now, required: true },
