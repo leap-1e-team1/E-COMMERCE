@@ -9,8 +9,10 @@ import { Stack } from "@mui/system";
 import Link from "next/link";
 
 type productType = {
+  _id: string;
   productName: string;
   description: string;
+  barcode: string;
   price: string;
   images: string[];
   sizes: string[];
@@ -67,15 +69,35 @@ export const ProductDetail = ({ id }: { id: string }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      // await axios.post(`${process.env.BACKEND_URL}/product`, {
-      //   selectedSize,
-      // });
 
-      router.push("/");
+    if (!product) {
+      console.error("No product found to add to cart");
+      return;
+    }
+
+    try {
+      const cartedItems = localStorage.getItem("cartedItems");
+      const items = cartedItems ? JSON.parse(cartedItems) : [];
+
+      const existingItem = items.find((item: any) => item._id === product._id);
+      `      console.log(existingItem, "EXISTINMG");`;
+
+      if (existingItem) {
+        const quantityToAdd = 1;
+        existingItem.quantity += quantityToAdd;
+        console.log("Increased quantity of product in cart:", existingItem);
+      } else {
+        const newItem = {
+          ...product,
+          quantity: 1,
+        };
+        items.push(newItem);
+        console.log("Product added to cart:", newItem);
+      }
+      ("");
+      localStorage.setItem("cartedItems", JSON.stringify(items));
     } catch (error: any) {
-      const message = error.response?.data?.message || "Error signing up";
-      alert(message);
+      console.error("Error adding item to cart:", error.message);
     }
   };
 

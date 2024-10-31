@@ -7,9 +7,11 @@ import { CategoryImages } from "./CategoryImages";
 import axios from "axios";
 import { useSearch } from "@/provider/SearchProvider";
 import { ProductsModelType } from "./Search";
+import { SearchInput } from "./SearchInput";
+import { Stack } from "@mui/material";
 
 export default function Category() {
-  const { setProductData } = useSearch();
+  const { setProductData, searchedData } = useSearch();
 
   const [sizeFilter, setSizeFilter] = useState<any>({
     s: false,
@@ -37,18 +39,28 @@ export default function Category() {
   const sizeFilterHandler = async (event: any) => {
     const { name, checked } = event.target;
     setTypesFilter((prev: any) => ({ ...prev, [name]: checked }));
-
-    const { data }: { data: { foundByFilter: ProductsModelType[] } } =
-      await axios.post(`${process.env.BACKEND_URL}/filter`, {
-        filterValue: checked ? name?.toLowerCase() : "",
-      });
-
-    setProductData(data.foundByFilter);
-    console.log(data);
   };
 
+  useEffect(() => {
+    const filterArray = Object.keys(typesFilter).map((el) => {
+      if (typesFilter[el]) {
+        return el.toLowerCase();
+      }
+    });
+
+    const getFilteredData = async () => {
+      const { data }: { data: { foundByFilter: ProductsModelType[] } } =
+        await axios.post(`${process.env.BACKEND_URL}/filter`, {
+          filterValue: filterArray,
+        });
+
+      setProductData(data.foundByFilter);
+    };
+    getFilteredData();
+  }, [typesFilter]);
+
   return (
-    <div className="mt-[128px] mb-[60px] flex flex-row gap-5 pl-[200px]">
+    <div className="mt-[128px] mb-[60px] flex flex-row gap-5 pl-[200px] relative">
       <div className="flex flex-col w-[245px] gap-12">
         <div className="flex flex-col gap-4 ">
           <h1 className="text-base font-semibold">Ангилал</h1>
@@ -97,6 +109,10 @@ export default function Category() {
       <Suspense fallback={<div>Loading...</div>}>
         <CategoryImages />
       </Suspense>
+      <div className="flex flex-col justify-items-center absolute top-[-60px] right-[1080px]">
+        {searchedData.length ? <SearchInput product={searchedData} /> : <></>}
+        {/* aa */}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import { Stack, Typography, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -8,10 +8,12 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { CustomButton } from "./Button";
 
 interface Product {
-  id: number;
-  name: string;
-  price: number;
+  _id: string;
+  productName: string;
+  price: string;
   quantity: number;
+  images: string[];
+  description: string;
 }
 
 interface CartsProps {
@@ -21,10 +23,10 @@ interface CartsProps {
 }
 
 const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
-  const handleQuantityChange = (productId: number, isIncrement: boolean) => {
+  const handleQuantityChange = (productId: string, isIncrement: boolean) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
-        product.id === productId
+        product._id === productId
           ? {
               ...product,
               quantity: isIncrement
@@ -36,14 +38,14 @@ const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
     );
   };
 
-  const handleRemoveProduct = (productId: number) => {
+  const handleRemoveProduct = (productId: string) => {
     setProducts((prevProducts) =>
-      prevProducts.filter((product) => product.id !== productId)
+      prevProducts.filter((product) => product._id !== productId)
     );
   };
 
   const totalAmount = products.reduce(
-    (total, product) => total + product.price * product.quantity,
+    (total, product) => total + parseFloat(product.price) * product.quantity,
     0
   );
 
@@ -76,7 +78,7 @@ const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
       >
         {products.map((product) => (
           <Box
-            key={product.id}
+            key={product._id}
             sx={{
               display: "flex",
               justifyContent: "space-between",
@@ -87,21 +89,32 @@ const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
             }}
           >
             <Stack direction="row" spacing={2} alignItems="center">
-              <img
-                style={{ borderRadius: "16px" }}
-                src="avatar.png"
-                alt="product"
-                width={100}
-                height={100}
-              />
+              {product.images.length > 0 ? (
+                <img
+                  style={{ borderRadius: "16px" }}
+                  src={product.images[0]}
+                  alt={product.productName}
+                  width="100px"
+                  height={100}
+                />
+              ) : (
+                <Box
+                  sx={{
+                    width: 100,
+                    height: 100,
+                    bgcolor: "#E0E0E0",
+                    borderRadius: "16px",
+                  }}
+                />
+              )}
               <Stack>
-                <Typography>{product.name}</Typography>
+                <Typography>{product.productName}</Typography>
                 <Stack direction="row" spacing={2} alignItems="center">
                   <IconButton
                     sx={{ borderRadius: "50%" }}
                     size="small"
                     color="primary"
-                    onClick={() => handleQuantityChange(product.id, false)}
+                    onClick={() => handleQuantityChange(product._id, false)}
                   >
                     <RemoveIcon />
                   </IconButton>
@@ -109,7 +122,7 @@ const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
                   <IconButton
                     size="small"
                     color="primary"
-                    onClick={() => handleQuantityChange(product.id, true)}
+                    onClick={() => handleQuantityChange(product._id, true)}
                   >
                     <AddIcon />
                   </IconButton>
@@ -119,7 +132,7 @@ const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
             </Stack>
             <IconButton
               size="large"
-              onClick={() => handleRemoveProduct(product.id)}
+              onClick={() => handleRemoveProduct(product._id)}
             >
               <DeleteIcon />
             </IconButton>

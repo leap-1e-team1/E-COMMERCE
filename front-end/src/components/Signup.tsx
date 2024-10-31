@@ -2,12 +2,11 @@
 import { useUser } from "@/provider/UserProvider";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CustomButton } from "./Button";
 import { Input } from "./Input";
 import { Typography, Stack, List, ListItem } from "@mui/material";
 import { toast } from "react-toastify"; // Import toast
-import { log } from "console";
 
 const Signup: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -50,24 +49,19 @@ const Signup: React.FC = () => {
         email,
         password,
       });
-      console.log(handleSubmit);
 
       toast.success("Амжилттай бүртгүүллээ!");
-      setTimeout(() => {
-        router.push("/login");
-      }, 1000);
+      router.push("/login");
     } catch (error: any) {
       const message =
         error.response?.data?.message || "Бүртгүүлэхэд алдаа гарлаа";
-      toast.error(message); // Use toast for errors
+      toast.error(message);
     }
   };
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/");
-    }
-  }, [isLoggedIn, router]);
+  if (isLoggedIn) {
+    router.push("/");
+  }
 
   return (
     <Stack

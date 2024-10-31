@@ -1,56 +1,54 @@
 "use client";
 
-import { ImageList, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import Link from "next/link";
 
-export const SearchInput = () => {
-  const product: {
-    productName: string;
-    price: string;
-    productPic: string;
-  }[] = [
-    {
-      productName: "Chunky Glyph Tee",
-      price: "120000$",
-      productPic: "/save2.png",
-    },
-  ];
+export const SearchInput = ({ product }: { product: any[] }) => {
   return (
     <>
-      {product.map(({ productName, price, productPic }, index) => {
-        return (
-          <Stack
-            // alignItems="center"
-            // justifyContent="center"
-            direction={"row"}
-            sx={{
-              width: "608px",
-              bgcolor: "#FFFFFF",
-              borderRadius: "16px",
-              padding: "32px",
-              gap: "16px",
-              top: "69px",
-              left: "408px",
-            }}
-            key={index}
-          >
-            <Stack
-              direction={"row"}
-              justifyContent={"center"}
-              sx={{ width: "80px", height: "80px", borderRadius: "16px" }}
-            >
-              <img src={productPic} alt="" />
-            </Stack>
-            <Stack direction={"column"} sx={{ gap: "4px", width: "433px" }}>
-              <Typography sx={{ fontSize: "16px", fontWeight: "400" }}>
-                {productName}
-              </Typography>
-              <Typography sx={{ fontSize: "16px", fontWeight: "400" }}>
-                {price}
-              </Typography>
-            </Stack>
-          </Stack>
-        );
-      })}
+      <Stack
+        // alignItems="center"
+        // justifyContent="center"
+        direction={"column"}
+        sx={{
+          width: "408px",
+          bgcolor: "#FFFFFF",
+          borderRadius: "16px",
+          padding: "32px",
+          gap: "16px",
+          position: "fixed",
+        }}
+      >
+        {product?.map(({ productName, price, images, _id }, index) => {
+          return (
+            <Link key={index} href={`/productdetail/${_id}`}>
+              <Stack
+                direction={"row"}
+                sx={{
+                  gap: "16px",
+                  top: "69px",
+                  left: "408px",
+                }}
+              >
+                <img
+                  src={images[0]}
+                  alt=""
+                  className="rounded w-[80px] h-[80px] object-cover"
+                />
+
+                <Stack direction={"column"} sx={{ gap: "4px" }}>
+                  <Typography sx={{ fontSize: "16px", fontWeight: "400" }}>
+                    {productName}
+                  </Typography>
+                  <Typography sx={{ fontSize: "16px", fontWeight: "400" }}>
+                    {price}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </Link>
+          );
+        })}
+      </Stack>
     </>
   );
 };

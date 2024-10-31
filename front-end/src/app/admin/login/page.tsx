@@ -30,6 +30,7 @@ export default function Login() {
     try {
       await adminLoginHandler(email, password);
       router.push("/admin"); // Redirect after successful login
+
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -37,9 +38,11 @@ export default function Login() {
     }
   };
 
+
   if (isAdminLoggedIn) {
     router.push("/admin");
   }
+
 
   return (
     <div className="flex h-screen w-full">

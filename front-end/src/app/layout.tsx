@@ -8,10 +8,10 @@ import { AncestorProvider } from "@/provider/UserProvider"; // Import the UserPr
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Box } from "@mui/material";
-import { Toaster } from "sonner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SearchProvider } from "@/provider/SearchProvider";
+import { Toaster } from "sonner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
