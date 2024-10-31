@@ -9,13 +9,14 @@ import {
   FC,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
 
 interface UserContextType {
   setProductData: Dispatch<SetStateAction<ProductsModelType[]>>;
   productData: ProductsModelType[];
-  searchedData: ProductsModelType[];
-  setSearchedData: Dispatch<SetStateAction<ProductsModelType[]>>;
+  savedProducts: ProductsModelType[];
+  setSavedProducts: Dispatch<SetStateAction<ProductsModelType[]>>;
 }
 
 export const SearchContext = createContext<UserContextType | undefined>(
@@ -28,12 +29,10 @@ interface SearchProviderProps {
 
 export const SearchProvider: FC<SearchProviderProps> = ({ children }) => {
   const [productData, setProductData] = useState<ProductsModelType[]>([]);
-  const [searchedData, setSearchedData] = useState<ProductsModelType[]>([]);
+  console.log(productData, "productDataproductDataproductData");
 
   return (
-    <SearchContext.Provider
-      value={{ productData, setProductData, searchedData, setSearchedData }}
-    >
+    <SearchContext.Provider value={{ productData, setProductData }}>
       {children}
     </SearchContext.Provider>
   );

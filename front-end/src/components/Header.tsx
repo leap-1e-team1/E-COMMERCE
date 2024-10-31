@@ -15,14 +15,18 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { FaRegUser } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-
+import { CenterFocusStrong } from "@mui/icons-material";
+import { useSearch } from "@/provider/SearchProvider";
 interface CloudinaryUploadResponse {
   secure_url: string;
   token: string;
 }
 
+
+
 export const Header = () => {
   const { isLoggedIn } = useUser();
+  const { savedProducts } = useSearch();
 
   const router = useRouter();
 
@@ -124,9 +128,36 @@ export const Header = () => {
             <Search />
           </Stack>
           <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
-            <Link href="/savepage">
-              <FavoriteBorderIcon sx={{ color: "white" }} />
-            </Link>
+            <div
+              style={{ position: "relative", width: "100%", height: "100%" }}
+            >
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <Link href="/savepage">
+                  <FavoriteBorderIcon sx={{ color: "white" }} />
+                </Link>
+                {savedProducts.length <= 0 ? null : (
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "14px",
+                      top: "-5px",
+                      width: "17px",
+                      height: "17px",
+                      borderRadius: "50%",
+                      backgroundColor: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "black",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {savedProducts.length}
+                  </div>
+                )}
+              </div>
+            </div>
 
             <Link href="/cart">
               <LocalGroceryStoreIcon sx={{ color: "white" }} />

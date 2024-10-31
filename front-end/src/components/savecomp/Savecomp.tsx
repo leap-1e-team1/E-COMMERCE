@@ -1,27 +1,19 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { Stack, Box, Typography, ImageList, Button } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+"use client";
+import { Stack, Box, Typography } from "@mui/material";
 import Savebox from "./Savebox";
+import { useEffect, useState } from "react";
 
-const Savecomp = () => {
-  const items = [
-    {
-      text: "Chunky Glyph Tee",
-      price: "120000₮",
-      image: "./save1.png",
-    },
-    {
-      text: "Doodle Hoodie",
-      price: "120000₮",
-      image: "./save2.png",
-    },
-    {
-      text: "Local Styles Crewneck",
-      price: "120000₮",
-      image: "./save3.png",
-    },
-  ];
+const Savecomp: React.FC = () => {
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const getSavedItemsJson = window.localStorage.getItem("save");
+    const getSavedItems = getSavedItemsJson
+      ? JSON.parse(getSavedItemsJson)
+      : [];
+
+    setProducts(getSavedItems);
+  }, []);
 
   return (
     <Box
@@ -39,8 +31,8 @@ const Savecomp = () => {
           gap: "16px",
         }}
       >
-        <Typography>Хадгалсан бараа({items.length})</Typography>
-        <Savebox items={items} />
+        <Typography>Хадгалсан бараа({products.length})</Typography>
+        <Savebox products={products} setProducts={setProducts} />
       </Box>
     </Box>
   );
