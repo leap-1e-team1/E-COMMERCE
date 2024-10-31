@@ -317,13 +317,13 @@ export const ProductDescription = () => {
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Сонгох" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               <SelectGroup>
-                <SelectItem value="apple">Юу байх юм</SelectItem>
-                <SelectItem value="banana">Юу байх юм</SelectItem>
-                <SelectItem value="blueberry">Юу байх юм</SelectItem>
-                <SelectItem value="grapes">Юу байх юм</SelectItem>
-                <SelectItem value="pineapple">Юу байх юм</SelectItem>
+                <SelectItem value="Hat">Hat</SelectItem>
+                <SelectItem value="Bottle">Bottle</SelectItem>
+                <SelectItem value="Tshirt">Tshirt</SelectItem>
+                <SelectItem value="Hoodie">Hoodie</SelectItem>
+                <SelectItem value="Book">Book</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -337,13 +337,10 @@ export const ProductDescription = () => {
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Сонгох" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               <SelectGroup>
-                <SelectItem value="apple">Юу байх юм</SelectItem>
-                <SelectItem value="banana">Юу байх юм</SelectItem>
-                <SelectItem value="blueberry">Юу байх юм</SelectItem>
-                <SelectItem value="grapes">Юу байх юм</SelectItem>
-                <SelectItem value="pineapple">Юу байх юм</SelectItem>
+                <SelectItem value="male">male</SelectItem>
+                <SelectItem value="female">female</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -390,13 +387,14 @@ export const ProductDescription = () => {
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Сонгох" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               <SelectGroup>
-                <SelectItem value="apple">Юу байх юм</SelectItem>
-                <SelectItem value="banana">Юу байх юм</SelectItem>
-                <SelectItem value="blueberry">Юу байх юм</SelectItem>
-                <SelectItem value="grapes">Юу байх юм</SelectItem>
-                <SelectItem value="pineapple">Юу байх юм</SelectItem>
+                <SelectItem value="yellow">yellow</SelectItem>
+                <SelectItem value="red">red</SelectItem>
+                <SelectItem value="blue">blue</SelectItem>
+                <SelectItem value="purple">purple</SelectItem>
+                <SelectItem value="orange">orange</SelectItem>
+                <SelectItem value="none">none</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

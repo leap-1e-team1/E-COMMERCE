@@ -5,10 +5,8 @@ import { UserDetail } from "@/components/User/UserDetail";
 import { Button, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 
-const ToggleWords = ["history", "user"];
-
 const User = () => {
-  const [toggle, setToggle] = useState("userDetail");
+  const [toggle, setToggle] = useState("history");
 
   const toggleHandler = (word: string) => {
     setToggle(word);
