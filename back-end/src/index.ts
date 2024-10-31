@@ -15,23 +15,29 @@ import loginRouter from "./routes/loginRoutes";
 import adminLoginRouter from "./routes/adminloginRoutes";
 
 import nodemailer from "nodemailer";
+import incomeRouter from "./routes/incomeRoutes";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+console.log("before cors");
 
 app.use(cors());
 app.use(express.json());
+console.log("before routes");
 
 app.use("/", userRoutes);
 app.use("/", loginRouter);
 app.use("/", productRoutes);
+app.use("/", incomeRouter);
 app.use("/", imgRoutes);
 app.use("/", userUpdate);
 app.use("/", adminLoginRouter);
 app.use("/", orderRoutes);
 
+
+console.log("after toute");
 
 const startServer = async () => {
   await connectDatabase();
