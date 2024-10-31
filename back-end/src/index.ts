@@ -8,12 +8,9 @@ import productRoutes from "./routes/productRoutes";
 import imgRoutes from "./routes/imgRoutes";
 import userUpdate from "./routes/userUpdateRoutes";
 import orderRoutes from "./routes/orderRoutes";
-
-
-
 import loginRouter from "./routes/loginRoutes";
 import adminLoginRouter from "./routes/adminloginRoutes";
-
+import usernameFetch from "./routes/usernameFetch";
 import nodemailer from "nodemailer";
 import incomeRouter from "./routes/incomeRoutes";
 
@@ -35,7 +32,7 @@ app.use("/", imgRoutes);
 app.use("/", userUpdate);
 app.use("/", adminLoginRouter);
 app.use("/", orderRoutes);
-
+app.use("/", usernameFetch);
 
 console.log("after toute");
 

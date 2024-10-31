@@ -9,16 +9,67 @@ import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import { Button } from "@/components/ui/button";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useUser } from "@/provider/UserProvider";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { FaRegUser } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 import { CenterFocusStrong } from "@mui/icons-material";
 import { useSearch } from "@/provider/SearchProvider";
+interface CloudinaryUploadResponse {
+  secure_url: string;
+  token: string;
+}
+
+
 
 export const Header = () => {
-  const router = useRouter();
   const { isLoggedIn } = useUser();
   const { savedProducts } = useSearch();
+
+  const router = useRouter();
+
+  const [user, setUser] = useState<string>("username");
+
+  const usernameFetch = async () => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      try {
+        const { data } = await axios.get<CloudinaryUploadResponse>(
+          `${process.env.BACKEND_URL}/username`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const { firstName }: any = data;
+
+        setUser(firstName);
+      } catch (error: any) {
+        const message = error.response?.data?.message || "error";
+        throw new Error(message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    usernameFetch();
+  });
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    window.localStorage.removeItem("token");
+    window.location.reload();
+  };
 
   return (
     <Box
@@ -113,9 +164,44 @@ export const Header = () => {
             </Link>
 
             {isLoggedIn ? (
-              <Link href={"/user"}>
-                <PermIdentityIcon sx={{ color: "white" }} />
-              </Link>
+              <Stack
+                flexDirection={"row"}
+                sx={{
+                  gap: "4px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Link href={"/user"}>
+                  <div className="text-white pr-2">{user}</div>
+                </Link>
+                <div>
+                  <Button
+                    id="basic-button"
+                    aria-controls={open ? "basic-menu" : undefined}
+                    aria-haspopup="true"
+                    size={"icon"}
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}
+                  >
+                    <FaRegUser className="text-white w-[24px] h-[24px]" />
+                  </Button>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      "aria-labelledby": "basic-button",
+                    }}
+                  >
+                    <Link href={"/user"}>
+                      <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    </Link>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </div>
+              </Stack>
             ) : (
               <Stack direction="row" alignItems="center" sx={{ gap: "8px" }}>
                 <Link href="/register">
