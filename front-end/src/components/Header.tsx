@@ -12,10 +12,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useUser } from "@/provider/UserProvider";
+import { CenterFocusStrong } from "@mui/icons-material";
+import { useSearch } from "@/provider/SearchProvider";
 
 export const Header = () => {
   const router = useRouter();
   const { isLoggedIn } = useUser();
+  const { savedProducts } = useSearch();
 
   return (
     <Box
@@ -74,9 +77,36 @@ export const Header = () => {
             <Search />
           </Stack>
           <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
-            <Link href="/savepage">
-              <FavoriteBorderIcon sx={{ color: "white" }} />
-            </Link>
+            <div
+              style={{ position: "relative", width: "100%", height: "100%" }}
+            >
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <Link href="/savepage">
+                  <FavoriteBorderIcon sx={{ color: "white" }} />
+                </Link>
+                {savedProducts.length <= 0 ? null : (
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "14px",
+                      top: "-5px",
+                      width: "17px",
+                      height: "17px",
+                      borderRadius: "50%",
+                      backgroundColor: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "black",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {savedProducts.length}
+                  </div>
+                )}
+              </div>
+            </div>
 
             <Link href="/cart">
               <LocalGroceryStoreIcon sx={{ color: "white" }} />

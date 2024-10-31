@@ -1,19 +1,53 @@
-import { Stack, Box, Typography, ImageList, Button } from "@mui/material";
+import { Stack, Box, Typography, Button, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import React from "react";
-import { borders } from "@mui/system";
+import { useState } from "react";
+import { useSearch } from "@/provider/SearchProvider";
+
+type ItemsType = {
+  _id: string;
+  productName: string;
+  price: string;
+  images: [string];
+};
 
 type SaveBoxProps = {
-  items: itemsType[];
+  products: ItemsType[];
+  setProducts: React.Dispatch<React.SetStateAction<ItemsType[]>>;
 };
 
-type itemsType = {
-  text: string;
-  price: string;
-  image: string;
-};
+const Savebox: React.FC<SaveBoxProps> = ({ products, setProducts }) => {
+  const { setSavedProducts } = useSearch();
 
-const Savebox = ({ items }: SaveBoxProps) => {
+  const handleAddToCart = (index: number) => {
+    console.log(`Added ${products[index].productName} to cart`);
+  };
+
+  const handleRemoveProduct = (productId: String) => {
+    const isThereSavedItemsJson = window.localStorage.getItem("save");
+    const isThereSavedItems = isThereSavedItemsJson
+      ? JSON.parse(isThereSavedItemsJson)
+      : [];
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product._id !== productId)
+    );
+    const updatedItems = isThereSavedItems.filter(
+      (el: any) => el._id !== productId
+    );
+    window.localStorage.setItem("save", JSON.stringify(updatedItems));
+    setSavedProducts(updatedItems);
+  };
+
+  const [iconColors, setIconColors] = useState<boolean[]>(
+    new Array(products.length).fill(false)
+  );
+
+  const toggleIconColor = (index: number) => {
+    setIconColors((prevColors) =>
+      prevColors.map((color, i) => (i === index ? !color : color))
+    );
+  };
+
   return (
     <Stack
       sx={{
@@ -24,7 +58,7 @@ const Savebox = ({ items }: SaveBoxProps) => {
         gap: "24px",
       }}
     >
-      {items.map(({ text, price, image }, index) => (
+      {products.map(({ _id, productName, price, images }, index) => (
         <Stack
           sx={{
             display: "flex",
@@ -36,14 +70,16 @@ const Savebox = ({ items }: SaveBoxProps) => {
             gap: "24px",
           }}
           key={index}
-          spacing={1}
         >
           <Stack sx={{ width: "100px", height: "100px" }}>
-            <img src={image} style={{ width: "100px", height: "100px" }} />
+            <img
+              src={images[0]}
+              alt={productName}
+              style={{ width: "100px", height: "100px" }}
+            />
           </Stack>
           <Stack
             sx={{
-              marginTop: 0,
               width: "402px",
               height: "100px",
               display: "flex",
@@ -51,19 +87,26 @@ const Savebox = ({ items }: SaveBoxProps) => {
               gap: "6px",
             }}
           >
-            <Typography variant="h6">{text}</Typography>
+            <Typography variant="h6">{productName}</Typography>
             <Typography variant="body1">{price}</Typography>
             <Button
               sx={{ width: "81px", borderRadius: "14px", height: "28px" }}
               variant="contained"
               color="secondary"
+              onClick={() => handleAddToCart(index)}
             >
               сагслах
             </Button>
           </Stack>
-          <Button sx={{ width: "20px", height: "20px" }}>
-            <FavoriteIcon />
-          </Button>
+          <IconButton
+            sx={{ width: "20px", height: "20px" }}
+            onClick={() => {
+              handleRemoveProduct(_id);
+              toggleIconColor(index);
+            }}
+          >
+            <FavoriteIcon sx={{ color: "black" }} />
+          </IconButton>
         </Stack>
       ))}
     </Stack>
