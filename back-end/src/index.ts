@@ -9,7 +9,10 @@ import imgRoutes from "./routes/imgRoutes";
 import userUpdate from "./routes/userUpdateRoutes";
 import orderRoutes from "./routes/orderRoutes";
 
+
+
 import loginRouter from "./routes/loginRoutes";
+import adminLoginRouter from "./routes/adminloginRoutes";
 
 import nodemailer from "nodemailer";
 
@@ -26,7 +29,9 @@ app.use("/", loginRouter);
 app.use("/", productRoutes);
 app.use("/", imgRoutes);
 app.use("/", userUpdate);
+app.use("/", adminLoginRouter);
 app.use("/", orderRoutes);
+
 
 const startServer = async () => {
   await connectDatabase();

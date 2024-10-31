@@ -3,14 +3,16 @@
 import { CustomButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUser } from "@/provider/UserProvider";
 import { useRouter } from "next/navigation";
 import { Stack, Typography } from "@mui/material";
 import Loading from "@/components/Loading";
 
 export default function Login() {
-  const { loginHandler, isLoggedIn } = useUser();
+  const { adminLoginHandler, isAdminLoggedIn } = useUser();
+  console.log(isAdminLoggedIn);
+
   const router = useRouter();
 
   const [inputValue, setInputValue] = useState({ email: "", password: "" });
@@ -26,8 +28,9 @@ export default function Login() {
     const { email, password } = inputValue;
     setLoading(true);
     try {
-      await loginHandler(email, password);
-      router.push("/confirm");
+      await adminLoginHandler(email, password);
+      router.push("/admin"); // Redirect after successful login
+
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -35,11 +38,11 @@ export default function Login() {
     }
   };
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/confirm");
-    }
-  }, []);
+
+  if (isAdminLoggedIn) {
+    router.push("/admin");
+  }
+
 
   return (
     <div className="flex h-screen w-full">
