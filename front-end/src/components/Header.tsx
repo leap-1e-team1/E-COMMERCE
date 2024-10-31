@@ -22,8 +22,6 @@ interface CloudinaryUploadResponse {
   token: string;
 }
 
-
-
 export const Header = () => {
   const { isLoggedIn } = useUser();
   const { savedProducts } = useSearch();
