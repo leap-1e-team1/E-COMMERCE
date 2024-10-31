@@ -21,7 +21,7 @@ interface UserContextType {
 
 interface CloudinaryUploadResponse {
   secure_url: string;
-  token: string;
+  userResponse: any;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -47,8 +47,14 @@ export const AncestorProvider: FC<AncestorProviderProps> = ({ children }) => {
         `${process.env.BACKEND_URL}/login`,
         { email, password }
       );
+      // console.log(res);
+      const token = res.data.userResponse.token;
+      const user = res.data.userResponse.userId;
+      console.log(user);
 
-      window.localStorage.setItem("token", res.data.token);
+      window.localStorage.setItem("token", token);
+      window.localStorage.setItem("user", user);
+
       setIsLoggedIn(true);
       router.push("/");
     } catch (error: any) {
