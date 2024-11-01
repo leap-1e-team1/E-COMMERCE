@@ -5,7 +5,7 @@ import { CustomButton } from "./Button";
 import axios from "axios"; // Make sure to import axios
 
 interface Product {
-  id: number;
+  _id: number;
   name: string;
   price: number;
   quantity: number;
@@ -26,9 +26,12 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
   const [address, setAddress] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
 
+  const userId = localStorage.getItem("user");
   const handleOrderSubmit = async () => {
     try {
       const res = await axios.post(`${process.env.BACKEND_URL}/order`, {
+        userId: userId,
+        productId: products.map((product) => product._id),
         surname,
         name,
         phone,
@@ -65,7 +68,7 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
 
         {products.map((product) => (
           <Box
-            key={product.id}
+            key={product._id}
             sx={{ mb: 2, display: "flex", alignItems: "center" }}
           >
             {product.images.length > 0 && (
@@ -197,7 +200,7 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
           <CustomButton
             text="Үргэлжлүүлэх"
             textColor="primary.contrastText"
-            handleClick={handleOrderSubmit} // Update to call the new function
+            handleClick={handleOrderSubmit}
             bgColor="secondary.main"
             height="36px"
             border="secondary.main"

@@ -120,7 +120,7 @@ export const HomeComp = () => {
                       {productName}
                     </Typography>
                     <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
-                      {price} $
+                      {price} ₮
                     </Typography>
                   </Stack>
                 </Stack>

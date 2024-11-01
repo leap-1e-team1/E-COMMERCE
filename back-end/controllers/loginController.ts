@@ -29,8 +29,16 @@ export const loginController = async (req: any, res: any) => {
       SECRET_KEY,
       { expiresIn: "30d" }
     );
+    const userResponse = {
+      token: token,
+      userId: user._id,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    };
 
-    return res.status(200).json({ message: "Амжилттай нэвтэрлээ", token });
+    return res
+      .status(200)
+      .json({ message: "Амжилттай нэвтэрлээ", userResponse });
   } catch (error) {
     console.error("Error during login:", error);
     return res.status(500).json({ message: "Login failed" });
