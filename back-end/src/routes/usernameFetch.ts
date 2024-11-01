@@ -4,6 +4,6 @@ import { usernameFetch } from "../../controllers/usernameFetch";
 
 const router = Router();
 
-router.get("/username", authMiddleware, usernameFetch);
+router.get("/username/:id", usernameFetch);
 
 export default router;

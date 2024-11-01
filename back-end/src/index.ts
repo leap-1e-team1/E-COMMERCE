@@ -30,6 +30,7 @@ app.use("/", productRoutes);
 app.use("/", incomeRouter);
 app.use("/", imgRoutes);
 app.use("/", userUpdate);
+app.use("/", usernameFetch);
 app.use("/", adminLoginRouter);
 app.use("/", orderRoutes);
 
