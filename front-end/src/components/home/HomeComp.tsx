@@ -108,10 +108,10 @@ export const HomeComp = () => {
                         position: "absolute",
                         width: "24px",
                         height: "24px",
-                        top: "505px",
+                        top: "575px",
                       }}
                     >
-                      <FavoriteBorderIcon sx={{ color: "white" }} />
+                      <FavoriteBorderIcon sx={{ color: "black" }} />
                     </Button>
                   </div>
 
