@@ -2,9 +2,17 @@
 
 import { Stack, Typography } from "@mui/material";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+
+type UserDataTypes = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  address: string;
+};
 
 export const UserDetail = () => {
   const token = window.localStorage.getItem("token");
@@ -33,6 +41,27 @@ export const UserDetail = () => {
     const { name, value } = event.target;
     setUserInput((prev) => ({ ...prev, [name]: value }));
   };
+  const userId = window.localStorage.getItem("user");
+
+  useEffect(() => {
+    const usernameFetch = async () => {
+      if (token) {
+        try {
+          const { data } = await axios.get<UserDataTypes>(
+            `${process.env.BACKEND_URL}/username/${userId}`
+          );
+          console.log(data);
+          setUserInput(data);
+        } catch (error: any) {
+          const message = error.response?.data?.message || "error";
+
+          console.log(message);
+        }
+      }
+    };
+    usernameFetch();
+  }, []);
+  console.log(userInput);
 
   return (
     <Stack gap={"16px"} direction={"column"}>
@@ -49,6 +78,7 @@ export const UserDetail = () => {
             name="lastName"
             type="text"
             onChange={handleChange}
+            value={userInput.lastName}
             style={{
               width: "620px",
               height: "28px",
@@ -68,6 +98,7 @@ export const UserDetail = () => {
             name="firstName"
             type="text"
             onChange={handleChange}
+            value={userInput.firstName}
             style={{
               width: "620px",
               height: "28px",
@@ -87,6 +118,7 @@ export const UserDetail = () => {
             name="phoneNumber"
             type="text"
             onChange={handleChange}
+            value={userInput.phoneNumber}
             style={{
               width: "620px",
               height: "28px",
@@ -106,6 +138,7 @@ export const UserDetail = () => {
             name="email"
             type="text"
             onChange={handleChange}
+            value={userInput.email}
             style={{
               width: "620px",
               height: "28px",
@@ -125,6 +158,7 @@ export const UserDetail = () => {
             name="address"
             type="text"
             onChange={handleChange}
+            value={userInput.address}
             style={{
               width: "620px",
               height: "68px",
