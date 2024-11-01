@@ -30,29 +30,28 @@ export const Header = () => {
 
   const [user, setUser] = useState<string>("username");
 
-  const usernameFetch = async () => {
-    const token = window.localStorage.getItem("token");
-    if (token) {
-      try {
-        const { data } = await axios.get<CloudinaryUploadResponse>(
-          `${process.env.BACKEND_URL}/username`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const { firstName }: any = data;
-
-        setUser(firstName);
-      } catch (error: any) {
-        const message = error.response?.data?.message || "error";
-        throw new Error(message);
-      }
-    }
-  };
-
   useEffect(() => {
+    const usernameFetch = async () => {
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        try {
+          const { data } = await axios.get<CloudinaryUploadResponse>(
+            `${process.env.BACKEND_URL}/username`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const { firstName }: any = data;
+
+          setUser(firstName);
+        } catch (error: any) {
+          const message = error.response?.data?.message || "error";
+          throw new Error(message);
+        }
+      }
+    };
     usernameFetch();
   });
 
