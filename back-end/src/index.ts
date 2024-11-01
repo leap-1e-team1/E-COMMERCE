@@ -32,9 +32,6 @@ app.use("/", imgRoutes);
 app.use("/", userUpdate);
 app.use("/", adminLoginRouter);
 app.use("/", orderRoutes);
-app.use("/", usernameFetch);
-
-console.log("after toute");
 
 const startServer = async () => {
   await connectDatabase();

@@ -1,4 +1,5 @@
 "use client";
+
 import { CustomButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { useUser } from "@/provider/UserProvider";
@@ -15,19 +16,25 @@ export default function Login() {
   const { isLoggedIn, loginHandler } = useUser();
 
   const handleSubmit = async () => {
+    if (!email || !password) {
+      toast.error("Имэйл болон нууц үг оруулна уу.");
+      return;
+    }
+
     try {
       await loginHandler(email, password);
-
       toast.success("Амжилттай нэвтэрлээ!");
+      router.push("/"); // Redirect after successful login
     } catch (error: any) {
       const message = error.response?.data?.message || "Нэвтрэхэд алдаа гарлаа";
       toast.error(message);
     }
   };
 
+  // Redirect if already logged in
   if (isLoggedIn) {
     router.push("/");
-    return;
+    return null;
   }
 
   return (
@@ -42,12 +49,10 @@ export default function Login() {
     >
       <Typography
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
           fontSize: "24px",
           fontFamily: "Inter",
           fontWeight: 600,
+          textAlign: "center",
         }}
         color="primary"
       >
@@ -64,7 +69,6 @@ export default function Login() {
           type="email"
           placeholder=""
           helperText=""
-          sx=""
           value={email}
           inputHandler={(e) => setEmail(e.target.value)}
         />
@@ -74,7 +78,6 @@ export default function Login() {
           type="password"
           placeholder=""
           helperText=""
-          sx=""
           value={password}
           inputHandler={(e) => setPassword(e.target.value)}
         />
