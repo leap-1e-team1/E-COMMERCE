@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Stack } from "@mui/system";
 import Link from "next/link";
+import { useSearch } from "@/provider/SearchProvider";
 
 type productType = {
   _id: string;
@@ -22,6 +23,8 @@ export const ProductDetail = ({ id }: { id: string }) => {
   const [value, setValue] = React.useState<number | null>(2);
   const [selectedSize, setSelectedSize] = useState<string | null>("S");
   const router = useRouter();
+
+  const { setCartedProducts } = useSearch();
 
   const handleSizeSelect = (size: string) => {
     setSelectedSize(size);
@@ -92,6 +95,7 @@ export const ProductDetail = ({ id }: { id: string }) => {
           quantity: 1,
         };
         items.push(newItem);
+        setCartedProducts(items);
         console.log("Product added to cart:", newItem);
       }
       ("");

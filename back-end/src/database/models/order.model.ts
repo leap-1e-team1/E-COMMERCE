@@ -5,6 +5,7 @@ export type OrderModelType = {
   productId?: Schema.Types.ObjectId;
   surname: string;
   name: string;
+  isPaid: boolean;
   phone: string;
   address: string;
   additionalInfo?: string;
@@ -17,6 +18,7 @@ const OrderSchema = new Schema<OrderModelType>({
   productId: { type: Schema.Types.ObjectId, required: true, ref: "Products" },
   surname: { type: String, required: true },
   name: { type: String, required: true },
+  isPaid: { type: Boolean, required: true, default: false },
   phone: { type: String, required: true },
   address: { type: String, required: true },
   additionalInfo: { type: String, required: false },

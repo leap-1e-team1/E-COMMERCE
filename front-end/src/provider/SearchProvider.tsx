@@ -12,6 +12,24 @@ import {
   useEffect,
 } from "react";
 
+export type CartedProductsType = {
+  _id: string;
+  productName: string;
+  price: string;
+  images: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  description: string;
+  barcode: string;
+  count: number;
+  color: string;
+  sizes: string[];
+  categoryName: string;
+  remainingQuantity: number;
+  Subclass: string;
+  type: string;
+  quantity: number;
+};
 interface UserContextType {
   setProductData: Dispatch<SetStateAction<ProductsModelType[]>>;
   productData: ProductsModelType[];
@@ -19,6 +37,8 @@ interface UserContextType {
   setSavedProducts: Dispatch<SetStateAction<ProductsModelType[]>>;
   searchedData: ProductsModelType[];
   setSearchedData: Dispatch<SetStateAction<ProductsModelType[]>>;
+  cartedProducts: CartedProductsType[];
+  setCartedProducts: Dispatch<SetStateAction<CartedProductsType[]>>;
 }
 
 export const SearchContext = createContext<UserContextType | undefined>(
@@ -32,6 +52,9 @@ interface SearchProviderProps {
 export const SearchProvider: FC<SearchProviderProps> = ({ children }) => {
   const [productData, setProductData] = useState<ProductsModelType[]>([]);
   const [savedProducts, setSavedProducts] = useState<ProductsModelType[]>([]);
+  const [cartedProducts, setCartedProducts] = useState<CartedProductsType[]>(
+    []
+  );
   const [searchedData, setSearchedData] = useState<ProductsModelType[]>([]);
 
   return (
@@ -43,6 +66,8 @@ export const SearchProvider: FC<SearchProviderProps> = ({ children }) => {
         setSavedProducts,
         searchedData,
         setSearchedData,
+        cartedProducts,
+        setCartedProducts,
       }}
     >
       {children}
