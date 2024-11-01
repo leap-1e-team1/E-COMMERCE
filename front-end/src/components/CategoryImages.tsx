@@ -71,9 +71,8 @@ export const CategoryImages = () => {
     <div className="w-[774px] flex flex-wrap gap-y-12 gap-x-2 z-0 ">
       {productData?.map((image, index) => {
         return (
-          <Link
+          <Stack
             key={index}
-            href={`/productdetail/${image._id}`}
             onMouseEnter={() => {
               hoverHandler(index);
             }}
