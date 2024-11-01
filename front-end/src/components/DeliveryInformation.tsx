@@ -3,18 +3,10 @@ import { Box, Input, Typography } from "@mui/material";
 import { useState } from "react";
 import { CustomButton } from "./Button";
 import axios from "axios"; // Make sure to import axios
-
-interface Product {
-  _id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  description: string;
-  images: string[];
-}
+import { CartedProductsType } from "@/provider/SearchProvider";
 
 interface DeliveryProps {
-  products: Product[];
+  products: CartedProductsType[];
   onNext: () => void;
   onBack: () => void;
 }
@@ -46,6 +38,10 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
       console.error("Error submitting order:", error);
     }
   };
+  const totalAmount = (products || []).reduce(
+    (total, product) => total + parseFloat(product.price) * product.quantity,
+    0
+  );
 
   return (
     <Box sx={{ display: "flex", gap: "20px", width: "1040px" }}>
@@ -63,10 +59,10 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
         }}
       >
         <Typography color="primary.main" sx={{ fontSize: 24, mb: 2 }}>
-          1. Сагс ({products.length})
+          1. Сагс ({products?.length || 0})
         </Typography>
 
-        {products.map((product) => (
+        {products?.map((product) => (
           <Box
             key={product._id}
             sx={{ mb: 2, display: "flex", alignItems: "center" }}
@@ -80,7 +76,6 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
                   height: "80px",
                 }}
                 src={product.images[0]}
-                alt={product.name}
               />
             )}
             <Box>
@@ -95,12 +90,7 @@ const Delivery: React.FC<DeliveryProps> = ({ products, onNext, onBack }) => {
         ))}
 
         <Typography variant="h6" sx={{ mt: 2 }}>
-          Нийт төлөх дүн:{" "}
-          {products.reduce(
-            (total, product) => total + product.price * product.quantity,
-            0
-          )}{" "}
-          ₮
+          Нийт төлөх дүн: {totalAmount}₮
         </Typography>
       </Box>
 

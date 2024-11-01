@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import CountdownTimer from "./Timer";
+import axios from "axios";
 import { CustomButton } from "./Button";
+const qrcode = require("yaqrcode");
 
 const bankImages = [
   { src: "/1.png", alt: "Bank 1" },
@@ -21,6 +23,22 @@ const bankImages = [
 ];
 
 const Payment: React.FC<{ onNext: () => void }> = ({ onNext }) => {
+  const [base, setBase] = useState("");
+  const orderId = useEffect(() => {
+    const asd = async () => {
+      const { data } = await axios.post(
+        "https://qpaymock.onrender.com/generate-qr",
+        {
+          url: `http://localhost:8000/order/672455b680b7e185890dfaba`,
+        }
+      );
+      console.log(data, "datata");
+
+      setBase(data as string);
+    };
+    asd();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -59,7 +77,7 @@ const Payment: React.FC<{ onNext: () => void }> = ({ onNext }) => {
         }}
       >
         <img
-          src="./qr.png"
+          src={base}
           alt="QR Code"
           style={{ maxWidth: "100%", height: "auto" }}
         />

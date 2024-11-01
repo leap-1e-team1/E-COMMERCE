@@ -24,9 +24,10 @@ interface CloudinaryUploadResponse {
 
 export const Header = () => {
   const { isLoggedIn } = useUser();
-  const { savedProducts } = useSearch();
+  const { savedProducts, cartedProducts } = useSearch();
 
   const router = useRouter();
+  const { setCartedProducts } = useSearch();
 
   const [user, setUser] = useState<string>("username");
 
@@ -48,12 +49,14 @@ export const Header = () => {
           setUser(firstName);
         } catch (error: any) {
           const message = error.response?.data?.message || "error";
-          throw new Error(message);
         }
       }
     };
+    const cartedProductsJson = localStorage.getItem("cartedItems") as string;
+    const cartedProducts = JSON.parse(cartedProductsJson);
+    setCartedProducts(cartedProducts);
     usernameFetch();
-  });
+  }, []);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -156,9 +159,36 @@ export const Header = () => {
               </div>
             </div>
 
-            <Link href="/cart">
-              <LocalGroceryStoreIcon sx={{ color: "white" }} />
-            </Link>
+            <div
+              style={{ position: "relative", width: "100%", height: "100%" }}
+            >
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <Link href="/cart">
+                  <LocalGroceryStoreIcon sx={{ color: "white" }} />
+                </Link>
+                {cartedProducts && cartedProducts.length <= 0 ? null : (
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "14px",
+                      top: "-5px",
+                      width: "17px",
+                      height: "17px",
+                      borderRadius: "50%",
+                      backgroundColor: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "black",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {cartedProducts && cartedProducts.length}
+                  </div>
+                )}
+              </div>
+            </div>
 
             {isLoggedIn ? (
               <Stack
