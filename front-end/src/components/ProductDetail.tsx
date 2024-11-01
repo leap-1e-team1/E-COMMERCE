@@ -15,16 +15,19 @@ type productType = {
   barcode: string;
   price: string;
   images: [string];
+  sizes: [string];
 };
 
 export const ProductDetail = ({ id }: { id: string }) => {
   console.log(id);
 
+  const [products, setProducts] = useState([]);
+
   const [value, setValue] = React.useState<number | null>(2);
   const [selectedSize, setSelectedSize] = useState<string | null>("S");
   const router = useRouter();
 
-  const sizes: string[] = ["S", "M", "L", "XL", "2XL"];
+  // const sizes: string[] = ["S", "M", "L", "XL", "2XL"];
 
   const handleSizeSelect = (size: string) => {
     setSelectedSize(size);
@@ -38,7 +41,6 @@ export const ProductDetail = ({ id }: { id: string }) => {
   };
 
   const [product, setProduct] = useState<productType>();
-  const [products, setProducts] = useState([]);
   const [coverImg, setCoverImg] = useState<string | undefined>();
   const [imgHover, setImageHover] = useState(0);
 
@@ -57,6 +59,21 @@ export const ProductDetail = ({ id }: { id: string }) => {
       }
     };
     handleSubmit();
+    const handleSubmitProduct = async () => {
+      try {
+        const { data }: any = await axios.get(
+          "http://localhost:8000/product",
+          {}
+        );
+        setProducts(data);
+        console.log(data);
+      } catch (error: any) {
+        const message = error.response?.data?.message || "Error login";
+        alert(message);
+        console.log(error);
+      }
+    };
+    handleSubmitProduct();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -93,117 +110,6 @@ export const ProductDetail = ({ id }: { id: string }) => {
       alert(message);
     }
   };
-
-  const products = [
-    {
-      productName: " The Prompt Magazine1",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine2",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine3",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine4",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine5",
-      productPrice: "120’000$",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine6",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine7",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine8",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine9",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine10",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine11",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine12",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine13",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine14",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine15",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine16",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine17",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-    {
-      productName: " The Prompt Magazine18",
-      productPrice: "120’000₮",
-      productImg:
-        "https://store.figma.com/cdn/shop/files/20240619_Figma_Store_5283_1000x.jpg?v=1719342792",
-    },
-  ];
 
   const [isHover, setIsHover] = useState(Number);
 
@@ -265,19 +171,19 @@ export const ProductDetail = ({ id }: { id: string }) => {
           <div className="flex flex-col gap-2 mt-4">
             <div className="flex ">Хэмжээний заавар</div>
             <div className="flex w-[176px] gap-1 h-[32px]">
-              {sizes.map((size) => (
+              {product?.sizes.map((el, index) => (
                 <button
-                  key={size}
-                  onClick={() => handleSizeSelect(size)}
+                  key={index}
+                  onClick={() => handleSizeSelect(el)}
                   className={`w-8 h-8 rounded-full border-[1px] flex items-center justify-center text-xs
               ${
-                selectedSize === size
+                selectedSize === el
                   ? "bg-black text-white"
                   : "bg-white border-gray-400 text-black"
               }
             `}
                 >
-                  {size}
+                  {el}
                 </button>
               ))}
             </div>
@@ -351,8 +257,8 @@ export const ProductDetail = ({ id }: { id: string }) => {
             mb: "90px",
           }}
         >
-          {products.map(({ productName, productPrice, productImg }, index) => {
-            if (index > 9 && index < 18) {
+          {products.map(({ _id, productName, price, images }, index) => {
+            if (index < 8) {
               return (
                 <Link
                   key={index}
