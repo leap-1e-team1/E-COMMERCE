@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,70 +11,78 @@ import Checkbox from "@mui/material/Checkbox";
 import Image from "next/image";
 import axios from "axios";
 import { Button } from "@mui/material";
-import { log } from "console";
+import { format } from "date-fns";
+import { HiPencil } from "react-icons/hi";
 
-const rows = [
-  {
-    id: "0001",
-    productImage: "/hoodie.png",
-    productName: "Wildflower hoodie",
-    category: "hoodie",
-    price: "200000",
-    remain: "35",
-    sold: "25",
-    date: "2024.01.10",
+type ProductTypes = {
+  _id: string;
+  productName: string;
+  images: string[];
+  description: string;
+  barcode: string;
+  price: string;
+  remainingQuantity: number;
+  categoryName: string;
+  Subclass: string;
+  type: string;
+  color: string;
+  sizes: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  soldAmount: number;
+  isChecked?: boolean;
+};
 
-    editIcon: "/editButton.png",
-    isChecked: false,
-  },
-  {
-    id: "0002",
-    productImage: "/water.png",
-    productName: "All Smiles Nalgene",
-    category: "Усны сав",
-    price: "50000",
-    remain: "25",
-    sold: "45",
-    date: "2024.02.02",
-    editIcon: "/editButton.png",
-    isChecked: false,
-  },
-  {
-    id: "0003",
-    productImage: "/blue-hat.png",
-    productName: "Chunky Glyph Cap",
-    category: "Малгай",
-    price: "100000",
-    remain: "15",
-    sold: "20",
-    date: "2024.03.03",
-    editIcon: "/editButton.png",
-    isChecked: false,
-  },
-  {
-    id: "0004",
-    productImage: "/tee.png",
-    productName: "Independent Corners Tee",
-    category: "Tee",
-    price: "150000",
-    remain: "20",
-    sold: "35",
-    date: "2024.04.04",
-    editIcon: "/editButton.png",
-    isChecked: false,
-  },
-];
-
-export default function TableProduct() {
-  const [items, setItems] = useState<any[]>(rows);
-
+export default function TableProduct({
+  category,
+  price,
+  search,
+  date,
+}: Record<any, any>) {
   const [editingItem, setEditingItem] = useState<string | null>(null);
-  const [editedRowData, setEditedRowData] = useState<any | null>(null);
+  const [editedRowData, setEditedRowData] = useState<ProductTypes | null>(null);
+  const [items, setItems] = useState<string[]>([]);
+  const [product, setProduct] = useState<ProductTypes[]>([]);
 
-  const handleEditClick = (row: any) => {
-    setEditingItem(row.id);
+  const filtered = product.filter((product) => {
+    if (category) {
+      console.log(product.categoryName);
+      return product.categoryName
+        .toLocaleLowerCase()
+        .includes(category.toLocaleLowerCase());
+    } else if (price) {
+      return Number(product.price) == price;
+    } else if (search) {
+      return product.productName
+        .toLocaleLowerCase()
+        .includes(search.toLowerCase());
+    } else {
+      return (
+        new Date(product.createdAt).getMonth() == new Date(date).getMonth()
+      );
+    }
+  });
+
+  const handleEditClick = (row: ProductTypes) => {
+    setEditingItem(row._id);
     setEditedRowData(row);
   };
+
+  useEffect(() => {
+    const handleSubmit = async () => {
+      try {
+        const { data }: any = await axios.get(
+          `${process.env.BACKEND_URL}/product`,
+          {}
+        );
+        setProduct(data);
+        console.log(data);
+      } catch (error: any) {
+        console.log(error);
+      }
+    };
+    handleSubmit();
+  }, [editingItem]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (editedRowData) {
@@ -85,40 +93,40 @@ export default function TableProduct() {
     }
   };
 
-  const handleSaveClick = () => {
-    setItems((prev) =>
-      prev.map((item) => (item.id === editedRowData.id ? editedRowData : item))
-    );
-    setEditingItem(null);
-    setEditedRowData(null);
+  const handleSaveClick = async () => {
+    if (editedRowData) {
+      console.log(editedRowData);
+      const res = await axios.put(
+        `${process.env.BACKEND_URL}/product/update/${editedRowData._id}`,
+        editedRowData
+      );
+      console.log(res);
+
+      setEditingItem(null);
+      setEditedRowData(null);
+    }
   };
 
   const handleCancelClick = () => {
-    setEditingItem(null);
-    setEditedRowData(null);
-  };
-  const clickHandler = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    const { id } = event.target as HTMLInputElement;
-    setItems((prev) =>
-      prev.map((el) => {
-        if (el.id === id) {
-          return { ...el, isChecked: !el.isChecked };
-        } else {
-          return { ...el };
-        }
-      })
-    );
+    if (editedRowData) {
+      console.log(editedRowData);
+
+      setEditingItem(null);
+      setEditedRowData(null);
+    }
   };
 
+  const clickHandler = (id: string) => {
+    setItems((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
   const handleDelete = async () => {
-    const checked = items.filter((item) => item.isChecked === true);
-    const deletingItems = checked.map((el) => el.id);
-    await axios.post(`${process.env.BACKEND_URL}/product/delete`, {
-      selectedProductId: deletingItems,
-    });
+    if (items.length >= 1) {
+      await axios.post(`${process.env.BACKEND_URL}/product/delete`, {
+        selectedProductId: items,
+      });
+    }
   };
 
   return (
@@ -138,20 +146,21 @@ export default function TableProduct() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((row) => (
-              <TableRow key={row.id}>
+            {filtered.map((row) => (
+              <TableRow key={row._id}>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    id={row.id}
+                    id={row._id}
                     checked={row.isChecked}
-                    onClick={clickHandler}
+                    onClick={() => clickHandler(row._id)}
                   />
                 </TableCell>
+
                 <TableCell className="flex flex-col">
                   <div className="flex gap-3">
                     <Image
-                      src={row.productImage}
-                      alt={row.id}
+                      src={row.images[0]}
+                      alt={row._id}
                       width={40}
                       height={20}
                       style={{
@@ -160,7 +169,7 @@ export default function TableProduct() {
                     ></Image>
 
                     <div>
-                      {editingItem === row.id ? (
+                      {editingItem === row._id ? (
                         <input
                           type="text"
                           name="productName"
@@ -170,24 +179,24 @@ export default function TableProduct() {
                       ) : (
                         <p>{row.productName}</p>
                       )}
-                      <p>{row.id}</p>
+                      <p>{row._id}</p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  {editingItem === row.id ? (
+                  {editingItem === row._id ? (
                     <input
                       type="text"
-                      name="category"
-                      value={editedRowData?.category || ""}
+                      name="categoryName"
+                      value={editedRowData?.categoryName || ""}
                       onChange={handleChange}
                     />
                   ) : (
-                    row.category
+                    row.categoryName
                   )}
                 </TableCell>
                 <TableCell>
-                  {editingItem === row.id ? (
+                  {editingItem === row._id ? (
                     <input
                       type="number"
                       name="price"
@@ -199,57 +208,58 @@ export default function TableProduct() {
                   )}
                 </TableCell>
                 <TableCell>
-                  {editingItem === row.id ? (
+                  {editingItem === row._id ? (
                     <input
                       type="number"
-                      name="remain"
-                      value={editedRowData?.remain || ""}
+                      name="remainingQuantity"
+                      value={editedRowData?.remainingQuantity || ""}
                       onChange={handleChange}
                     />
                   ) : (
-                    row.remain
+                    row.remainingQuantity
                   )}
                 </TableCell>
                 <TableCell>
-                  {editingItem === row.id ? (
+                  {editingItem === row._id ? (
                     <input
                       type="number"
-                      name="sold"
-                      value={editedRowData?.sold || ""}
+                      name="soldAmount"
+                      value={editedRowData?.soldAmount || ""}
                       onChange={handleChange}
                     />
                   ) : (
-                    row.sold
+                    row.soldAmount
                   )}
                 </TableCell>
                 <TableCell>
-                  {editingItem === row.id ? (
+                  {editingItem === row._id ? (
                     <input
                       type="date"
                       name="date"
-                      value={editedRowData?.date || ""}
-                      onChange={handleChange}
+                      value={
+                        editedRowData
+                          ? format(
+                              new Date(editedRowData.createdAt),
+                              "yyyy-MM-dd"
+                            )
+                          : ""
+                      }
                     />
                   ) : (
-                    row.date
+                    format(row.createdAt, "yyyy/MM/dd")
                   )}
                 </TableCell>
                 <TableCell>
-                  <div className="flex flex-row gap-[20px]">
-                    {editingItem === row.id ? (
+                  <div className="flex flex-row gap-2">
+                    {editingItem === row._id ? (
                       <>
                         <Button onClick={handleSaveClick}>Save</Button>
                         <Button onClick={handleCancelClick}>Cancel</Button>
                       </>
                     ) : (
-                      <button onClick={() => handleEditClick(row)}>
-                        <Image
-                          src={row.editIcon}
-                          alt={row.id}
-                          width={40}
-                          height={40}
-                        />
-                      </button>
+                      <Button onClick={() => handleEditClick(row)}>
+                        <HiPencil size={25} />
+                      </Button>
                     )}
                   </div>
                 </TableCell>

@@ -323,7 +323,8 @@ export const ProductDescription = () => {
                 <SelectItem value="Bottle">Bottle</SelectItem>
                 <SelectItem value="Tshirt">Tshirt</SelectItem>
                 <SelectItem value="Hoodie">Hoodie</SelectItem>
-                <SelectItem value="Book">Book</SelectItem>
+                <SelectItem value="Bag">Bag</SelectItem>
+                <SelectItem value="Tee">Tee</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

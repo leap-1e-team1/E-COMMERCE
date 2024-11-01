@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import Link from "@mui/material";
+import dayjs, { Dayjs } from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -15,17 +15,32 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import TableProduct from "./TableProduct";
 import { useRouter } from "next/navigation";
+import { ProductSearch } from "./ProductSearch";
 
 export const ProductComp = () => {
   const [price, setPrice] = React.useState("");
+  const [date, setDate] = React.useState<Dayjs | null>(dayjs(new Date()));
   const router = useRouter();
 
   const handleChange = (event: SelectChangeEvent) => {
     setPrice(event.target.value as string);
+    setDate(null);
+    setValue("");
+    setInputValue("");
   };
-  const options = ["Малгай", "Усны сав", "T-shirt", "Hoodie", "Tee", "Цүнх"];
+
+  const options = ["Hat", "Bottle", "T-shirt", "Hoodie", "Tee", "Bag"];
   const [value, setValue] = React.useState<string | null>(options[0]);
   const [inputValue, setInputValue] = React.useState("");
+
+  const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setInputValue(value);
+    setPrice("");
+    setDate(null);
+    setValue("");
+  };
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col ml-6">
@@ -69,10 +84,9 @@ export const ProductComp = () => {
                   value={value}
                   onChange={(event: any, newValue: string | null) => {
                     setValue(newValue);
-                  }}
-                  inputValue={inputValue}
-                  onInputChange={(event, newInputValue) => {
-                    setInputValue(newInputValue);
+                    setDate(null);
+                    setPrice("");
+                    setInputValue("");
                   }}
                   id="controllable-states-demo"
                   options={options}
@@ -92,11 +106,11 @@ export const ProductComp = () => {
                     label="price"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>20 000 - 40 000</MenuItem>
-                    <MenuItem value={50}>40 000 - 60 000</MenuItem>
-                    <MenuItem value={100}>100 000 - 150000 </MenuItem>
-                    <MenuItem value={200}>200 000 - 300 000 </MenuItem>
-                    <MenuItem value={300}>300 000 - 500 000 </MenuItem>
+                    <MenuItem value={20000}>20 000</MenuItem>
+                    <MenuItem value={40000}>40 000</MenuItem>
+                    <MenuItem value={100000}>100 000 </MenuItem>
+                    <MenuItem value={200000}>200 000</MenuItem>
+                    <MenuItem value={3000000}>300 000</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -110,6 +124,13 @@ export const ProductComp = () => {
                   <DatePicker
                     label={"Сараар"}
                     openTo="month"
+                    value={date}
+                    onChange={(newValue) => {
+                      setDate(newValue);
+                      setPrice("");
+                      setValue("");
+                      setInputValue("");
+                    }}
                     // sx={{
                     //   width: "50px",
                     //   height: "60px",
@@ -120,23 +141,16 @@ export const ProductComp = () => {
               </LocalizationProvider>
             </Stack>
           </div>
-          <div className="mt-[26px] ml-[327px]">
-            <form>
-              <label></label>
-              <input
-                className="w-[419px] h-[60px] absolute rounded-xl pl-[50px]"
-                type="search"
-                id="gsearch"
-                name="gsearch"
-                placeholder="Бүтээгдэхүүний нэр, SKU, UPC"
-              />
-              <img src="/search.png" alt="" className="relative pt-4 ml-4 " />
-            </form>
-          </div>
+          <ProductSearch value={inputValue} inputHandler={inputHandler} />
         </div>
       </div>
 
-      <TableProduct />
+      <TableProduct
+        category={value}
+        price={price}
+        search={inputValue}
+        date={dayjs(date).format()}
+      />
     </div>
   );
 };

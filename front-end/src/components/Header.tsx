@@ -44,6 +44,8 @@ export const Header = () => {
           setUser(firstName);
         } catch (error: any) {
           const message = error.response?.data?.message || "error";
+          console.log("error", message);
+          return message;
         }
       }
     };
