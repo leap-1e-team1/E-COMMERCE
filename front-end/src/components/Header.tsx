@@ -32,16 +32,11 @@ export const Header = () => {
 
   useEffect(() => {
     const usernameFetch = async () => {
-      const token = window.localStorage.getItem("token");
-      if (token) {
+      const user = window.localStorage.getItem("user");
+      if (user) {
         try {
           const { data } = await axios.get<CloudinaryUploadResponse>(
-            `${process.env.BACKEND_URL}/username`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
+            `${process.env.BACKEND_URL}/username/${user}`
           );
           const { firstName }: any = data;
 
