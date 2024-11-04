@@ -17,6 +17,7 @@ import { FaRegUser } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { CenterFocusStrong } from "@mui/icons-material";
 import { useSearch } from "@/provider/SearchProvider";
+import { SearchInput } from "./SearchInput";
 interface CloudinaryUploadResponse {
   secure_url: string;
   token: string;
@@ -24,7 +25,7 @@ interface CloudinaryUploadResponse {
 
 export const Header = () => {
   const { isLoggedIn } = useUser();
-  const { savedProducts } = useSearch();
+  const { savedProducts, searchedData, setSearchedData } = useSearch();
 
   const router = useRouter();
 
@@ -89,6 +90,7 @@ export const Header = () => {
           width: "1040px",
           justifyContent: "space-between",
           paddingLeft: "8px",
+          position: "relative",
         }}
       >
         <Stack
@@ -214,6 +216,19 @@ export const Header = () => {
               </Stack>
             )}
           </Stack>
+        </Stack>
+        <Stack
+          direction="column"
+          justifyItems="center"
+          sx={{
+            position: "absolute",
+            top: "54px",
+            right: "700px",
+          }}
+        >
+          {/* <div className="flex flex-col justify-items-center absolute top-[-60px] right-[1080px]"> */}
+          {searchedData.length ? <SearchInput product={searchedData} /> : <></>}
+          {/* </div> */}
         </Stack>
       </Stack>
     </Box>

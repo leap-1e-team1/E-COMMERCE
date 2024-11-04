@@ -109,9 +109,9 @@ export default function Category() {
       <Suspense fallback={<div>Loading...</div>}>
         <CategoryImages />
       </Suspense>
-      <div className="flex flex-col justify-items-center absolute top-[-60px] right-[1080px]">
+      {/* <div className="flex flex-col justify-items-center absolute top-[-60px] right-[1080px]">
         {searchedData.length ? <SearchInput product={searchedData} /> : <></>}
-      </div>
+      </div> */}
     </div>
   );
 }
