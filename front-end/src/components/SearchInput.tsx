@@ -1,9 +1,16 @@
 "use client";
 
+import { useSearch } from "@/provider/SearchProvider";
 import { Stack, Typography } from "@mui/material";
 import Link from "next/link";
 
 export const SearchInput = ({ product }: { product: any[] }) => {
+  const { setSearchedData } = useSearch();
+
+  const searchHide = () => {
+    setSearchedData([]);
+  };
+
   return (
     <>
       <Stack
@@ -11,17 +18,23 @@ export const SearchInput = ({ product }: { product: any[] }) => {
         // justifyContent="center"
         direction={"column"}
         sx={{
-          width: "408px",
+          width: "601px",
           bgcolor: "#FFFFFF",
           borderRadius: "16px",
           padding: "32px",
           gap: "16px",
           position: "fixed",
+          height: "432px",
+          overflow: "scroll",
         }}
       >
         {product?.map(({ productName, price, images, _id }, index) => {
           return (
-            <Link key={index} href={`/productdetail/${_id}`}>
+            <Link
+              onClick={searchHide}
+              key={index}
+              href={`/productdetail/${_id}`}
+            >
               <Stack
                 direction={"row"}
                 sx={{
