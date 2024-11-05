@@ -25,7 +25,8 @@ interface CloudinaryUploadResponse {
 
 export const Header = () => {
   const { isLoggedIn } = useUser();
-  const { savedProducts, searchedData, setSearchedData } = useSearch();
+  const { savedProducts, searchedData, setSearchedData, cartedProducts } =
+    useSearch();
 
   const router = useRouter();
   const { setCartedProducts } = useSearch();
