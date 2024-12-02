@@ -36,7 +36,7 @@ export const Search = () => {
   useEffect(() => {
     const productDatas = async () => {
       const { data } = await axios.post<SearchResponse>(
-        "http://localhost:8000/search",
+        `${process.env.BACKEND_URL}/search`,
         {
           value: inputValue,
         }

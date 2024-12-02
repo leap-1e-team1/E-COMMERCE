@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { Request, Response, NextFunction } from "express";
 dotenv.config();
 interface CustomJwtPayload extends JwtPayload {
-  userId: string; // Define the custom payload type if you expect a 'userId'
+  userId: string;
 }
 
 export const authMiddleware = async (

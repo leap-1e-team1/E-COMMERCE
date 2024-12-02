@@ -6,45 +6,44 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { CustomButton } from "./Button";
-
-interface Product {
-  _id: string;
-  productName: string;
-  price: string;
-  quantity: number;
-  images: string[];
-  description: string;
-}
+import { CartedProductsType, useSearch } from "@/provider/SearchProvider";
 
 interface CartsProps {
-  products: Product[];
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  products: CartedProductsType[];
   onNext: () => void;
 }
 
-const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
+const Carts: React.FC<CartsProps> = ({ products = [], onNext }) => {
+  const { setCartedProducts } = useSearch();
+
   const handleQuantityChange = (productId: string, isIncrement: boolean) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product._id === productId
-          ? {
-              ...product,
-              quantity: isIncrement
-                ? product.quantity + 1
-                : Math.max(product.quantity - 1, 1),
-            }
-          : product
-      )
-    );
+    const cartedItems = localStorage.getItem("cartedItems");
+    const items = cartedItems ? JSON.parse(cartedItems) : [];
+
+    const existingItem = items.find((item: any) => item._id === productId);
+
+    if (existingItem) {
+      existingItem.quantity += isIncrement ? 1 : -1;
+      if (existingItem.quantity < 1) {
+        existingItem.quantity = 1;
+      }
+    }
+
+    localStorage.setItem("cartedItems", JSON.stringify(items));
+    setCartedProducts(items);
   };
 
   const handleRemoveProduct = (productId: string) => {
-    setProducts((prevProducts) =>
-      prevProducts.filter((product) => product._id !== productId)
-    );
+    const cartedItems = localStorage.getItem("cartedItems");
+    const items = cartedItems ? JSON.parse(cartedItems) : [];
+
+    const updatedItems = items.filter((item: any) => item._id !== productId);
+
+    localStorage.setItem("cartedItems", JSON.stringify(updatedItems));
+    setCartedProducts(updatedItems);
   };
 
-  const totalAmount = products.reduce(
+  const totalAmount = (products || []).reduce(
     (total, product) => total + parseFloat(product.price) * product.quantity,
     0
   );
@@ -65,7 +64,7 @@ const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
       }}
     >
       <Typography color="primary.main" sx={{ fontSize: 24, mb: 2 }}>
-        1. Сагс ({products.length})
+        1. Сагс ({products?.length || 0})
       </Typography>
 
       <Box
@@ -76,7 +75,7 @@ const Carts: React.FC<CartsProps> = ({ products, setProducts, onNext }) => {
           overflowY: "auto",
         }}
       >
-        {products.map((product) => (
+        {products?.map((product) => (
           <Box
             key={product._id}
             sx={{

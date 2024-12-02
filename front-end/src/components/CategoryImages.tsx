@@ -89,7 +89,7 @@ export const CategoryImages = () => {
             <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden relative flex justify-end z-0">
               <img
                 onClick={() => {
-                  router.push("/");
+                  router.push(`/productdetail/${image._id}`);
                 }}
                 src={image.images[0]}
                 className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 cursor-pointer ${
@@ -116,13 +116,9 @@ export const CategoryImages = () => {
               <Typography sx={{ fontSize: "16px" }}>
                 {image.productName}
               </Typography>
-              {/* <Typography sx={{ fontSize: "14px" }}>{image.sizes}</Typography> */}
               <Typography sx={{ fontSize: "16px", fontWeight: "700" }}>
                 {image.price}
               </Typography>
-              {/* <Typography sx={{ fontSize: "16px" }}>
-                  {image.categoryName} */}
-              {/* </Typography> */}
             </Stack>
           </Stack>
         );

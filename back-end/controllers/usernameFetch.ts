@@ -5,10 +5,13 @@ export const usernameFetch = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { userId } = res.locals;
-
-  const response = await UserModel.findByIdAndUpdate(userId);
-  console.log(response);
-
-  res.status(200).send(response);
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const response = await UserModel.findById(id);
+    res.status(200).send(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error fetching user");
+  }
 };

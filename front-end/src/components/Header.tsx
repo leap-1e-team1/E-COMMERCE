@@ -17,14 +17,20 @@ import { FaRegUser } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useSearch } from "@/provider/SearchProvider";
 
+
+import { SearchInput } from "./SearchInput";
+
 interface CloudinaryUploadResponse {
   firstName: string;
 }
 
 export const Header = () => {
   const { isLoggedIn } = useUser();
-  const { savedProducts } = useSearch();
+
+  const { savedProducts, searchedData, setSearchedData, cartedProducts } =
+    useSearch();
   const router = useRouter();
+  const { setCartedProducts } = useSearch();
 
   const [user, setUser] = useState<string>("username");
   const [loading, setLoading] = useState<boolean>(true);
@@ -34,27 +40,27 @@ export const Header = () => {
 
   useEffect(() => {
     const usernameFetch = async () => {
-      const token = window.localStorage.getItem("token");
-      if (token) {
+      const user = window.localStorage.getItem("user");
+      if (user) {
         try {
           const { data } = await axios.get<CloudinaryUploadResponse>(
-            `${process.env.BACKEND_URL}/username`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
+            `${process.env.BACKEND_URL}/username/${user}`
           );
           setUser(data.firstName);
         } catch (error: any) {
-          console.error("Error fetching username:", error);
-        } finally {
-          setLoading(false);
+
+          const message = error.response?.data?.message || "error";
+          console.log("error", message);
+          return message;
+
         }
       } else {
         setLoading(false);
       }
     };
+    const cartedProductsJson = localStorage.getItem("cartedItems") as string;
+    const cartedProducts = JSON.parse(cartedProductsJson);
+    setCartedProducts(cartedProducts);
     usernameFetch();
   }, []);
 
@@ -90,6 +96,7 @@ export const Header = () => {
           width: "1040px",
           justifyContent: "space-between",
           paddingLeft: "8px",
+          position: "relative",
         }}
       >
         <Stack
@@ -151,9 +158,36 @@ export const Header = () => {
               )}
             </div>
 
-            <Link href="/cart">
-              <LocalGroceryStoreIcon sx={{ color: "white" }} />
-            </Link>
+            <div
+              style={{ position: "relative", width: "100%", height: "100%" }}
+            >
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <Link href="/cart">
+                  <LocalGroceryStoreIcon sx={{ color: "white" }} />
+                </Link>
+                {cartedProducts && cartedProducts.length <= 0 ? null : (
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "14px",
+                      top: "-5px",
+                      width: "17px",
+                      height: "17px",
+                      borderRadius: "50%",
+                      backgroundColor: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "black",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {cartedProducts && cartedProducts.length}
+                  </div>
+                )}
+              </div>
+            </div>
 
             {isLoggedIn ? (
               <Stack
@@ -209,6 +243,19 @@ export const Header = () => {
               </Stack>
             )}
           </Stack>
+        </Stack>
+        <Stack
+          direction="column"
+          justifyItems="center"
+          sx={{
+            position: "absolute",
+            top: "54px",
+            right: "700px",
+          }}
+        >
+          {/* <div className="flex flex-col justify-items-center absolute top-[-60px] right-[1080px]"> */}
+          {searchedData.length ? <SearchInput product={searchedData} /> : <></>}
+          {/* </div> */}
         </Stack>
       </Stack>
     </Box>

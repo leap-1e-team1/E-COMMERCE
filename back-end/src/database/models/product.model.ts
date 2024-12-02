@@ -16,6 +16,7 @@ export type ProductsModelType = {
   remainingQuantity: number;
   Subclass: string;
   type: string;
+  soldAmount: number;
 };
 
 const ProductsSchema = new Schema<ProductsModelType>({
@@ -34,6 +35,7 @@ const ProductsSchema = new Schema<ProductsModelType>({
     required: true,
   },
   type: { type: String, required: false },
+  soldAmount: { type: Number, required: false, default: 0 },
   createdAt: { type: Date, default: Date.now, required: true, immutable: true },
   updatedAt: { type: Date, default: Date.now, required: true },
 });

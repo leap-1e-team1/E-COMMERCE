@@ -1,12 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Checkbox, Rating, Typography } from "@mui/material";
+import { IconButton, Checkbox, Rating, Typography } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import React, { useEffect, useRef, useState } from "react";
 import { CiHeart } from "react-icons/ci";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { Stack } from "@mui/system";
 import Link from "next/link";
+import { useSearch } from "@/provider/SearchProvider";
 
 type productType = {
   _id: string;
@@ -24,7 +26,11 @@ export const ProductDetail = ({ id }: { id: string }) => {
   const [selectedSize, setSelectedSize] = useState<string | null>("S");
   const router = useRouter();
 
+
   const sizes: string[] = ["S", "M", "L", "XL", "2XL"];
+
+  const { setCartedProducts } = useSearch();
+
 
   const handleSizeSelect = (size: string) => {
     setSelectedSize(size);
@@ -41,6 +47,8 @@ export const ProductDetail = ({ id }: { id: string }) => {
   const [products, setProducts] = useState([]);
   const [coverImg, setCoverImg] = useState<string | undefined>();
   const [imgHover, setImageHover] = useState(0);
+
+  const { productData, setSavedProducts } = useSearch();
 
   useEffect(() => {
     const handleSubmit = async () => {
@@ -84,6 +92,7 @@ export const ProductDetail = ({ id }: { id: string }) => {
           quantity: 1,
         };
         items.push(newItem);
+        setCartedProducts(items);
         console.log("Product added to cart:", newItem);
       }
       ("");
@@ -222,6 +231,49 @@ export const ProductDetail = ({ id }: { id: string }) => {
     }
   };
 
+  const handleSave = (product: any) => {
+    const isThereSavedItemsJson = window.localStorage.getItem("save");
+    const isThereSavedItems = isThereSavedItemsJson
+      ? JSON.parse(isThereSavedItemsJson)
+      : [];
+
+    const isThereExisting = isThereSavedItems.find(
+      (el: any) => el._id === product._id
+    );
+
+    if (isThereExisting) {
+      const updatedItems = isThereSavedItems.filter(
+        (el: any) => el._id !== product._id
+      );
+      window.localStorage.setItem("save", JSON.stringify(updatedItems));
+      setSavedProducts(updatedItems);
+    } else {
+      isThereSavedItems.push(product);
+      window.localStorage.setItem("save", JSON.stringify(isThereSavedItems));
+      setSavedProducts(isThereSavedItems);
+    }
+  };
+
+  const [iconColors, setIconColors] = useState<boolean[]>(
+    new Array(productData.length).fill(false)
+  );
+
+  const toggleIconColor = (index: number) => {
+    setIconColors((prevColors) =>
+      prevColors.map((color, i) => (i === index ? !color : color))
+    );
+  };
+
+  const [isSaved, setIsSaved] = useState(false);
+
+  const [filter, setFilter] = useState("");
+  const searchParams = useSearchParams();
+  const filterParam = searchParams.get("filter");
+
+  useEffect(() => {
+    setFilter(filterParam as string);
+  }, [filterParam]);
+
   return (
     <div className="flex items-center mt-[150px] gap-[80px] flex-col ">
       <div className="flex gap-5 items-start justify-between w-[1040px]">
@@ -351,12 +403,13 @@ export const ProductDetail = ({ id }: { id: string }) => {
             mb: "90px",
           }}
         >
+
           {products.map(({ productName, productPrice, productImg }, index) => {
             if (index > 9 && index < 18) {
+
               return (
-                <Link
+                <Stack
                   key={index}
-                  href={`/productdetail/${_id}`}
                   onMouseEnter={() => {
                     hoverHandler(index);
                   }}
@@ -367,19 +420,35 @@ export const ProductDetail = ({ id }: { id: string }) => {
                   <Stack
                     sx={{
                       display: "flex",
-                      flexDirection: "colmun",
+                      flexDirection: "column",
                       gap: "8px",
                       width: "245px",
                     }}
                   >
-                    <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden">
+                    <div className="w-[245px] h-[331px] rounded-2xl overflow-hidden flex justify-end relative z-0">
                       <img
+                        onClick={() => {
+                          router.push(`/productdetail/${_id}`);
+                        }}
                         src={images[0]}
                         className={`object-cover w-[245px] h-[331px] rounded-2xl transition duration-300 ${
                           isHover === index ? "scale-[1.2]" : ""
                         }`}
                         alt=""
                       />
+                      <IconButton
+                        className="absolute top-[13px] right-[10px] z-10"
+                        onClick={() => {
+                          handleSave({ _id, productName, price, images });
+                          toggleIconColor(index);
+                          setIsSaved((prev) => !prev);
+                        }}
+                      >
+                        <FavoriteIcon
+                          className="transition-colors duration-300 ease-in-out"
+                          sx={{ color: iconColors[index] ? "black" : "white" }}
+                        />
+                      </IconButton>
                     </div>
 
                     <Stack>
@@ -391,7 +460,7 @@ export const ProductDetail = ({ id }: { id: string }) => {
                       </Typography>
                     </Stack>
                   </Stack>
-                </Link>
+                </Stack>
               );
             }
           })}
