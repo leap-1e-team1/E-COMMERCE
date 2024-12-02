@@ -13,6 +13,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import Link from "next/link";
+import GetOrder from "./GetOrder";
 
 export const OrderComp = () => {
   const routers = [
@@ -24,41 +25,49 @@ export const OrderComp = () => {
   return (
     <Box
       bgcolor={"background.paper"}
-      sx={{ width: "calc(100% - 222px)", px: 8 }}>
+      sx={{ width: "calc(100% - 222px)", px: 8 }}
+    >
       <Box
         sx={{
           display: "flex",
           gap: "30px",
           width: "100%",
           borderBottom: "1px solid #D6D8DB ",
-        }}>
+        }}
+      >
         <Typography
           sx={{
             fontWeight: "bold",
             pl: 5,
             borderBottom: "2px solid ",
             paddingY: "20px",
-          }}>
+          }}
+        >
           Бүгд
         </Typography>
         <Typography
-          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}>
+          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}
+        >
           Шинэ захиалага
         </Typography>
         <Typography
-          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}>
+          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}
+        >
           Бэлтгэгдэж байна
         </Typography>
         <Typography
-          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}>
+          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}
+        >
           Хүргэлтэнд гарсан
         </Typography>
         <Typography
-          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}>
+          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}
+        >
           Хүргэгдсэн
         </Typography>
         <Typography
-          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}>
+          sx={{ borderBottom: "1px solid #D6D8DB ", paddingY: "20px" }}
+        >
           Цуцлагдсан
         </Typography>
       </Box>
@@ -68,11 +77,13 @@ export const OrderComp = () => {
           marginY: "25px",
           justifyContent: "space-between",
           width: "100%",
-        }}>
+        }}
+      >
         <Stack direction="row" spacing={2}>
           <Button
             sx={{ bgcolor: "#18BA51", fontWeight: "bold", boxShadow: "none" }}
-            variant="contained">
+            variant="contained"
+          >
             Өнөөдөр
           </Button>
           <Button sx={{ borderColor: "#D6D8DB" }} variant="outlined">
@@ -88,7 +99,8 @@ export const OrderComp = () => {
               border: "1px solid #D6D8DB ",
               borderRadius: "5px",
               paddingX: "15px",
-            }}>
+            }}
+          >
             <CalendarTodayOutlinedIcon sx={{ fontSize: "18px" }} />
             <Typography>Сараар</Typography>
             <KeyboardArrowDownOutlinedIcon sx={{ fontSize: "18px" }} />
@@ -107,11 +119,13 @@ export const OrderComp = () => {
             border: "1px solid",
             borderColor: "#D6D8DB",
             bgcolor: "white",
-          }}>
+          }}
+        >
           <IconButton
             type="button"
             sx={{ p: "10px", color: "#121316" }}
-            aria-label="search">
+            aria-label="search"
+          >
             <SearchIcon />
           </IconButton>
           <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Дугаар, Имэйл" />
@@ -124,7 +138,8 @@ export const OrderComp = () => {
           marginY: "25px",
           border: "1px solid #D6D8DB ",
           borderRadius: "10px",
-        }}>
+        }}
+      >
         <Typography
           sx={{
             fontSize: 20,
@@ -132,7 +147,8 @@ export const OrderComp = () => {
             paddingLeft: "20px",
             paddingY: "20px",
             borderBottom: "1px solid #D6D8DB ",
-          }}>
+          }}
+        >
           Захиалга
         </Typography>
         <Stack
@@ -144,29 +160,36 @@ export const OrderComp = () => {
             justifyContent: "space-between",
             borderBottom: "1px solid",
             borderColor: "#D6D8DB",
-          }}>
+          }}
+        >
           <Typography
-            sx={{ width: "191px", fontSize: "13px", paddingLeft: "15px" }}>
+            sx={{ width: "191px", fontSize: "13px", paddingLeft: "15px" }}
+          >
             Захиалгын ID дугаар
           </Typography>
           <Typography
-            sx={{ width: "209px", fontSize: "13px", paddingLeft: "15px" }}>
+            sx={{ width: "209px", fontSize: "13px", paddingLeft: "15px" }}
+          >
             Үйлчлүүлэгч
           </Typography>
           <Typography
-            sx={{ width: "168px", fontSize: "13px", paddingLeft: "15px" }}>
+            sx={{ width: "168px", fontSize: "13px", paddingLeft: "15px" }}
+          >
             Огноо
           </Typography>
           <Typography
-            sx={{ width: "129px", fontSize: "13px", paddingLeft: "15px" }}>
+            sx={{ width: "129px", fontSize: "13px", paddingLeft: "15px" }}
+          >
             Цаг
           </Typography>
           <Typography
-            sx={{ width: "137px", fontSize: "13px", paddingLeft: "15px" }}>
+            sx={{ width: "137px", fontSize: "13px", paddingLeft: "15px" }}
+          >
             Төлбөр
           </Typography>
           <Typography
-            sx={{ width: "214px", fontSize: "13px", paddingLeft: "15px" }}>
+            sx={{ width: "214px", fontSize: "13px", paddingLeft: "15px" }}
+          >
             Статус
           </Typography>
           <Typography
@@ -175,66 +198,12 @@ export const OrderComp = () => {
               fontSize: "13px",
               display: "flex",
               justifyContent: "center",
-            }}>
+            }}
+          >
             Дэлгэрэнгүй
           </Typography>
         </Stack>
-        <Stack
-          flexDirection={"row"}
-          sx={{
-            alignItems: "center",
-            paddingY: "15px",
-            paddingLeft: "5px",
-            justifyContent: "space-between",
-          }}>
-          <Typography
-            sx={{ width: "191px", fontSize: "13px", paddingLeft: "15px" }}>
-            #12345678
-          </Typography>
-          <Stack sx={{ width: "209px", paddingLeft: "15px" }}>
-            <Typography sx={{ fontSize: "13px" }}>Zoloo soko</Typography>
-            <Typography sx={{ fontSize: "13px" }}>
-              Zoloosoko@gmail.com
-            </Typography>
-          </Stack>
-          <Typography
-            sx={{ width: "168px", fontSize: "13px", paddingLeft: "15px" }}>
-            2023-01-09
-          </Typography>
-          <Typography
-            sx={{ width: "129px", fontSize: "13px", paddingLeft: "15px" }}>
-            10:58
-          </Typography>
-          <Typography
-            sx={{ width: "137px", fontSize: "13px", paddingLeft: "15px" }}>
-            12,000₮
-          </Typography>
-          <Stack sx={{ width: "214px", paddingLeft: "15px" }}>
-            <Typography
-              sx={{
-                fontSize: "13px",
-                bgcolor: "#C1E6CF",
-                paddingY: "5px",
-                paddingX: "10px",
-                width: "fit-content",
-                borderRadius: "30px",
-              }}>
-              12,000₮
-            </Typography>
-          </Stack>
-
-          <Stack
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              width: "122px",
-              paddingLeft: "15px",
-            }}>
-            {routers.map(({ href, icon }) => {
-              return <Link href={href}>{icon}</Link>;
-            })}
-          </Stack>
-        </Stack>
+        <GetOrder />
       </Box>
     </Box>
   );

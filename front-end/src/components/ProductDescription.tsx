@@ -109,7 +109,6 @@ export const ProductDescription = () => {
   const addProduct = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    // Check if all required fields are filled
     const {
       productname,
       Nemelt,

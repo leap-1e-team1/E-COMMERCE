@@ -120,7 +120,6 @@ export const Header = () => {
             </Typography>
           </Link>
         </Stack>
-
         <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
           <Search />
 
