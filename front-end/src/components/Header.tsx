@@ -15,23 +15,28 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { FaRegUser } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import { CenterFocusStrong } from "@mui/icons-material";
 import { useSearch } from "@/provider/SearchProvider";
+
+
 import { SearchInput } from "./SearchInput";
+
 interface CloudinaryUploadResponse {
-  secure_url: string;
-  token: string;
+  firstName: string;
 }
 
 export const Header = () => {
   const { isLoggedIn } = useUser();
+
   const { savedProducts, searchedData, setSearchedData, cartedProducts } =
     useSearch();
-
   const router = useRouter();
   const { setCartedProducts } = useSearch();
 
   const [user, setUser] = useState<string>("username");
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
   useEffect(() => {
     const usernameFetch = async () => {
@@ -41,14 +46,16 @@ export const Header = () => {
           const { data } = await axios.get<CloudinaryUploadResponse>(
             `${process.env.BACKEND_URL}/username/${user}`
           );
-          const { firstName }: any = data;
-
-          setUser(firstName);
+          setUser(data.firstName);
         } catch (error: any) {
+
           const message = error.response?.data?.message || "error";
           console.log("error", message);
           return message;
+
         }
+      } else {
+        setLoading(false);
       }
     };
     const cartedProductsJson = localStorage.getItem("cartedItems") as string;
@@ -57,8 +64,6 @@ export const Header = () => {
     usernameFetch();
   }, []);
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -97,7 +102,7 @@ export const Header = () => {
         <Stack
           direction="row"
           alignItems="center"
-          justifyContent={"center"}
+          justifyContent="center"
           sx={{ gap: "16px" }}
         >
           <Stack direction="row" alignItems="center" sx={{ gap: "6px" }}>
@@ -116,47 +121,41 @@ export const Header = () => {
             </Link>
           </Stack>
 
-          <Link style={{ textDecoration: "none" }} href="/category">
+          <Link href="/category" style={{ textDecoration: "none" }}>
             <Typography sx={{ color: "primary.contrastText" }}>
               АНГИЛАЛ
             </Typography>
           </Link>
         </Stack>
-
         <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
-          <Stack sx={{ alignItems: "center", justifyContent: "center" }}>
-            <Search />
-          </Stack>
+          <Search />
+
           <Stack direction="row" alignItems="center" sx={{ gap: "18px" }}>
-            <div
-              style={{ position: "relative", width: "100%", height: "100%" }}
-            >
-              <div style={{ position: "relative", display: "inline-block" }}>
-                <Link href="/savepage">
-                  <FavoriteBorderIcon sx={{ color: "white" }} />
-                </Link>
-                {savedProducts.length <= 0 ? null : (
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: "14px",
-                      top: "-5px",
-                      width: "17px",
-                      height: "17px",
-                      borderRadius: "50%",
-                      backgroundColor: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "black",
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {savedProducts.length}
-                  </div>
-                )}
-              </div>
+            <div style={{ position: "relative" }}>
+              <Link href="/savepage">
+                <FavoriteBorderIcon sx={{ color: "white" }} />
+              </Link>
+              {savedProducts.length > 0 && (
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "14px",
+                    top: "-5px",
+                    width: "17px",
+                    height: "17px",
+                    borderRadius: "50%",
+                    backgroundColor: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "black",
+                    fontSize: "12px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {savedProducts.length}
+                </div>
+              )}
             </div>
 
             <div
@@ -192,47 +191,47 @@ export const Header = () => {
 
             {isLoggedIn ? (
               <Stack
-                flexDirection={"row"}
+                flexDirection="row"
                 sx={{
                   gap: "4px",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
-                <Link href={"/user"}>
-                  <div className="text-white pr-2">{user}</div>
+                <Link href="/user">
+                  <Typography sx={{ color: "white", pr: 2 }}>
+                    {loading ? "Loading..." : user}
+                  </Typography>
                 </Link>
-                <div>
-                  <Button
-                    id="basic-button"
-                    aria-controls={open ? "basic-menu" : undefined}
-                    aria-haspopup="true"
-                    size={"icon"}
-                    aria-expanded={open ? "true" : undefined}
-                    onClick={handleClick}
-                  >
-                    <FaRegUser className="text-white w-[24px] h-[24px]" />
-                  </Button>
-                  <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                      "aria-labelledby": "basic-button",
-                    }}
-                  >
-                    <Link href={"/user"}>
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    </Link>
-                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                  </Menu>
-                </div>
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  size="icon"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  <FaRegUser className="text-white w-[24px] h-[24px]" />
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <Link href="/user">
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  </Link>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
               </Stack>
             ) : (
               <Stack direction="row" alignItems="center" sx={{ gap: "8px" }}>
                 <Link href="/register">
-                  <Button className=" w-[101px] border-[1px] text-white border-blue-600 hover:border-blue-700  h-[36px] rounded-2xl">
+                  <Button className="w-[101px] border text-white border-blue-600 hover:border-blue-700 h-[36px] rounded-2xl">
                     Бүртгүүлэх
                   </Button>
                 </Link>

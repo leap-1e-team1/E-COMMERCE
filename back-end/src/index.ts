@@ -12,6 +12,7 @@ import loginRouter from "./routes/loginRoutes";
 import adminLoginRouter from "./routes/adminloginRoutes";
 import usernameFetch from "./routes/usernameFetch";
 import nodemailer from "nodemailer";
+import getOrderRoutes from "./routes/getOrderRoutes";
 import incomeRouter from "./routes/incomeRoutes";
 
 dotenv.config();
@@ -33,6 +34,10 @@ app.use("/", userUpdate);
 app.use("/", usernameFetch);
 app.use("/", adminLoginRouter);
 app.use("/", orderRoutes);
+app.use("/", getOrderRoutes);
+app.use("/", usernameFetch);
+
+console.log("after toute");
 
 const startServer = async () => {
   await connectDatabase();

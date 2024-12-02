@@ -159,19 +159,18 @@ export const HomeComp = () => {
                       }`}
                       alt=""
                     />
-                    <IconButton
-                      className="absolute top-[13px] right-[10px] z-10"
-                      onClick={() => {
-                        handleSave(el);
-                        toggleIconColor(index);
-                        setIsSaved((prev) => !prev);
+
+                    <Button
+                      sx={{
+                        position: "absolute",
+                        width: "24px",
+                        height: "24px",
+                        top: "505px",
                       }}
                     >
-                      <FavoriteIcon
-                        className="transition-colors duration-300 ease-in-out"
-                        sx={{ color: iconColors[index] ? "black" : "white" }}
-                      />
-                    </IconButton>
+                      <FavoriteBorderIcon sx={{ color: "white" }} />
+                    </Button>
+
                   </div>
 
                   <Stack>
